@@ -73,8 +73,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.createElement('form');
     form.id = 'quiz-form';
     
-    const startIndex = screenIndex * 4; // 7 questions per screen (example)
-    const endIndex = startIndex + 4;
+    const startIndex = screenIndex * 5; //
+    const endIndex = startIndex + 5;
     const questionsToShow = quizData.slice(startIndex, endIndex);
     
     // Create a heading for the current screen
