@@ -203,3 +203,14 @@ button:hover {
   max-height: 500px;
   overflow-y: auto;
 }
+
+.back-btn {
+  background-color: #ffcccb; /* Light red color */
+  color: #333; /* Dark text for better readability */
+  transition: 0.3s;
+}
+
+.back-btn:hover {
+  background-color: #ff9999; /* Slightly darker red on hover */
+  box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+}
