@@ -68,45 +68,101 @@ document.addEventListener("DOMContentLoaded", function () {
     window.location.href = quizData[0].linkIfNo;
   });
 
-  function showQuestions() {
-    const form = document.createElement('form');
-    form.id = 'quiz-form';
+ function showQuestions(screenIndex) {
+  const form = document.createElement('form');
+  form.id = 'quiz-form';
+  
+  const startIndex = screenIndex * 7; // 7 questions per screen (example)
+  const endIndex = startIndex + 7;
+  const questionsToShow = quizData.slice(startIndex, endIndex);
+  
+  // Create a heading for the current screen
+  const heading = document.createElement('h2');
+  heading.textContent = "What is your coastal resilience priority?";
+  form.appendChild(heading);
+  
+  questionsToShow.forEach((data, i) => {
+    const div = document.createElement('div');
+    div.className = 'question-item';
     
-    // Create a heading for the questions screen
-    const heading = document.createElement('h2');
-    heading.textContent = "What is your coastal resilience priority?";
-    form.appendChild(heading);
+    const questionLabel = document.createElement('span');
+    questionLabel.textContent = data.question;
     
-    // Skip the first question (which was the initial choice)
-    for (let i = 1; i < quizData.length; i++) {
-      const div = document.createElement('div');
-      div.className = 'question-item';
+    const radioContainer = document.createElement('div');
+    radioContainer.className = 'radio-options';
+    
+    const yesLabel = document.createElement('label');
+    yesLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="yes"> Yes`;
+    const noLabel = document.createElement('label');
+    noLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="no"> No`;
+    
+    radioContainer.appendChild(yesLabel);
+    radioContainer.appendChild(noLabel);
+    
+    div.appendChild(questionLabel);
+    div.appendChild(radioContainer);
+    
+    form.appendChild(div);
+  });
+  
+  const submitButton = document.createElement('button');
+  submitButton.textContent = "Next";
+  submitButton.type = "submit";
+  submitButton.className = "submit-btn";
+  form.appendChild(submitButton);
+  
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    const answers = new Set();
+    
+    // Collect answers
+    for (let i = startIndex; i < endIndex; i++) {
+      const input = form.querySelector(`input[name="q${i}"]:checked`);
+      if (input && input.value === 'yes') {
+        quizData[i].answersIfYes?.forEach(answer => answers.add(answer));
+      }
+    }
+    
+    // Hide current screen and show next one
+    if (screenIndex === 0) {
+      questionScreen1.classList.add('hidden');
+      questionScreen2.classList.remove('hidden');
+      showQuestions(1); // Show the second part of the questions
+    } else if (screenIndex === 1) {
+      questionScreen2.classList.add('hidden');
+      questionScreen3.classList.remove('hidden');
+      showQuestions(2); // Show the third part of the questions
+    } else {
+      // Final submission, show results
+      questionScreen3.classList.add('hidden');
+      resultsScreen.classList.remove('hidden');
       
-      // Create the question text
-      const questionLabel = document.createElement('span');
-      questionLabel.textContent = quizData[i].question;
+      // Populate results list
+      answersList.innerHTML = '';
+      if (answers.size) {
+        Array.from(answers).forEach(answer => {
+          const li = document.createElement('li');
+          li.textContent = answer;
+          answersList.appendChild(li);
+        });
+      } else {
+        answersList.innerHTML = "<li>No recommendations based on your selections.</li>";
+      }
       
-      // Create radio button container for yes/no options
-      const radioContainer = document.createElement('div');
-      radioContainer.className = 'radio-options';
-      
-      // Create the Yes option
-      const yesLabel = document.createElement('label');
-      yesLabel.innerHTML = '<input type="radio" name="q' + i + '" value="yes"> Yes';
-      
-      // Create the No option
-      const noLabel = document.createElement('label');
-      noLabel.innerHTML = '<input type="radio" name="q' + i + '" value="no"> No';
-      
-      // Add radio buttons to container
-      radioContainer.appendChild(yesLabel);
-      radioContainer.appendChild(noLabel);
-      
-      // Append question text and radio options to the question item
-      div.appendChild(questionLabel);
-      div.appendChild(radioContainer);
-      
-      form.appendChild(div);
+      createRestartButton(); // Create the restart button
+    }
+  });
+  
+  // Append form to the appropriate screen
+  if (screenIndex === 0) {
+    questionScreen1.appendChild(form);
+  } else if (screenIndex === 1) {
+    questionScreen2.appendChild(form);
+  } else {
+    questionScreen3.appendChild(form);
+  }
+}
+
     }
     
     const submitButton = document.createElement('button');
