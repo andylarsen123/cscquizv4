@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
     { question: "Do you <strong>anticipate new development or redevelopment</strong> within 50 feet of your shoreline?", answersIfYes: ["Shoreline Setbacks", "Site Condos", "Armoring Prohibition", "Retreat / Building Moving"] },
     { question: "Is there shoreline property which is experiencing <strong>erosion</strong>?", answersIfYes: ["Shoreline Setbacks", "Dynamic Zoning", "Land Division Regulations", "Long Lots", "Armoring Prohibition", "Temporary Shoreline Protections (Sandbags, Geotubes)", "Natural Shoreline Requirements", "Retreat / Building Moving"] },
     { question: "Is there shoreline property which is experiencing <strong>flooding</strong>?", answersIfYes: ["Shoreline Setbacks", "Land Division Regulations", "Long Lots", "Armoring Prohibition", "Temporary Shoreline Protections (Sandbags, Geotubes)", "Natural Shoreline Requirements", "Retreat / Building Moving", "Impervious Surface Standards", "Stormwater Management Requirements / Green Infrastructure", "Open Space Requirements"] },
-    { question: "Are there <strong>existing or desired shoreline-specific uses</strong>, such as marinas?", answersIfYes: ["Shoreline Setbacks", "Land Division Regulations", "Long Lots", "Armoring Prohibition", "Temporary Shoreline Protections (Sandbags, Geotubes)", "Natural Shoreline Requirements", "Retreat / Building Moving", "Impervious Surface Standards", "Stormwater Management Requirements / Green Infrastructure", "Open Space Requirements"] },
+    { question: "Development: Are there <strong>existing or desired shoreline-specific uses</strong>, such as marinas?", answersIfYes: ["Shoreline Setbacks", "Land Division Regulations", "Long Lots", "Armoring Prohibition", "Temporary Shoreline Protections (Sandbags, Geotubes)", "Natural Shoreline Requirements", "Retreat / Building Moving", "Impervious Surface Standards", "Stormwater Management Requirements / Green Infrastructure", "Open Space Requirements"] },
     { question: "Is your community concerned about <strong>invasive plant or animal species</strong>", answersIfYes: ["Invasive Species Prohibition"] },
     { question: "Is your community concerned about <strong>water quality?</strong>", answersIfYes: ["Natural Shoreline Requirements", "Impervious Surface Standards", "Stormwater Management Requirements / Green Infrastructure"] },
     { question: "Is it a priority for your community to <strong>preserve or create access to the shoreline?</strong>", answersIfYes: ["Shoreline Setbacks", "Land Division Regulations", "Long Lots", "Armoring Prohibition", "Temporary Shoreline Protections (Sandbags, Geotubes)", "Stormwater Management Requirements / Green Infrastructure", "Open Space Requirements"] }
@@ -31,20 +31,24 @@ document.addEventListener("DOMContentLoaded", function () {
   const questionScreen = document.getElementById('question-screen');
   const resultsScreen = document.getElementById('results');
   const answersList = document.getElementById('answers-list');
+  const controlButtons = document.getElementById('control-buttons');
   
   // Store all selected answers across all screens
   let allSelectedAnswers = new Set();
   
   // Remove any existing restart button on load
   const existingRestartButton = document.getElementById('restart-btn');
-  if (existingRestartButton && existingRestartButton.parentNode) {
-    existingRestartButton.parentNode.removeChild(existingRestartButton);
+  if (existingRestartButton) {
+    existingRestartButton.style.display = 'none';
   }
   
   // Set up initial screen
   questionText.textContent = "Coastal Solutions Compendium: Choose an option";
   resultsScreen.classList.add('hidden');
   questionScreen.classList.add('hidden');
+  if (controlButtons) {
+    controlButtons.classList.add('hidden');
+  }
   
   // Event listeners for initial choice buttons
   yesButton.addEventListener('click', function () {
@@ -55,12 +59,13 @@ document.addEventListener("DOMContentLoaded", function () {
     quizControls.style.display = 'none';
     questionScreen.classList.remove('hidden');
     questionScreen.innerHTML = '';
-    questionScreen.classList.add('scrollable');
     showQuestions(0);
   });
 
   noButton.addEventListener('click', function () {
-    window.location.href = quizData[0].linkIfNo;
+    // In your original code, this linked to quizData[0].linkIfNo
+    // If you want to navigate to a specific section instead, update this line
+    window.location.href = "https://example.com/full-tool-list";
   });
 
   function showQuestions(screenIndex) {
@@ -162,44 +167,35 @@ document.addEventListener("DOMContentLoaded", function () {
           answersList.innerHTML = "<li>No recommendations based on your selections.</li>";
         }
         
-        createRestartButton();
+        showRestartButton();
       }
     });
     
+    questionScreen.innerHTML = ''; // Clear any existing content
     questionScreen.appendChild(form);
   }
 
-  function createRestartButton() {
-    const newRestartBtn = document.createElement('button');
-    newRestartBtn.id = 'restart-btn';
-    newRestartBtn.textContent = 'Restart Quiz';
-    newRestartBtn.className = 'restart-btn';
-    
-    let controlButtons = document.getElementById('control-buttons');
-    if (!controlButtons) {
-      controlButtons = document.createElement('div');
-      controlButtons.id = 'control-buttons';
-      controlButtons.className = 'buttons-container';
-      resultsScreen.appendChild(controlButtons);
-    } else {
-      controlButtons.innerHTML = '';
+  function showRestartButton() {
+    // Show the existing restart button instead of creating a new one
+    if (controlButtons) {
+      controlButtons.classList.remove('hidden');
     }
     
-    controlButtons.appendChild(newRestartBtn);
-    
-    newRestartBtn.addEventListener('click', function() {
-      // Clean up and reset
-      allSelectedAnswers = new Set();
+    const restartBtn = document.getElementById('restart-btn');
+    if (restartBtn) {
+      restartBtn.style.display = 'block';
       
-      if (newRestartBtn.parentNode) {
-        newRestartBtn.parentNode.removeChild(newRestartBtn);
-      }
-      
-      answersList.innerHTML = '';
-      resultsScreen.classList.add('hidden');
-      questionText.style.display = '';
-      quizControls.style.display = '';
-      questionScreen.classList.add('hidden');
-    });
+      // Make sure the event listener is attached
+      restartBtn.onclick = function() {
+        // Reset the quiz
+        allSelectedAnswers = new Set();
+        answersList.innerHTML = '';
+        resultsScreen.classList.add('hidden');
+        questionText.style.display = '';
+        quizControls.style.display = '';
+        questionScreen.classList.add('hidden');
+        controlButtons.classList.add('hidden');
+      };
+    }
   }
 });
