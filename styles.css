@@ -184,30 +184,32 @@ button:hover {
 
 .question-item {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-  padding: 10px;
-  border-bottom: 1px solid #eee;
-  text-align: left;
+  flex-direction: column; /* Stack question and options vertically */
+  align-items: flex-start; /* Align items to the start */
+  width: 100%;
 }
 
 .question-item span {
-  display: block;
-  margin-bottom: 5px; /* Space between question label and options */
-  text-align: left;
+  margin-bottom: 10px; /* Space between question and options */
+  width: 100%;
+  word-wrap: break-word;
 }
 
 .radio-options {
   display: flex;
-  gap: 15px;
+  flex-direction: row; /* Ensure horizontal layout */
+  align-items: center; /* Vertically center items */
+  gap: 15px; /* Space between Yes and No options */
+  width: 100%; /* Full width */
 }
 
 .radio-options label {
   display: flex;
-  align-items: center;
-  gap: 5px;
+  flex-direction: row; /* Ensure input and text are horizontal */
+  align-items: center; /* Vertically align input and text */
+  gap: 5px; /* Small space between radio button and text */
   text-align: left;
+  white-space: nowrap; /* Prevent text from wrapping */
 }
 
 #question-screen.scrollable {
