@@ -24,173 +24,158 @@ document.addEventListener("DOMContentLoaded", function () {
     { question: "Is it a priority for your community to <strong>preserve or create access to the shoreline?</strong>", answersIfYes: ["Shoreline Setbacks", "Land Division Regulations", "Long Lots", "Armoring Prohibition", "Temporary Shoreline Protections (Sandbags, Geotubes)", "Stormwater Management Requirements / Green Infrastructure", "Open Space Requirements"] }
   ];
 
-  // Get DOM elements
-  const yesButton = document.getElementById('yes-btn');
-  const noButton = document.getElementById('no-btn');
-  const questionText = document.getElementById('question-text');
-  const quizControls = document.getElementById('quiz-controls');
-  const questionScreen = document.getElementById('question-screen');
-  const resultsScreen = document.getElementById('results');
-  const answersList = document.getElementById('answers-list');
-  const restartButton = document.getElementById('restart-btn');
-  
-  // Force remove the restart button from DOM initially
-  if (restartButton && restartButton.parentNode) {
-    restartButton.parentNode.removeChild(restartButton);
-  }
-  
-  // Set initial text for the first screen
-  questionText.textContent = "Coastal Solutions Compendium: Choose an option";
-  
-  // Hide results and question screen initially
-  resultsScreen.classList.add('hidden');
-  questionScreen.classList.add('hidden');
-  
-  // Show quiz questions if the user clicks "Interactive Tool"
-  yesButton.addEventListener('click', function () {
-    // Completely hide the first screen elements
-    questionText.style.display = 'none';
-    quizControls.style.display = 'none';
-    
-    // Show the questions screen
-    questionScreen.classList.remove('hidden');
-    questionScreen.innerHTML = ''; // Clear any existing content
-    
-    // Add a class to enable scrolling
-    questionScreen.classList.add('scrollable');
-    
-    // Create and show the quiz form
-    showQuestions(0);  // Pass screenIndex as 0
-  });
+const yesButton = document.getElementById('yes-btn');
+const noButton = document.getElementById('no-btn');
+const questionText = document.getElementById('question-text');
+const quizControls = document.getElementById('quiz-controls');
+const questionScreen = document.getElementById('question-screen');
+const resultsScreen = document.getElementById('results');
+const answersList = document.getElementById('answers-list');
+const restartButton = document.getElementById('restart-btn');
 
-  // Redirect to full tool list if the user clicks "View Full List of Tools"
-  noButton.addEventListener('click', function () {
-    window.location.href = quizData[0].linkIfNo;
-  });
+// Force remove the restart button from DOM initially
+if (restartButton && restartButton.parentNode) {
+  restartButton.parentNode.removeChild(restartButton);
+}
 
-  // Show questions dynamically based on screen index
-  function showQuestions(screenIndex) {
-    const form = document.createElement('form');
-    form.id = 'quiz-form';
-    
-    const startIndex = screenIndex * 6; //
-    const endIndex = startIndex + 6;
-    const questionsToShow = quizData.slice(startIndex, endIndex);
-    
-    // Create a heading for the current screen
-    const heading = document.createElement('h2');
-    heading.textContent = "Check Yes or No on the following:";
-    form.appendChild(heading);
-    
-    questionsToShow.forEach((data, i) => {
-      const div = document.createElement('div');
-      div.className = 'question-item';
-      
-      const questionLabel = document.createElement('span');
-      questionLabel.textContent = data.question;
-      
-      const radioContainer = document.createElement('div');
-      radioContainer.className = 'radio-options';
-      
-      const yesLabel = document.createElement('label');
-      yesLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="yes"> Yes`;
-      const noLabel = document.createElement('label');
-      noLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="no"> No`;
-      
-      radioContainer.appendChild(yesLabel);
-      radioContainer.appendChild(noLabel);
-      
-      div.appendChild(questionLabel);
-      div.appendChild(radioContainer);
-      
-      form.appendChild(div);
-    });
-    
-    const submitButton = document.createElement('button');
-    submitButton.textContent = "Next";
-    submitButton.type = "submit";
-    submitButton.className = "submit-btn";
-    form.appendChild(submitButton);
-    
-form.addEventListener('submit', function (event) {
-  event.preventDefault();
-  const answers = new Set();
-  
-  // Collect answers
-  for (let i = startIndex; i < endIndex; i++) {
-    const input = form.querySelector(`input[name="q${i}"]:checked`);
-    if (input) {
-      if (input.value === 'yes') {
-        // Add answers if 'yes' is selected
-        quizData[i].answersIfYes?.forEach(answer => answers.add(answer));
-      }
-    }
-  }
-  
-  // Hide current screen and show next one
-  questionScreen.innerHTML = '';  // Clear previous questions
-  if (screenIndex < Math.ceil(quizData.length / 7) - 1) {
-    showQuestions(screenIndex + 1);  // Show the next set of questions
-  } else {
-    // Final submission, show results
-    resultsScreen.classList.remove('hidden');
-    
-    // Populate results list
-    answersList.innerHTML = '';
-    if (answers.size) {
-      Array.from(answers).forEach(answer => {
-        const li = document.createElement('li');
-        li.textContent = answer;
-        answersList.appendChild(li);
-      });
-    } else {
-      answersList.innerHTML = "<li>No recommendations based on your selections.</li>";
-    }
-    
-    createRestartButton(); // Create the restart button
-  }
-    });
-    
-    questionScreen.appendChild(form);
-  }
+// Set initial text for the first screen
+questionText.textContent = "Coastal Solutions Compendium: Choose an option";
 
-  // Function to create and append the restart button
-  function createRestartButton() {
-    // Create a new restart button
-    const newRestartBtn = document.createElement('button');
-    newRestartBtn.id = 'restart-btn';
-    newRestartBtn.textContent = 'Restart Quiz';
-    
-    // Create a container for the button if it doesn't exist
-    let controlButtons = document.getElementById('control-buttons');
-    if (!controlButtons) {
-      controlButtons = document.createElement('div');
-      controlButtons.id = 'control-buttons';
-      controlButtons.className = 'buttons-container';
-      document.body.appendChild(controlButtons);
-    } else {
-      // Clear any existing content in the control buttons container
-      controlButtons.innerHTML = '';
-    }
-    
-    // Add the button to the container
-    controlButtons.appendChild(newRestartBtn);
-    
-    // Add event listener to the new button
-    newRestartBtn.addEventListener('click', function() {
-      // Remove the restart button
-      if (newRestartBtn.parentNode) {
-        newRestartBtn.parentNode.removeChild(newRestartBtn);
-      }
-      
-      // Reset answers and hide results
-      answersList.innerHTML = '';
-      resultsScreen.classList.add('hidden');
-      
-      // Restore the first screen
-      questionText.style.display = '';
-      quizControls.style.display = '';
-      questionScreen.classList.add('hidden');
-    });
-  }
+// Hide results and question screen initially
+resultsScreen.classList.add('hidden');
+questionScreen.classList.add('hidden');
+
+// Show quiz questions if the user clicks "Interactive Tool"
+yesButton.addEventListener('click', function () {
+  questionText.style.display = 'none';
+  quizControls.style.display = 'none';
+  questionScreen.classList.remove('hidden');
+  questionScreen.innerHTML = '';
+  questionScreen.classList.add('scrollable');
+  showQuestions(0, {}); // Pass empty answers object
 });
+
+// Redirect to full tool list if the user clicks "View Full List of Tools"
+noButton.addEventListener('click', function () {
+  window.location.href = quizData[0].linkIfNo;
+});
+
+// Show questions dynamically based on screen index
+function showQuestions(screenIndex, savedAnswers) {
+  const form = document.createElement('form');
+  form.id = 'quiz-form';
+
+  const startIndex = screenIndex * 6;
+  const endIndex = startIndex + 6;
+  const questionsToShow = quizData.slice(startIndex, endIndex);
+
+  const heading = document.createElement('h2');
+  heading.textContent = "Check Yes or No on the following:";
+  form.appendChild(heading);
+
+  questionsToShow.forEach((data, i) => {
+    const div = document.createElement('div');
+    div.className = 'question-item';
+
+    const questionLabel = document.createElement('span');
+    questionLabel.textContent = data.question;
+
+    const radioContainer = document.createElement('div');
+    radioContainer.className = 'radio-options';
+
+    const yesLabel = document.createElement('label');
+    const noLabel = document.createElement('label');
+
+    yesLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="yes"> Yes`;
+    noLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="no"> No`;
+
+    if (savedAnswers[`q${startIndex + i}`] === 'yes') {
+      yesLabel.querySelector('input').checked = true;
+    } else if (savedAnswers[`q${startIndex + i}`] === 'no') {
+      noLabel.querySelector('input').checked = true;
+    }
+
+    radioContainer.appendChild(yesLabel);
+    radioContainer.appendChild(noLabel);
+    div.appendChild(questionLabel);
+    div.appendChild(radioContainer);
+    form.appendChild(div);
+  });
+
+  const submitButton = document.createElement('button');
+  submitButton.textContent = "Next";
+  submitButton.type = "submit";
+  submitButton.className = "submit-btn";
+  form.appendChild(submitButton);
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    const answers = { ...savedAnswers };
+
+    for (let i = startIndex; i < endIndex; i++) {
+      const input = form.querySelector(`input[name="q${i}"]:checked`);
+      if (input) {
+        answers[`q${i}`] = input.value;
+      }
+    }
+
+    questionScreen.innerHTML = '';
+    if (screenIndex < Math.ceil(quizData.length / 6) - 1) {
+      showQuestions(screenIndex + 1, answers);
+    } else {
+      resultsScreen.classList.remove('hidden');
+      answersList.innerHTML = '';
+      const resultSet = new Set();
+      Object.keys(answers).forEach(key => {
+        if (answers[key] === 'yes') {
+          quizData[parseInt(key.substring(1))].answersIfYes?.forEach(answer => resultSet.add(answer));
+        }
+      });
+
+      if (resultSet.size) {
+        resultSet.forEach(answer => {
+          const li = document.createElement('li');
+          li.textContent = answer;
+          answersList.appendChild(li);
+        });
+      } else {
+        answersList.innerHTML = "<li>No recommendations based on your selections.</li>";
+      }
+
+      createRestartButton();
+    }
+  });
+
+  questionScreen.appendChild(form);
+}
+
+// Function to create and append the restart button
+function createRestartButton() {
+  const newRestartBtn = document.createElement('button');
+  newRestartBtn.id = 'restart-btn';
+  newRestartBtn.textContent = 'Restart Quiz';
+
+  let controlButtons = document.getElementById('control-buttons');
+  if (!controlButtons) {
+    controlButtons = document.createElement('div');
+    controlButtons.id = 'control-buttons';
+    controlButtons.className = 'buttons-container';
+    document.body.appendChild(controlButtons);
+  } else {
+    controlButtons.innerHTML = '';
+  }
+
+  controlButtons.appendChild(newRestartBtn);
+
+  newRestartBtn.addEventListener('click', function () {
+    if (newRestartBtn.parentNode) {
+      newRestartBtn.parentNode.removeChild(newRestartBtn);
+    }
+
+    answersList.innerHTML = '';
+    resultsScreen.classList.add('hidden');
+    questionText.style.display = '';
+    quizControls.style.display = '';
+    questionScreen.classList.add('hidden');
+  });
+}
