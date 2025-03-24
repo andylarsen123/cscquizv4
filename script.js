@@ -293,13 +293,33 @@ function showRestartButton() {
    }
  }
 
-// Create progress bar with total number of questions
-const quizProgress = new QuizProgressBar(5); // 5 total questions
+        class QuizProgressBar {
+            constructor(totalQuestions) {
+                this.totalQuestions = totalQuestions;
+                this.currentQuestion = 0;
+                this.progressBar = document.getElementById('progress-bar');
+            }
 
-// When moving to next question
-quizProgress.nextQuestion();
+            updateProgress() {
+                // Calculate percentage
+                const progressPercentage = 
+                    (this.currentQuestion / this.totalQuestions) * 100;
+                
+                // Update progress bar width
+                this.progressBar.style.width = `${progressPercentage}%`;
+            }
 
-// To reset progress
-quizProgress.resetProgress();
-  
+            nextQuestion() {
+                if (this.currentQuestion < this.totalQuestions) {
+                    this.currentQuestion++;
+                    this.updateProgress();
+                }
+            }
+
+            resetProgress() {
+                this.currentQuestion = 0;
+                this.updateProgress();
+            }
+        }
+
 });
