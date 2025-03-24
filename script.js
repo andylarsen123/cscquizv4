@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Initialize quiz data
   const quizData = [
-   { question: "Coastal Solutions Compendium: Choose an option", answersIfYes: ["Interactive Tool"], linkIfNo: "https://example.com/full-tool-list" },
+    { question: "Coastal Solutions Compendium: Choose an option", answersIfYes: ["Interactive Tool"], linkIfNo: "https://example.com/full-tool-list" },
     { question: "Is the shoreline elevated (bluffs, banks)?", answersIfYes: ["Natural Features Setbacks", "Natural Features Overlay", "Bluff Protection"] },
     { question: "Are there bluffs along the shoreline?", answersIfYes: ["Natural Features Setbacks", "Natural Features Overlay", "Bluff Protection", "Dynamic Zoning"] },
     { question: "Is the shoreline sandy?", answersIfYes: ["Shoreline Setbacks", "Dynamic Zoning", "Armoring Prohibition"] },
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
     { question: "Do you <strong>anticipate new development or redevelopment</strong> within 50 feet of your shoreline?", answersIfYes: ["Shoreline Setbacks", "Site Condos", "Armoring Prohibition", "Retreat / Building Moving"] },
     { question: "Is there shoreline property which is experiencing <strong>erosion</strong>?", answersIfYes: ["Shoreline Setbacks", "Dynamic Zoning", "Land Division Regulations", "Long Lots", "Armoring Prohibition", "Temporary Shoreline Protections (Sandbags, Geotubes)", "Natural Shoreline Requirements", "Retreat / Building Moving"] },
     { question: "Is there shoreline property which is experiencing <strong>flooding</strong>?", answersIfYes: ["Shoreline Setbacks", "Land Division Regulations", "Long Lots", "Armoring Prohibition", "Temporary Shoreline Protections (Sandbags, Geotubes)", "Natural Shoreline Requirements", "Retreat / Building Moving", "Impervious Surface Standards", "Stormwater Management Requirements / Green Infrastructure", "Open Space Requirements"] },
-    { question: "Development: Are there <strong>existing or desired shoreline-specific uses</strong>, such as marinas?", answersIfYes: ["Shoreline Setbacks", "Land Division Regulations", "Long Lots", "Armoring Prohibition", "Temporary Shoreline Protections (Sandbags, Geotubes)", "Natural Shoreline Requirements", "Retreat / Building Moving", "Impervious Surface Standards", "Stormwater Management Requirements / Green Infrastructure", "Open Space Requirements"] },
+    { question: "Are there <strong>existing or desired shoreline-specific uses</strong>, such as marinas?", answersIfYes: ["Shoreline Setbacks", "Land Division Regulations", "Long Lots", "Armoring Prohibition", "Temporary Shoreline Protections (Sandbags, Geotubes)", "Natural Shoreline Requirements", "Retreat / Building Moving", "Impervious Surface Standards", "Stormwater Management Requirements / Green Infrastructure", "Open Space Requirements"] },
     { question: "Is your community concerned about <strong>invasive plant or animal species</strong>", answersIfYes: ["Invasive Species Prohibition"] },
     { question: "Is your community concerned about <strong>water quality?</strong>", answersIfYes: ["Natural Shoreline Requirements", "Impervious Surface Standards", "Stormwater Management Requirements / Green Infrastructure"] },
     { question: "Is it a priority for your community to <strong>preserve or create access to the shoreline?</strong>", answersIfYes: ["Shoreline Setbacks", "Land Division Regulations", "Long Lots", "Armoring Prohibition", "Temporary Shoreline Protections (Sandbags, Geotubes)", "Stormwater Management Requirements / Green Infrastructure", "Open Space Requirements"] }
@@ -31,17 +31,26 @@ document.addEventListener("DOMContentLoaded", function () {
   const questionScreen = document.getElementById('question-screen');
   const resultsScreen = document.getElementById('results');
   const answersList = document.getElementById('answers-list');
-  const restartButton = document.getElementById('restart-btn');
   
-  if (restartButton && restartButton.parentNode) {
-    restartButton.parentNode.removeChild(restartButton);
+  // Store all selected answers across all screens
+  let allSelectedAnswers = new Set();
+  
+  // Remove any existing restart button on load
+  const existingRestartButton = document.getElementById('restart-btn');
+  if (existingRestartButton && existingRestartButton.parentNode) {
+    existingRestartButton.parentNode.removeChild(existingRestartButton);
   }
   
+  // Set up initial screen
   questionText.textContent = "Coastal Solutions Compendium: Choose an option";
   resultsScreen.classList.add('hidden');
   questionScreen.classList.add('hidden');
   
+  // Event listeners for initial choice buttons
   yesButton.addEventListener('click', function () {
+    // Reset answers when starting a new quiz
+    allSelectedAnswers = new Set();
+    
     questionText.style.display = 'none';
     quizControls.style.display = 'none';
     questionScreen.classList.remove('hidden');
@@ -58,28 +67,31 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.createElement('form');
     form.id = 'quiz-form';
     
-    const startIndex = screenIndex * 6;
-    const endIndex = startIndex + 6;
+    // Calculate which questions to show on this screen (6 per page)
+    const startIndex = screenIndex * 6 + 1; // Skip the first entry which is the initial choice
+    const endIndex = Math.min(startIndex + 6, quizData.length);
     const questionsToShow = quizData.slice(startIndex, endIndex);
     
     const heading = document.createElement('h2');
     heading.textContent = "Check Yes or No on the following:";
     form.appendChild(heading);
     
+    // Create questions for this screen
     questionsToShow.forEach((data, i) => {
       const div = document.createElement('div');
       div.className = 'question-item';
       
       const questionLabel = document.createElement('span');
-      questionLabel.textContent = data.question;
+      questionLabel.innerHTML = data.question; // Using innerHTML to support the <strong> tags
       
       const radioContainer = document.createElement('div');
       radioContainer.className = 'radio-options';
       
       const yesLabel = document.createElement('label');
-      yesLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="yes"> Yes`;
+      yesLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="yes" required> Yes`;
+      
       const noLabel = document.createElement('label');
-      noLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="no"> No`;
+      noLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="no" required> No`;
       
       radioContainer.appendChild(yesLabel);
       radioContainer.appendChild(noLabel);
@@ -90,32 +102,58 @@ document.addEventListener("DOMContentLoaded", function () {
       form.appendChild(div);
     });
     
+    // Create navigation buttons
+    const buttonsContainer = document.createElement('div');
+    buttonsContainer.className = 'navigation-buttons';
+    
+    // Add Back button if not the first screen
+    if (screenIndex > 0) {
+      const backButton = document.createElement('button');
+      backButton.textContent = "Back";
+      backButton.type = "button";
+      backButton.className = "back-btn";
+      backButton.addEventListener('click', function() {
+        questionScreen.innerHTML = '';
+        showQuestions(screenIndex - 1);
+      });
+      buttonsContainer.appendChild(backButton);
+    }
+    
+    // Next/Submit button
     const submitButton = document.createElement('button');
-    submitButton.textContent = "Next";
+    submitButton.textContent = (endIndex >= quizData.length) ? "Show Results" : "Next";
     submitButton.type = "submit";
     submitButton.className = "submit-btn";
-    form.appendChild(submitButton);
+    buttonsContainer.appendChild(submitButton);
     
+    form.appendChild(buttonsContainer);
+    
+    // Form submission handler
     form.addEventListener('submit', function (event) {
       event.preventDefault();
-      const answers = new Set();
       
-questionsToShow.forEach((data, i) => {
-  const input = form.querySelector(`input[name="q${startIndex + i}"]:checked`);
-  if (input && input.value === 'yes') {
-    data.answersIfYes?.forEach(answer => answers.add(answer));
+      // Process current page answers
+      questionsToShow.forEach((data, i) => {
+        const questionIndex = startIndex + i;
+        const input = form.querySelector(`input[name="q${questionIndex}"]:checked`);
+        if (input && input.value === 'yes' && data.answersIfYes) {
+          // Add all answers for this question to the overall set
+          data.answersIfYes.forEach(answer => allSelectedAnswers.add(answer));
         }
-      }
-  }
+      });
       
       questionScreen.innerHTML = '';
-      if (screenIndex < Math.ceil(quizData.length / 6) - 1) {
+      
+      // Determine if there are more questions or show results
+      if (endIndex < quizData.length) {
         showQuestions(screenIndex + 1);
       } else {
+        // Show results
         resultsScreen.classList.remove('hidden');
         answersList.innerHTML = '';
-        if (answers.size) {
-          Array.from(answers).forEach(answer => {
+        
+        if (allSelectedAnswers.size) {
+          Array.from(allSelectedAnswers).sort().forEach(answer => {
             const li = document.createElement('li');
             li.textContent = answer;
             answersList.appendChild(li);
@@ -123,6 +161,7 @@ questionsToShow.forEach((data, i) => {
         } else {
           answersList.innerHTML = "<li>No recommendations based on your selections.</li>";
         }
+        
         createRestartButton();
       }
     });
@@ -134,13 +173,14 @@ questionsToShow.forEach((data, i) => {
     const newRestartBtn = document.createElement('button');
     newRestartBtn.id = 'restart-btn';
     newRestartBtn.textContent = 'Restart Quiz';
+    newRestartBtn.className = 'restart-btn';
     
     let controlButtons = document.getElementById('control-buttons');
     if (!controlButtons) {
       controlButtons = document.createElement('div');
       controlButtons.id = 'control-buttons';
       controlButtons.className = 'buttons-container';
-      document.body.appendChild(controlButtons);
+      resultsScreen.appendChild(controlButtons);
     } else {
       controlButtons.innerHTML = '';
     }
@@ -148,9 +188,13 @@ questionsToShow.forEach((data, i) => {
     controlButtons.appendChild(newRestartBtn);
     
     newRestartBtn.addEventListener('click', function() {
+      // Clean up and reset
+      allSelectedAnswers = new Set();
+      
       if (newRestartBtn.parentNode) {
         newRestartBtn.parentNode.removeChild(newRestartBtn);
       }
+      
       answersList.innerHTML = '';
       resultsScreen.classList.add('hidden');
       questionText.style.display = '';
