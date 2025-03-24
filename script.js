@@ -22,32 +22,41 @@ document.addEventListener("DOMContentLoaded", function () {
   const answersList = document.getElementById('answers-list');
   const restartButton = document.getElementById('restart-btn');
   
-  // Hide results and restart button initially
+  // Set initial text for the first screen
+  questionText.textContent = "Coastal Solutions Compendium: Choose an option";
+  yesButton.textContent = "Interactive Tool";
+  noButton.textContent = "View Full List of Tools (Section C)";
+  
+  // Hide results and question screen initially
   resultsScreen.classList.add('hidden');
-  restartButton.classList.add('hidden');
   questionScreen.classList.add('hidden');
+  restartButton.classList.add('hidden');
   
   // Show quiz questions if the user clicks "Interactive Tool"
   yesButton.addEventListener('click', function () {
-    questionText.textContent = "Coastal Solutions Compendium: What is your coastal resilience priority?";
-    showQuestions();
     questionScreen.classList.remove('hidden');
-    resultsScreen.classList.add('hidden');
     questionText.classList.add('hidden');
     yesButton.classList.add('hidden');
     noButton.classList.add('hidden');
+    
+    // Clear any existing content in questionScreen
+    questionScreen.innerHTML = '';
+    
+    // Create and show the quiz form
+    showQuestions();
   });
 
   // Redirect to full tool list if the user clicks "View Full List of Tools"
   noButton.addEventListener('click', function () {
-    window.location.href = quizData[0].linkIfNo; // Example link for full tool list
+    window.location.href = quizData[0].linkIfNo;
   });
 
-  // Handle the quiz form submission
+  // Handle restart button click
   restartButton.addEventListener('click', function () {
     // Reset answers and hide results
     answersList.innerHTML = '';
     restartButton.classList.add('hidden');
+    resultsScreen.classList.add('hidden');
     questionScreen.classList.add('hidden');
     questionText.classList.remove('hidden');
     yesButton.classList.remove('hidden');
@@ -56,25 +65,38 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function showQuestions() {
     const form = document.createElement('form');
-    quizData.forEach((item, index) => {
+    form.id = 'quiz-form';
+    
+    // Create a heading for the questions screen
+    const heading = document.createElement('h2');
+    heading.textContent = "What is your coastal resilience priority?";
+    form.appendChild(heading);
+    
+    // Skip the first question (which was the initial choice)
+    for (let i = 1; i < quizData.length; i++) {
       const div = document.createElement('div');
-      div.innerHTML = `<label><input type="checkbox" name="q${index}"> ${item.question}</label>`;
+      div.className = 'question-item';
+      div.innerHTML = `<label><input type="checkbox" name="q${i}"> ${quizData[i].question}</label>`;
       form.appendChild(div);
-    });
+    }
     
     const submitButton = document.createElement('button');
     submitButton.textContent = "Submit Answers";
+    submitButton.type = "submit";
+    submitButton.className = "submit-btn";
     form.appendChild(submitButton);
     
     form.addEventListener('submit', function (event) {
       event.preventDefault();
       const answers = new Set();
-      const inputs = form.querySelectorAll("input[type='checkbox']");
-      inputs.forEach((input, index) => {
-        if (input.checked) {
-          quizData[index].answersIfYes?.forEach(answer => answers.add(answer));
+      
+      // Skip the first question (which was the initial choice)
+      for (let i = 1; i < quizData.length; i++) {
+        const input = form.querySelector(`input[name="q${i}"]`);
+        if (input && input.checked) {
+          quizData[i].answersIfYes?.forEach(answer => answers.add(answer));
         }
-      });
+      }
 
       // Show results after submission
       resultsScreen.classList.remove('hidden');
