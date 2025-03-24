@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Store all selected answers across all screens
   let allSelectedAnswers = new Set();
   
-  // Remove any existing restart button on load
+  // Hide restart button on load
   const existingRestartButton = document.getElementById('restart-btn');
   if (existingRestartButton) {
     existingRestartButton.style.display = 'none';
@@ -59,12 +59,19 @@ document.addEventListener("DOMContentLoaded", function () {
     quizControls.style.display = 'none';
     questionScreen.classList.remove('hidden');
     questionScreen.innerHTML = '';
+    
+    // Always hide restart button when starting/continuing the quiz
+    if (existingRestartButton) {
+      existingRestartButton.style.display = 'none';
+    }
+    if (controlButtons) {
+      controlButtons.classList.add('hidden');
+    }
+    
     showQuestions(0);
   });
 
   noButton.addEventListener('click', function () {
-    // In your original code, this linked to quizData[0].linkIfNo
-    // If you want to navigate to a specific section instead, update this line
     window.location.href = "https://example.com/full-tool-list";
   });
 
@@ -72,9 +79,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.createElement('form');
     form.id = 'quiz-form';
     
-    // Calculate which questions to show on this screen (6 per page)
-    const startIndex = screenIndex * 6 + 1; // Skip the first entry which is the initial choice
-    const endIndex = Math.min(startIndex + 6, quizData.length);
+    // Changed from 6 to 5 questions per page
+    const startIndex = screenIndex * 5 + 1; // Skip the first entry which is the initial choice
+    const endIndex = Math.min(startIndex + 5, quizData.length);
     const questionsToShow = quizData.slice(startIndex, endIndex);
     
     const heading = document.createElement('h2');
@@ -133,6 +140,15 @@ document.addEventListener("DOMContentLoaded", function () {
       backButton.className = "back-btn";
       backButton.addEventListener('click', function() {
         questionScreen.innerHTML = '';
+        
+        // Make sure restart button is hidden when navigating back
+        if (existingRestartButton) {
+          existingRestartButton.style.display = 'none';
+        }
+        if (controlButtons) {
+          controlButtons.classList.add('hidden');
+        }
+        
         showQuestions(screenIndex - 1);
       });
       buttonsContainer.appendChild(backButton);
@@ -174,6 +190,7 @@ document.addEventListener("DOMContentLoaded", function () {
           answersList.innerHTML = "<li>No recommendations based on your selections.</li>";
         }
         
+        // Only show restart button on results screen
         showRestartButton();
       }
     });
@@ -183,7 +200,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function showRestartButton() {
-    // Show the existing restart button instead of creating a new one
+    // Show the existing restart button only on the results screen
     if (controlButtons) {
       controlButtons.classList.remove('hidden');
     }
