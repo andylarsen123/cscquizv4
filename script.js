@@ -262,27 +262,34 @@ const heading = document.createElement('p');
     questionScreen.appendChild(form);
   }
 
-  function showRestartButton() {
-    // Show the existing restart button only on the results screen
-    if (controlButtons) {
-      controlButtons.classList.remove('hidden');
-    }
-    
-    const restartBtn = document.getElementById('restart-btn');
-    if (restartBtn) {
-      restartBtn.style.display = 'block';
-      
-      // Make sure the event listener is attached
-      restartBtn.onclick = function() {
-        // Reset the quiz
-        allSelectedAnswers = new Set();
-        answersList.innerHTML = '';
-        resultsScreen.classList.add('hidden');
-        questionText.style.display = '';
-        quizControls.style.display = '';
-        questionScreen.classList.add('hidden');
-        controlButtons.classList.add('hidden');
-      };
-    }
+function showRestartButton() {
+  // Show the existing restart button only on the results screen
+  if (controlButtons) {
+    controlButtons.classList.remove('hidden');
   }
+  
+  const restartBtn = document.getElementById('restart-btn');
+  if (restartBtn) {
+    restartBtn.style.display = 'block';
+    
+    // Make sure the event listener is attached
+    restartBtn.onclick = function() {
+      // Reset the quiz
+      allSelectedAnswers = new Set();
+      answersList.innerHTML = '';
+      resultsScreen.classList.add('hidden');
+      questionText.style.display = '';
+      quizControls.style.display = '';
+      questionScreen.classList.add('hidden');
+      
+      // Hide the control buttons (including restart button)
+      if (controlButtons) {
+        controlButtons.classList.add('hidden');
+      }
+      
+      // Explicitly hide the restart button
+      restartBtn.style.display = 'none';
+     };
+   }
+ }
 });
