@@ -181,6 +181,12 @@ button:hover {
   text-align: left;
 }
 
+.question-item span {
+  display: block;
+  margin-bottom: 5px; /* Space between question label and options */
+  text-align: left;
+}
+
 .radio-options {
   display: flex;
   gap: 15px;
@@ -190,10 +196,11 @@ button:hover {
   display: flex;
   align-items: center;
   gap: 5px;
+  text-align: left;
 }
 
 #question-screen.scrollable {
-  max-height: 500px; /* Adjust this to fit
+  max-height: 500px;
   overflow-y: auto;
 }
 
