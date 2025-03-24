@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
   yesButton.textContent = "Interactive Tool";
   noButton.textContent = "View Full List of Tools (Section C)";
   
-  // Hide results and question screen initially
+  // Hide results, question screen, and restart button initially
   resultsScreen.classList.add('hidden');
   questionScreen.classList.add('hidden');
   restartButton.classList.add('hidden');
@@ -55,9 +55,11 @@ document.addEventListener("DOMContentLoaded", function () {
   restartButton.addEventListener('click', function () {
     // Reset answers and hide results
     answersList.innerHTML = '';
-    restartButton.classList.add('hidden');
     resultsScreen.classList.add('hidden');
     questionScreen.classList.add('hidden');
+    restartButton.classList.add('hidden');
+    
+    // Show first screen again
     questionText.classList.remove('hidden');
     yesButton.classList.remove('hidden');
     noButton.classList.remove('hidden');
@@ -98,9 +100,27 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
 
-      // Show results after submission
+      // Hide question screen and show results screen
+      questionScreen.classList.add('hidden');
       resultsScreen.classList.remove('hidden');
-      answersList.innerHTML = answers.size ? Array.from(answers).map(a => `<li>${a}</li>`).join("") : "<li>No recommendations.</li>";
+      
+      // Populate results list
+      answersList.innerHTML = '';
+      if (answers.size) {
+        const resultsHeading = document.createElement('h2');
+        resultsHeading.textContent = "Recommended Solutions:";
+        answersList.appendChild(resultsHeading);
+        
+        Array.from(answers).forEach(answer => {
+          const li = document.createElement('li');
+          li.textContent = answer;
+          answersList.appendChild(li);
+        });
+      } else {
+        answersList.innerHTML = "<li>No recommendations based on your selections.</li>";
+      }
+      
+      // Show restart button only after showing results
       restartButton.classList.remove('hidden');
     });
     
