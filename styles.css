@@ -24,7 +24,7 @@ body {
   padding-bottom: 5px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
+  max-width: 500px;
   width: 90%; /* Responsive width */
   height: auto; /* Allows container to expand based on content */
   display: flex;
@@ -99,7 +99,7 @@ button:hover {
 
 /* Answer container with scrolling */
 #answers-container {
-  max-height: 500px; /* Adjust this value as needed */
+  max-height: 200px; /* Adjust this value as needed */
   overflow-y: scroll; /* Forces scrollbar to always be visible */
   width: 100%; /* Full width of the container */
   background: white;
@@ -203,4 +203,3 @@ button:hover {
   max-height: 500px;
   overflow-y: auto;
 }
-
