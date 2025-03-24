@@ -14,8 +14,6 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  overflow-x: hidden; /* Prevent horizontal scrolling */
-  max-width: 100%; /* Ensure body doesn't exceed screen width */
 }
 
 /* Quiz container dynamically resizes */
@@ -32,9 +30,6 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start; /* Aligns content to the top */
-  overflow-x: hidden; /* Prevent horizontal scrolling */
-  word-wrap: break-word;
-  word-break: break-word;
 }
 
 /* Ensure the text does not overflow */
@@ -43,7 +38,6 @@ body {
   word-wrap: break-word;
   text-align: center; /* Centers the question text */
   font-size: 18px;
-  overflow-x: hidden;
 }
 
 /* Centers buttons properly */
@@ -97,19 +91,16 @@ button:hover {
   list-style-type: none;
   padding: 0;
   margin: 0;
-  text-align: left;
-  width: 100%;
+  text-align: left; /* Left-aligns the answers */
+  width: 100%; /* Full width of the container */
   font-size: 16px;
-  padding-left: 20px;
-  word-wrap: break-word;
-  word-break: break-word;
+  padding-left: 20px; /* Optional: Adds padding to the left for better alignment */
 }
 
 /* Answer container with scrolling */
 #answers-container {
   max-height: 200px; /* Adjust this value as needed */
-  overflow-y: auto; /* Allows vertical scrolling */
-  overflow-x: hidden; /* Prevents horizontal scrolling */
+  overflow-y: scroll; /* Forces scrollbar to always be visible */
   width: 100%; /* Full width of the container */
   background: white;
   border-radius: 1px;
@@ -118,8 +109,6 @@ button:hover {
   padding-left: 0px; 
   padding-bottom: 10px;
   text-align: left; /* Ensures the answers are aligned to the left */
-  word-wrap: break-word;
-  word-break: break-word;
   
   /* Make sure the scrollbar is always visible */
   scrollbar-width: thin; /* Firefox */
@@ -184,42 +173,35 @@ button:hover {
 
 .question-item {
   display: flex;
-  flex-direction: column; /* Stack question and options vertically */
-  align-items: flex-start; /* Align items to the start */
-  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
 }
 
 .question-item span {
-  margin-bottom: 10px; /* Space between question and options */
-  width: 100%;
-  word-wrap: break-word;
+  display: block;
+  margin-bottom: 5px; /* Space between question label and options */
+  text-align: left;
 }
 
 .radio-options {
   display: flex;
-  flex-direction: row; 
-  align-items: center;
-  justify-content: flex-start; /* Align options to the start */
-  gap: 20px; /* Increased space between options */
-  width: 100%;
+  gap: 15px;
 }
 
 .radio-options label {
   display: flex;
   align-items: center;
-  gap: 8px; /* Space between radio button and text */
-  cursor: pointer; /* Makes the entire label clickable */
+  gap: 5px;
+  text-align: left;
 }
 
-.radio-options input[type="radio"] {
-  margin: 0; /* Remove default margins */
-  cursor: pointer;
-
 #question-screen.scrollable {
-  overflow-x: hidden;
-  width: 100%;
-  word-wrap: break-word;
-  word-break: break-word;
+  max-height: 500px;
+  overflow-y: auto;
 }
 
 .back-btn {
