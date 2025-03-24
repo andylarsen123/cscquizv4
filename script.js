@@ -37,9 +37,9 @@ document.addEventListener("DOMContentLoaded", function () {
   
   // Show quiz questions if the user clicks "Interactive Tool"
   yesButton.addEventListener('click', function () {
-    // Hide the first screen elements
-    questionText.classList.add('hidden');
-    quizControls.classList.add('hidden');
+    // Completely hide the first screen elements
+    questionText.style.display = 'none';
+    quizControls.style.display = 'none';
     
     // Show the questions screen
     questionScreen.classList.remove('hidden');
@@ -144,11 +144,10 @@ document.addEventListener("DOMContentLoaded", function () {
       // Reset answers and hide results
       answersList.innerHTML = '';
       resultsScreen.classList.add('hidden');
-      questionScreen.classList.add('hidden');
       
-      // Show first screen again
-      questionText.classList.remove('hidden');
-      quizControls.classList.remove('hidden');
+      // Restore the first screen
+      questionText.style.display = '';
+      quizControls.style.display = '';
     });
   }
 });
