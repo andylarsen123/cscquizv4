@@ -100,10 +100,11 @@ document.addEventListener("DOMContentLoaded", function () {
       event.preventDefault();
       const answers = new Set();
       
-      for (let i = startIndex; i < endIndex; i++) {
-        const input = form.querySelector(`input[name="q${i}"]:checked`);
-        if (input && input.value === 'yes') {
-          quizData[i].answersIfYes?.forEach(answer => answers.add(answer));
+for (let i = startIndex; i < endIndex; i++) {
+  const input = form.querySelector(`input[name="q${i}"]:checked`);
+  if (input && input.value === 'yes') {
+    if (quizData[i] && Array.isArray(quizData[i].answersIfYes)) {
+      quizData[i].answersIfYes.forEach(answer => answers.add(answer));
         }
       }
       
