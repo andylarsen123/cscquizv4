@@ -112,40 +112,43 @@ document.addEventListener("DOMContentLoaded", function () {
     submitButton.className = "submit-btn";
     form.appendChild(submitButton);
     
-    form.addEventListener('submit', function (event) {
-      event.preventDefault();
-      const answers = new Set();
-      
-      // Collect answers
-      for (let i = startIndex; i < endIndex; i++) {
-        const input = form.querySelector(`input[name="q${i}"]:checked`);
-        if (input && input.value === 'yes') {
-          quizData[i].answersIfYes?.forEach(answer => answers.add(answer));
-        }
+form.addEventListener('submit', function (event) {
+  event.preventDefault();
+  const answers = new Set();
+  
+  // Collect answers
+  for (let i = startIndex; i < endIndex; i++) {
+    const input = form.querySelector(`input[name="q${i}"]:checked`);
+    if (input) {
+      if (input.value === 'yes') {
+        // Add answers if 'yes' is selected
+        quizData[i].answersIfYes?.forEach(answer => answers.add(answer));
       }
-      
-      // Hide current screen and show next one
-      questionScreen.innerHTML = '';  // Clear previous questions
-      if (screenIndex < Math.ceil(quizData.length / 7) - 1) {
-        showQuestions(screenIndex + 1);  // Show the next set of questions
-      } else {
-        // Final submission, show results
-        resultsScreen.classList.remove('hidden');
-        
-        // Populate results list
-        answersList.innerHTML = '';
-        if (answers.size) {
-          Array.from(answers).forEach(answer => {
-            const li = document.createElement('li');
-            li.textContent = answer;
-            answersList.appendChild(li);
-          });
-        } else {
-          answersList.innerHTML = "<li>No recommendations based on your selections.</li>";
-        }
-        
-        createRestartButton(); // Create the restart button
-      }
+    }
+  }
+  
+  // Hide current screen and show next one
+  questionScreen.innerHTML = '';  // Clear previous questions
+  if (screenIndex < Math.ceil(quizData.length / 7) - 1) {
+    showQuestions(screenIndex + 1);  // Show the next set of questions
+  } else {
+    // Final submission, show results
+    resultsScreen.classList.remove('hidden');
+    
+    // Populate results list
+    answersList.innerHTML = '';
+    if (answers.size) {
+      Array.from(answers).forEach(answer => {
+        const li = document.createElement('li');
+        li.textContent = answer;
+        answersList.appendChild(li);
+      });
+    } else {
+      answersList.innerHTML = "<li>No recommendations based on your selections.</li>";
+    }
+    
+    createRestartButton(); // Create the restart button
+  }
     });
     
     questionScreen.appendChild(form);
