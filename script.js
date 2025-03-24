@@ -1,28 +1,7 @@
-
 document.addEventListener("DOMContentLoaded", function () {
   // Initialize quiz data
   const quizData = [
-    { question: "Coastal Solutions Compendium: Choose an option", answersIfYes: ["Interactive Tool"], linkIfNo: "https://example.com/full-tool-list" },
-    { question: "Is the shoreline elevated (bluffs, banks)?", answersIfYes: ["Natural Features Setbacks", "Natural Features Overlay", "Bluff Protection"] },
-    { question: "Are there bluffs along the shoreline?", answersIfYes: ["Natural Features Setbacks", "Natural Features Overlay", "Bluff Protection", "Dynamic Zoning"] },
-    { question: "Is the shoreline sandy?", answersIfYes: ["Shoreline Setbacks", "Dynamic Zoning", "Armoring Prohibition"] },
-    { question: "Are there dunes along the shoreline?", answersIfYes: ["Natural Features Setbacks", "Natural Features Overlay", "Dune Protection", "Shoreline Setbacks", "Dynamic Zoning", "Armoring Prohibition"] },
-    { question: "Are there coarse sediment beaches along the shoreline?", answersIfYes: ["Shoreline Setbacks", "Armoring Prohibition"] },
-    { question: "Is there bedrock along the shoreline?", answersIfYes: ["Shoreline Setbacks"] },
-    { question: "Are there wetlands along the shoreline?", answersIfYes: ["Natural Features Setbacks", "Natural Features Overlay", "Wetlands Protection", "Shoreline Setbacks", "Armoring Prohibition", "Natural Shoreline Requirements", "Stormwater Management Requirements / Green Infrastructure"] },
-    { question: "Is the shoreline armored (seawalls, riprap, etc.)?", answersIfYes: ["Armoring Prohibition", "Retreat / Building Moving", "Impervious Surface Standards"] },
-    { question: "Physical Characteristics: Are there <strong>sensitive environmental areas</strong> along the shoreline?", answersIfYes: ["Natural Features Setbacks", "Natural Features Overlay", "Sensitive Environmental Areas", "Shoreline Setbacks", "Armoring Prohibition", "Temporary Shoreline Protections (Sandbags, Geotubes)", "Natural Shoreline Requirements", "Retreat / Building Moving", "Impervious Surface Standards"] },
-    { question: "Physical Characteristics: Are there <strong>high risk erosion areas</strong> along the shoreline?", answersIfYes: ["Natural Features Setbacks", "Natural Features Overlay", "High Risk Erosion Area Protection", "Shoreline Setbacks", "Dynamic Zoning", "Armoring Prohibition", "Temporary Shoreline Protections (Sandbags, Geotubes)", "Natural Shoreline Requirements", "Retreat / Building Moving", "Impervious Surface Standards"] },
-    { question: "Physical Characteristics: Are there <strong>designated floodplains</strong> along the shoreline?", answersIfYes: ["Natural Features Setbacks", "Natural Features Overlay", "Floodplain Overlay District", "Shoreline Setbacks", "Armoring Prohibition", "Temporary Shoreline Protections (Sandbags, Geotubes)", "Natural Shoreline Requirements", "Retreat / Building Moving", "Impervious Surface Standards", "Stormwater Management Requirements / Green Infrastructure"] },
-    { question: "Physical Characteristics: Is the <strong>character of the shoreline</strong> similar across your community?", answersIfYes: ["Shoreline Setbacks", "Shoreline District", "Natural Shoreline Requirements", "Impervious Surface Standards", "Stormwater Management Requirements / Green Infrastructure"] },
-    { question: "Development: Does development <strong>already exist</strong> within 50ft of the shoreline?", answersIfYes: ["Nonconformities and Variance Standards", "Armoring Prohibition", "Temporary Shoreline Protections (Sandbags, Geotubes)", "Retreat / Building Moving"] },
-    { question: "Development: Do you <strong>anticipate new development or redevelopment</strong> within 50 feet of your shoreline?", answersIfYes: ["Shoreline Setbacks", "Site Condos", "Armoring Prohibition", "Retreat / Building Moving"] },
-    { question: "Development: Is there shoreline property which is experiencing <strong>erosion</strong>?", answersIfYes: ["Shoreline Setbacks", "Dynamic Zoning", "Land Division Regulations", "Long Lots", "Armoring Prohibition", "Temporary Shoreline Protections (Sandbags, Geotubes)", "Natural Shoreline Requirements", "Retreat / Building Moving"] },
-    { question: "Development: Is there shoreline property which is experiencing <strong>flooding</strong>?", answersIfYes: ["Shoreline Setbacks", "Land Division Regulations", "Long Lots", "Armoring Prohibition", "Temporary Shoreline Protections (Sandbags, Geotubes)", "Natural Shoreline Requirements", "Retreat / Building Moving", "Impervious Surface Standards", "Stormwater Management Requirements / Green Infrastructure", "Open Space Requirements"] },
-    { question: "Development: Are there <strong>existing or desired shoreline-specific uses</strong>, such as marinas?", answersIfYes: ["Shoreline Setbacks", "Land Division Regulations", "Long Lots", "Armoring Prohibition", "Temporary Shoreline Protections (Sandbags, Geotubes)", "Natural Shoreline Requirements", "Retreat / Building Moving", "Impervious Surface Standards", "Stormwater Management Requirements / Green Infrastructure", "Open Space Requirements"] },
-    { question: "Priorities: Is your community concerned about <strong>invasive plant or animal species</strong>", answersIfYes: ["Invasive Species Prohibition"] },
-    { question: "Priorities: Is your community concerned about <strong>water quality?</strong>", answersIfYes: ["Natural Shoreline Requirements", "Impervious Surface Standards", "Stormwater Management Requirements / Green Infrastructure"] },
-    { question: "Priorities: Is it a priority for your community to <strong>preserve or create access to the shoreline?</strong>", answersIfYes: ["Shoreline Setbacks", "Land Division Regulations", "Long Lots", "Armoring Prohibition", "Temporary Shoreline Protections (Sandbags, Geotubes)", "Stormwater Management Requirements / Green Infrastructure", "Open Space Requirements"] }
+    // Your quiz data goes here
   ];
 
   // Get DOM elements
@@ -57,6 +36,9 @@ document.addEventListener("DOMContentLoaded", function () {
     questionScreen.classList.remove('hidden');
     questionScreen.innerHTML = ''; // Clear any existing content
     
+    // Add a class to enable scrolling
+    questionScreen.classList.add('scrollable');
+    
     // Create and show the quiz form
     showQuestions();
   });
@@ -66,87 +48,87 @@ document.addEventListener("DOMContentLoaded", function () {
     window.location.href = quizData[0].linkIfNo;
   });
 
-function showQuestions() {
-  const form = document.createElement('form');
-  form.id = 'quiz-form';
-  
-  // Create a heading for the questions screen
-  const heading = document.createElement('h2');
-  heading.textContent = "What is your coastal resilience priority?";
-  form.appendChild(heading);
-  
-  // Skip the first question (which was the initial choice)
-  for (let i = 1; i < quizData.length; i++) {
-    const div = document.createElement('div');
-    div.className = 'question-item';
+  function showQuestions() {
+    const form = document.createElement('form');
+    form.id = 'quiz-form';
     
-    // Create the question text
-    const questionLabel = document.createElement('span');
-    questionLabel.textContent = quizData[i].question;
-    
-    // Create radio button container for yes/no options
-    const radioContainer = document.createElement('div');
-    radioContainer.className = 'radio-options';
-    
-    // Create the Yes option
-    const yesLabel = document.createElement('label');
-    yesLabel.innerHTML = '<input type="radio" name="q' + i + '" value="yes"> Yes';
-    
-    // Create the No option
-    const noLabel = document.createElement('label');
-    noLabel.innerHTML = '<input type="radio" name="q' + i + '" value="no"> No';
-    
-    // Add radio buttons to container
-    radioContainer.appendChild(yesLabel);
-    radioContainer.appendChild(noLabel);
-    
-    // Append question text and radio options to the question item
-    div.appendChild(questionLabel);
-    div.appendChild(radioContainer);
-    
-    form.appendChild(div);
-  }
-  
-  const submitButton = document.createElement('button');
-  submitButton.textContent = "Submit Answers";
-  submitButton.type = "submit";
-  submitButton.className = "submit-btn";
-  form.appendChild(submitButton);
-  
-  form.addEventListener('submit', function (event) {
-    event.preventDefault();
-    const answers = new Set();
+    // Create a heading for the questions screen
+    const heading = document.createElement('h2');
+    heading.textContent = "What is your coastal resilience priority?";
+    form.appendChild(heading);
     
     // Skip the first question (which was the initial choice)
     for (let i = 1; i < quizData.length; i++) {
-      const input = form.querySelector(`input[name="q${i}"]:checked`);
-      if (input && input.value === 'yes') {
-        quizData[i].answersIfYes?.forEach(answer => answers.add(answer));
+      const div = document.createElement('div');
+      div.className = 'question-item';
+      
+      // Create the question text
+      const questionLabel = document.createElement('span');
+      questionLabel.textContent = quizData[i].question;
+      
+      // Create radio button container for yes/no options
+      const radioContainer = document.createElement('div');
+      radioContainer.className = 'radio-options';
+      
+      // Create the Yes option
+      const yesLabel = document.createElement('label');
+      yesLabel.innerHTML = '<input type="radio" name="q' + i + '" value="yes"> Yes';
+      
+      // Create the No option
+      const noLabel = document.createElement('label');
+      noLabel.innerHTML = '<input type="radio" name="q' + i + '" value="no"> No';
+      
+      // Add radio buttons to container
+      radioContainer.appendChild(yesLabel);
+      radioContainer.appendChild(noLabel);
+      
+      // Append question text and radio options to the question item
+      div.appendChild(questionLabel);
+      div.appendChild(radioContainer);
+      
+      form.appendChild(div);
+    }
+    
+    const submitButton = document.createElement('button');
+    submitButton.textContent = "Submit Answers";
+    submitButton.type = "submit";
+    submitButton.className = "submit-btn";
+    form.appendChild(submitButton);
+    
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      const answers = new Set();
+      
+      // Skip the first question (which was the initial choice)
+      for (let i = 1; i < quizData.length; i++) {
+        const input = form.querySelector(`input[name="q${i}"]:checked`);
+        if (input && input.value === 'yes') {
+          quizData[i].answersIfYes?.forEach(answer => answers.add(answer));
+        }
       }
-    }
 
-    // Hide question screen and show results screen
-    questionScreen.classList.add('hidden');
-    resultsScreen.classList.remove('hidden');
+      // Hide question screen and show results screen
+      questionScreen.classList.add('hidden');
+      resultsScreen.classList.remove('hidden');
+      
+      // Populate results list
+      answersList.innerHTML = '';
+      if (answers.size) {
+        Array.from(answers).forEach(answer => {
+          const li = document.createElement('li');
+          li.textContent = answer;
+          answersList.appendChild(li);
+        });
+      } else {
+        answersList.innerHTML = "<li>No recommendations based on your selections.</li>";
+      }
+      
+      // Create and add the restart button only after showing results
+      createRestartButton();
+    });
     
-    // Populate results list
-    answersList.innerHTML = '';
-    if (answers.size) {
-      Array.from(answers).forEach(answer => {
-        const li = document.createElement('li');
-        li.textContent = answer;
-        answersList.appendChild(li);
-      });
-    } else {
-      answersList.innerHTML = "<li>No recommendations based on your selections.</li>";
-    }
-    
-    // Create and add the restart button only after showing results
-    createRestartButton();
-  });
-  
-  questionScreen.appendChild(form);
-}
+    questionScreen.appendChild(form);
+  }
   
   // Function to create and append the restart button
   function createRestartButton() {
@@ -187,3 +169,4 @@ function showQuestions() {
     });
   }
 });
+
