@@ -121,10 +121,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const questionsToShow = quizData.slice(startIndex, endIndex);
     
 const heading = document.createElement('p');
-    heading.textContent = "Select Yes or No <strong>(or Skip if Unsure)</strong> on the following:";
+    heading.textContent = "Select Yes or No (or Skip if Unsure) on the following:";
     heading.style.textAlign = 'center';
     heading.style.fontWeight = 'bold';
-    heading.style.marginBottom = '10px';
+    heading.style.marginBottom = '14px';
     form.appendChild(heading);
     
     // Create questions for this screen
