@@ -93,10 +93,10 @@ document.addEventListener("DOMContentLoaded", function () {
       radioContainer.className = 'radio-options';
       
       const yesLabel = document.createElement('label');
-      yesLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="yes" required> Yes`;
+      yesLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="yes"> Yes`;
       
       const noLabel = document.createElement('label');
-      noLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="no" required> No`;
+      noLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="no"> No`;
       
       radioContainer.appendChild(yesLabel);
       radioContainer.appendChild(noLabel);
@@ -110,8 +110,22 @@ document.addEventListener("DOMContentLoaded", function () {
     // Create navigation buttons
     const buttonsContainer = document.createElement('div');
     buttonsContainer.className = 'navigation-buttons';
+    buttonsContainer.style.display = 'flex';
+    buttonsContainer.style.flexDirection = 'column';
     
-    // Add Back button if not the first screen
+    // Next/Submit button (placed first/top)
+    const submitButton = document.createElement('button');
+    submitButton.textContent = (endIndex >= quizData.length) ? "Show Results" : "Next";
+    submitButton.type = "submit";
+    submitButton.className = "submit-btn";
+    buttonsContainer.appendChild(submitButton);
+    
+    // Add a gap between buttons
+    const spacer = document.createElement('div');
+    spacer.style.height = '10px'; // 10px gap
+    buttonsContainer.appendChild(spacer);
+    
+    // Add Back button if not the first screen (placed second/bottom)
     if (screenIndex > 0) {
       const backButton = document.createElement('button');
       backButton.textContent = "Back";
@@ -123,13 +137,6 @@ document.addEventListener("DOMContentLoaded", function () {
       });
       buttonsContainer.appendChild(backButton);
     }
-    
-    // Next/Submit button
-    const submitButton = document.createElement('button');
-    submitButton.textContent = (endIndex >= quizData.length) ? "Show Results" : "Next";
-    submitButton.type = "submit";
-    submitButton.className = "submit-btn";
-    buttonsContainer.appendChild(submitButton);
     
     form.appendChild(buttonsContainer);
     
