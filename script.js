@@ -68,87 +68,90 @@ document.addEventListener("DOMContentLoaded", function () {
     window.location.href = quizData[0].linkIfNo;
   });
 
-  // Show questions dynamically based on screen index
-  function showQuestions(screenIndex) {
-    const form = document.createElement('form');
-    form.id = 'quiz-form';
+// Show questions dynamically based on screen index
+function showQuestions(screenIndex) {
+  const form = document.createElement('form');
+  form.id = 'quiz-form';
+  
+  const questionsPerScreen = 4; // Display 4 questions per screen
+  const startIndex = screenIndex * questionsPerScreen; // Adjust start index based on the new number of questions per screen
+  const endIndex = startIndex + questionsPerScreen; // Adjust end index as well
+  const questionsToShow = quizData.slice(startIndex, endIndex);
+  
+  // Create a heading for the current screen
+  const heading = document.createElement('h2');
+  heading.textContent = "What is your coastal resilience priority?";
+  form.appendChild(heading);
+  
+  questionsToShow.forEach((data, i) => {
+    const div = document.createElement('div');
+    div.className = 'question-item';
     
-    const startIndex = screenIndex * 6; //
-    const endIndex = startIndex + 6;
-    const questionsToShow = quizData.slice(startIndex, endIndex);
+    const questionLabel = document.createElement('span');
+    questionLabel.textContent = data.question;
     
-    // Create a heading for the current screen
-    const heading = document.createElement('h2');
-    heading.textContent = "Check Yes or No on the following:";
-    form.appendChild(heading);
+    const radioContainer = document.createElement('div');
+    radioContainer.className = 'radio-options';
     
-    questionsToShow.forEach((data, i) => {
-      const div = document.createElement('div');
-      div.className = 'question-item';
-      
-      const questionLabel = document.createElement('span');
-      questionLabel.textContent = data.question;
-      
-      const radioContainer = document.createElement('div');
-      radioContainer.className = 'radio-options';
-      
-      const yesLabel = document.createElement('label');
-      yesLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="yes"> Yes`;
-      const noLabel = document.createElement('label');
-      noLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="no"> No`;
-      
-      radioContainer.appendChild(yesLabel);
-      radioContainer.appendChild(noLabel);
-      
-      div.appendChild(questionLabel);
-      div.appendChild(radioContainer);
-      
-      form.appendChild(div);
-    });
+    const yesLabel = document.createElement('label');
+    yesLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="yes"> Yes`;
+    const noLabel = document.createElement('label');
+    noLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="no"> No`;
     
-    const submitButton = document.createElement('button');
-    submitButton.textContent = "Next";
-    submitButton.type = "submit";
-    submitButton.className = "submit-btn";
-    form.appendChild(submitButton);
+    radioContainer.appendChild(yesLabel);
+    radioContainer.appendChild(noLabel);
     
-    form.addEventListener('submit', function (event) {
-      event.preventDefault();
-      const answers = new Set();
-      
-      // Collect answers
-      for (let i = startIndex; i < endIndex; i++) {
-        const input = form.querySelector(`input[name="q${i}"]:checked`);
-        if (input && input.value === 'yes') {
-          quizData[i].answersIfYes?.forEach(answer => answers.add(answer));
-        }
+    div.appendChild(questionLabel);
+    div.appendChild(radioContainer);
+    
+    form.appendChild(div);
+  });
+  
+  const submitButton = document.createElement('button');
+  submitButton.textContent = "Next";
+  submitButton.type = "submit";
+  submitButton.className = "submit-btn";
+  form.appendChild(submitButton);
+  
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    const answers = new Set();
+    
+    // Collect answers
+    for (let i = startIndex; i < endIndex; i++) {
+      const input = form.querySelector(`input[name="q${i}"]:checked`);
+      if (input && input.value === 'yes') {
+        quizData[i].answersIfYes?.forEach(answer => answers.add(answer));
       }
+    }
+    
+    // Hide current screen and show next one
+    if (screenIndex * questionsPerScreen + questionsPerScreen < quizData.length) {
+      showQuestions(screenIndex + 1);  // Show next screen with more questions
+    } else {
+      // Final submission, show results
+      resultsScreen.classList.remove('hidden');
       
-      // Hide current screen and show next one
-      questionScreen.innerHTML = '';  // Clear previous questions
-      if (screenIndex < Math.ceil(quizData.length / 7) - 1) {
-        showQuestions(screenIndex + 1);  // Show the next set of questions
+      // Populate results list
+      answersList.innerHTML = '';
+      if (answers.size) {
+        Array.from(answers).forEach(answer => {
+          const li = document.createElement('li');
+          li.textContent = answer;
+          answersList.appendChild(li);
+        });
       } else {
-        // Final submission, show results
-        resultsScreen.classList.remove('hidden');
-        
-        // Populate results list
-        answersList.innerHTML = '';
-        if (answers.size) {
-          Array.from(answers).forEach(answer => {
-            const li = document.createElement('li');
-            li.textContent = answer;
-            answersList.appendChild(li);
-          });
-        } else {
-          answersList.innerHTML = "<li>No recommendations based on your selections.</li>";
-        }
-        
-        createRestartButton(); // Create the restart button
+        answersList.innerHTML = "<li>No recommendations based on your selections.</li>";
       }
-    });
-    
-    questionScreen.appendChild(form);
+      
+      createRestartButton(); // Create the restart button
+    }
+  });
+  
+  questionScreen.appendChild(form);
+}
+
+  
   }
 
   // Function to create and append the restart button
