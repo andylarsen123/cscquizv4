@@ -132,12 +132,14 @@ document.addEventListener("DOMContentLoaded", function () {
     spacer.style.height = '10px'; // 10px gap
     buttonsContainer.appendChild(spacer);
     
-    // Add Back button if not the first screen (placed second/bottom)
+    // Add Back button for all screens, including the first question screen
+    const backButton = document.createElement('button');
+    backButton.textContent = "Back";
+    backButton.type = "button";
+    backButton.className = "back-btn";
+    
     if (screenIndex > 0) {
-      const backButton = document.createElement('button');
-      backButton.textContent = "Back";
-      backButton.type = "button";
-      backButton.className = "back-btn";
+      // For screens after the first question screen, go back to previous questions
       backButton.addEventListener('click', function() {
         questionScreen.innerHTML = '';
         
@@ -151,9 +153,25 @@ document.addEventListener("DOMContentLoaded", function () {
         
         showQuestions(screenIndex - 1);
       });
-      buttonsContainer.appendChild(backButton);
+    } else {
+      // For the first question screen, go back to the initial screen
+      backButton.addEventListener('click', function() {
+        // Return to initial screen
+        questionScreen.classList.add('hidden');
+        questionText.style.display = '';
+        quizControls.style.display = '';
+        
+        // Make sure restart button is hidden
+        if (existingRestartButton) {
+          existingRestartButton.style.display = 'none';
+        }
+        if (controlButtons) {
+          controlButtons.classList.add('hidden');
+        }
+      });
     }
     
+    buttonsContainer.appendChild(backButton);
     form.appendChild(buttonsContainer);
     
     // Form submission handler
