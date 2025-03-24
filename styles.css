@@ -14,6 +14,8 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  max-width: 100%; /* Ensure body doesn't exceed screen width */
 }
 
 /* Quiz container dynamically resizes */
@@ -30,6 +32,9 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start; /* Aligns content to the top */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 /* Ensure the text does not overflow */
@@ -38,6 +43,7 @@ body {
   word-wrap: break-word;
   text-align: center; /* Centers the question text */
   font-size: 18px;
+  overflow-x: hidden;
 }
 
 /* Centers buttons properly */
@@ -91,16 +97,19 @@ button:hover {
   list-style-type: none;
   padding: 0;
   margin: 0;
-  text-align: left; /* Left-aligns the answers */
-  width: 100%; /* Full width of the container */
+  text-align: left;
+  width: 100%;
   font-size: 16px;
-  padding-left: 20px; /* Optional: Adds padding to the left for better alignment */
+  padding-left: 20px;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 /* Answer container with scrolling */
 #answers-container {
   max-height: 200px; /* Adjust this value as needed */
-  overflow-y: scroll; /* Forces scrollbar to always be visible */
+  overflow-y: auto; /* Allows vertical scrolling */
+  overflow-x: hidden; /* Prevents horizontal scrolling */
   width: 100%; /* Full width of the container */
   background: white;
   border-radius: 1px;
@@ -109,6 +118,8 @@ button:hover {
   padding-left: 0px; 
   padding-bottom: 10px;
   text-align: left; /* Ensures the answers are aligned to the left */
+  word-wrap: break-word;
+  word-break: break-word;
   
   /* Make sure the scrollbar is always visible */
   scrollbar-width: thin; /* Firefox */
@@ -200,8 +211,10 @@ button:hover {
 }
 
 #question-screen.scrollable {
-  max-height: 500px;
-  overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
 .back-btn {
