@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Initialize quiz data
   const quizData = [
-    { question: "Coastal Solutions Compendium: Choose an option", answersIfYes: ["Interactive Tool"], linkIfNo: "https://example.com/full-tool-list" },
+    { question: "<strong>Coastal Solutions Compendium:</strong><br>Choose an option", answersIfYes: ["Interactive Tool"], linkIfNo: "https://example.com/full-tool-list" },
     { question: "Is the shoreline <strong>elevated (bluffs, banks)?</strong>", answersIfYes: ["Natural Features Setbacks", "Natural Features Overlay", "Bluff Protection"] },
     { question: "Are there <strong>bluffs</strong> along the shoreline?", answersIfYes: ["Natural Features Setbacks", "Natural Features Overlay", "Bluff Protection", "Dynamic Zoning"] },
     { question: "Is the shoreline <strong>sandy?</strong>", answersIfYes: ["Shoreline Setbacks", "Dynamic Zoning", "Armoring Prohibition"] },
