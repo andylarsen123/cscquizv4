@@ -125,10 +125,9 @@ document.addEventListener("DOMContentLoaded", function () {
       }
       
       // Hide current screen and show next one
-      if (screenIndex === 0) {
-        showQuestions(1);  // Show the second part of the questions
-      } else if (screenIndex === 1) {
-        showQuestions(2);  // Show the third part of the questions
+      questionScreen.innerHTML = '';  // Clear previous questions
+      if (screenIndex < Math.ceil(quizData.length / 7) - 1) {
+        showQuestions(screenIndex + 1);  // Show the next set of questions
       } else {
         // Final submission, show results
         resultsScreen.classList.remove('hidden');
@@ -188,7 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Restore the first screen
       questionText.style.display = '';
       quizControls.style.display = '';
+      questionScreen.classList.add('hidden');
     });
   }
 });
-
