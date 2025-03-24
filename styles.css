@@ -100,15 +100,18 @@ button:hover {
 /* Answer container with scrolling */
 #answers-container {
   max-height: 200px; /* Adjust this value as needed */
-  overflow-y: scroll; /* Forces scrollbar to always be visible */
+  overflow-y: auto; /* Allows vertical scrolling as needed */
+  overflow-x: hidden; /* Prevents horizontal scrolling */
   width: 100%; /* Full width of the container */
   background: white;
   border-radius: 1px;
   box-sizing: border-box; /* Ensures padding is included in the height/width */
   padding-top: 10px;
-  padding-left: 0px; 
+  padding-left: 20px; /* Restored left padding */
   padding-bottom: 10px;
   text-align: left; /* Ensures the answers are aligned to the left */
+  word-wrap: break-word;
+  word-break: break-word;
   
   /* Make sure the scrollbar is always visible */
   scrollbar-width: thin; /* Firefox */
