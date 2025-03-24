@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Initialize quiz data
   const quizData = [
-    { question: "Coastal Solutions Compendium:<br>Choose an option", answersIfYes: ["Interactive Tool"], linkIfNo: "https://example.com/full-tool-list" },
+    { question: "Coastal Solutions Compendium: Choose an option", answersIfYes: ["Interactive Tool"], linkIfNo: "https://example.com/full-tool-list" },
     { question: "Is the shoreline elevated (bluffs, banks)?", answersIfYes: ["Natural Features Setbacks", "Natural Features Overlay", "Bluff Protection"] },
     { question: "Are there bluffs along the shoreline?", answersIfYes: ["Natural Features Setbacks", "Natural Features Overlay", "Bluff Protection", "Dynamic Zoning"] },
     { question: "Is the shoreline sandy?", answersIfYes: ["Shoreline Setbacks", "Dynamic Zoning", "Armoring Prohibition"] },
@@ -32,6 +32,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const resultsScreen = document.getElementById('results');
   const answersList = document.getElementById('answers-list');
   const controlButtons = document.getElementById('control-buttons');
+  
+  // Add styles to prevent horizontal scrolling
+  addScrollStyles();
   
   // Store all selected answers across all screens
   let allSelectedAnswers = new Set();
@@ -74,6 +77,39 @@ document.addEventListener("DOMContentLoaded", function () {
   noButton.addEventListener('click', function () {
     window.location.href = "https://example.com/full-tool-list";
   });
+
+  // Function to add CSS styles that prevent horizontal scrolling
+  function addScrollStyles() {
+    // Create a style element
+    const styleElement = document.createElement('style');
+    styleElement.textContent = `
+      /* Prevent horizontal scrolling in tables */
+      table {
+        width: 100%;
+        table-layout: fixed;
+      }
+      
+      /* Ensure cell content wraps instead of causing horizontal overflow */
+      table th, table td {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+      }
+      
+      /* Allow vertical scrolling but prevent horizontal */
+      .results-container {
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+      
+      /* Make table more responsive */
+      @media (max-width: 768px) {
+        table {
+          font-size: 0.9em;
+        }
+      }
+    `;
+    document.head.appendChild(styleElement);
+  }
 
   function showQuestions(screenIndex) {
     const form = document.createElement('form');
@@ -197,6 +233,12 @@ document.addEventListener("DOMContentLoaded", function () {
         // Show results
         resultsScreen.classList.remove('hidden');
         answersList.innerHTML = '';
+        
+        // Make sure the results container has proper styling
+        resultsScreen.className = 'results-container';
+        if (!resultsScreen.classList.contains('hidden')) {
+          resultsScreen.classList.remove('hidden');
+        }
         
         if (allSelectedAnswers.size) {
           Array.from(allSelectedAnswers).sort().forEach(answer => {
