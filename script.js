@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
     questionScreen.classList.add('scrollable');
     
     // Create and show the quiz form
-    showQuestions();
+    showQuestions(0);  // Pass screenIndex as 0
   });
 
   // Redirect to full tool list if the user clicks "View Full List of Tools"
@@ -68,105 +68,46 @@ document.addEventListener("DOMContentLoaded", function () {
     window.location.href = quizData[0].linkIfNo;
   });
 
- function showQuestions(screenIndex) {
-  const form = document.createElement('form');
-  form.id = 'quiz-form';
-  
-  const startIndex = screenIndex * 7; // 7 questions per screen (example)
-  const endIndex = startIndex + 7;
-  const questionsToShow = quizData.slice(startIndex, endIndex);
-  
-  // Create a heading for the current screen
-  const heading = document.createElement('h2');
-  heading.textContent = "What is your coastal resilience priority?";
-  form.appendChild(heading);
-  
-  questionsToShow.forEach((data, i) => {
-    const div = document.createElement('div');
-    div.className = 'question-item';
+  // Show questions dynamically based on screen index
+  function showQuestions(screenIndex) {
+    const form = document.createElement('form');
+    form.id = 'quiz-form';
     
-    const questionLabel = document.createElement('span');
-    questionLabel.textContent = data.question;
+    const startIndex = screenIndex * 7; // 7 questions per screen (example)
+    const endIndex = startIndex + 7;
+    const questionsToShow = quizData.slice(startIndex, endIndex);
     
-    const radioContainer = document.createElement('div');
-    radioContainer.className = 'radio-options';
+    // Create a heading for the current screen
+    const heading = document.createElement('h2');
+    heading.textContent = "What is your coastal resilience priority?";
+    form.appendChild(heading);
     
-    const yesLabel = document.createElement('label');
-    yesLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="yes"> Yes`;
-    const noLabel = document.createElement('label');
-    noLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="no"> No`;
-    
-    radioContainer.appendChild(yesLabel);
-    radioContainer.appendChild(noLabel);
-    
-    div.appendChild(questionLabel);
-    div.appendChild(radioContainer);
-    
-    form.appendChild(div);
-  });
-  
-  const submitButton = document.createElement('button');
-  submitButton.textContent = "Next";
-  submitButton.type = "submit";
-  submitButton.className = "submit-btn";
-  form.appendChild(submitButton);
-  
-  form.addEventListener('submit', function (event) {
-    event.preventDefault();
-    const answers = new Set();
-    
-    // Collect answers
-    for (let i = startIndex; i < endIndex; i++) {
-      const input = form.querySelector(`input[name="q${i}"]:checked`);
-      if (input && input.value === 'yes') {
-        quizData[i].answersIfYes?.forEach(answer => answers.add(answer));
-      }
-    }
-    
-    // Hide current screen and show next one
-    if (screenIndex === 0) {
-      questionScreen1.classList.add('hidden');
-      questionScreen2.classList.remove('hidden');
-      showQuestions(1); // Show the second part of the questions
-    } else if (screenIndex === 1) {
-      questionScreen2.classList.add('hidden');
-      questionScreen3.classList.remove('hidden');
-      showQuestions(2); // Show the third part of the questions
-    } else {
-      // Final submission, show results
-      questionScreen3.classList.add('hidden');
-      resultsScreen.classList.remove('hidden');
+    questionsToShow.forEach((data, i) => {
+      const div = document.createElement('div');
+      div.className = 'question-item';
       
-      // Populate results list
-      answersList.innerHTML = '';
-      if (answers.size) {
-        Array.from(answers).forEach(answer => {
-          const li = document.createElement('li');
-          li.textContent = answer;
-          answersList.appendChild(li);
-        });
-      } else {
-        answersList.innerHTML = "<li>No recommendations based on your selections.</li>";
-      }
+      const questionLabel = document.createElement('span');
+      questionLabel.textContent = data.question;
       
-      createRestartButton(); // Create the restart button
-    }
-  });
-  
-  // Append form to the appropriate screen
-  if (screenIndex === 0) {
-    questionScreen1.appendChild(form);
-  } else if (screenIndex === 1) {
-    questionScreen2.appendChild(form);
-  } else {
-    questionScreen3.appendChild(form);
-  }
-}
-
-    }
+      const radioContainer = document.createElement('div');
+      radioContainer.className = 'radio-options';
+      
+      const yesLabel = document.createElement('label');
+      yesLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="yes"> Yes`;
+      const noLabel = document.createElement('label');
+      noLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="no"> No`;
+      
+      radioContainer.appendChild(yesLabel);
+      radioContainer.appendChild(noLabel);
+      
+      div.appendChild(questionLabel);
+      div.appendChild(radioContainer);
+      
+      form.appendChild(div);
+    });
     
     const submitButton = document.createElement('button');
-    submitButton.textContent = "Submit Answers";
+    submitButton.textContent = "Next";
     submitButton.type = "submit";
     submitButton.className = "submit-btn";
     form.appendChild(submitButton);
@@ -175,37 +116,42 @@ document.addEventListener("DOMContentLoaded", function () {
       event.preventDefault();
       const answers = new Set();
       
-      // Skip the first question (which was the initial choice)
-      for (let i = 1; i < quizData.length; i++) {
+      // Collect answers
+      for (let i = startIndex; i < endIndex; i++) {
         const input = form.querySelector(`input[name="q${i}"]:checked`);
         if (input && input.value === 'yes') {
           quizData[i].answersIfYes?.forEach(answer => answers.add(answer));
         }
       }
-
-      // Hide question screen and show results screen
-      questionScreen.classList.add('hidden');
-      resultsScreen.classList.remove('hidden');
       
-      // Populate results list
-      answersList.innerHTML = '';
-      if (answers.size) {
-        Array.from(answers).forEach(answer => {
-          const li = document.createElement('li');
-          li.textContent = answer;
-          answersList.appendChild(li);
-        });
+      // Hide current screen and show next one
+      if (screenIndex === 0) {
+        showQuestions(1);  // Show the second part of the questions
+      } else if (screenIndex === 1) {
+        showQuestions(2);  // Show the third part of the questions
       } else {
-        answersList.innerHTML = "<li>No recommendations based on your selections.</li>";
+        // Final submission, show results
+        resultsScreen.classList.remove('hidden');
+        
+        // Populate results list
+        answersList.innerHTML = '';
+        if (answers.size) {
+          Array.from(answers).forEach(answer => {
+            const li = document.createElement('li');
+            li.textContent = answer;
+            answersList.appendChild(li);
+          });
+        } else {
+          answersList.innerHTML = "<li>No recommendations based on your selections.</li>";
+        }
+        
+        createRestartButton(); // Create the restart button
       }
-      
-      // Create and add the restart button only after showing results
-      createRestartButton();
     });
     
     questionScreen.appendChild(form);
   }
-  
+
   // Function to create and append the restart button
   function createRestartButton() {
     // Create a new restart button
