@@ -19,17 +19,17 @@ document.addEventListener("DOMContentLoaded", function () {
   const questionText = document.getElementById('question-text');
   const quizControls = document.getElementById('quiz-controls');
   const questionScreen = document.getElementById('question-screen');
-  const currentQuestion = document.getElementById('current-question');
   const resultsScreen = document.getElementById('results');
   const answersList = document.getElementById('answers-list');
   const restartButton = document.getElementById('restart-btn');
-  const controlButtons = document.getElementById('control-buttons');
+  
+  // Force remove the restart button from DOM initially
+  if (restartButton && restartButton.parentNode) {
+    restartButton.parentNode.removeChild(restartButton);
+  }
   
   // Set initial text for the first screen
   questionText.textContent = "Coastal Solutions Compendium: Choose an option";
-  
-  // Make sure restart button is hidden initially
-  controlButtons.classList.add('hidden');
   
   // Hide results and question screen initially
   resultsScreen.classList.add('hidden');
@@ -52,19 +52,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // Redirect to full tool list if the user clicks "View Full List of Tools"
   noButton.addEventListener('click', function () {
     window.location.href = quizData[0].linkIfNo;
-  });
-
-  // Handle restart button click
-  restartButton.addEventListener('click', function () {
-    // Reset answers and hide results
-    answersList.innerHTML = '';
-    resultsScreen.classList.add('hidden');
-    questionScreen.classList.add('hidden');
-    controlButtons.classList.add('hidden');
-    
-    // Show first screen again
-    questionText.classList.remove('hidden');
-    quizControls.classList.remove('hidden');
   });
 
   function showQuestions() {
@@ -118,14 +105,50 @@ document.addEventListener("DOMContentLoaded", function () {
         answersList.innerHTML = "<li>No recommendations based on your selections.</li>";
       }
       
-      // Show restart button only after showing results
-      controlButtons.classList.remove('hidden');
+      // Create and add the restart button only after showing results
+      createRestartButton();
     });
     
     questionScreen.appendChild(form);
   }
+  
+  // Function to create and append the restart button
+  function createRestartButton() {
+    // Create a new restart button
+    const newRestartBtn = document.createElement('button');
+    newRestartBtn.id = 'restart-btn';
+    newRestartBtn.textContent = 'Restart Quiz';
+    
+    // Create a container for the button if it doesn't exist
+    let controlButtons = document.getElementById('control-buttons');
+    if (!controlButtons) {
+      controlButtons = document.createElement('div');
+      controlButtons.id = 'control-buttons';
+      controlButtons.className = 'buttons-container';
+      document.body.appendChild(controlButtons);
+    } else {
+      // Clear any existing content in the control buttons container
+      controlButtons.innerHTML = '';
+    }
+    
+    // Add the button to the container
+    controlButtons.appendChild(newRestartBtn);
+    
+    // Add event listener to the new button
+    newRestartBtn.addEventListener('click', function() {
+      // Remove the restart button
+      if (newRestartBtn.parentNode) {
+        newRestartBtn.parentNode.removeChild(newRestartBtn);
+      }
+      
+      // Reset answers and hide results
+      answersList.innerHTML = '';
+      resultsScreen.classList.add('hidden');
+      questionScreen.classList.add('hidden');
+      
+      // Show first screen again
+      questionText.classList.remove('hidden');
+      quizControls.classList.remove('hidden');
+    });
+  }
 });
-
-
-
-
