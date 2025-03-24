@@ -292,34 +292,4 @@ function showRestartButton() {
      };
    }
  }
-
-        class QuizProgressBar {
-            constructor(totalQuestions) {
-                this.totalQuestions = totalQuestions;
-                this.currentQuestion = 0;
-                this.progressBar = document.getElementById('progress-bar');
-            }
-
-            updateProgress() {
-                // Calculate percentage
-                const progressPercentage = 
-                    (this.currentQuestion / this.totalQuestions) * 100;
-                
-                // Update progress bar width
-                this.progressBar.style.width = `${progressPercentage}%`;
-            }
-
-            nextQuestion() {
-                if (this.currentQuestion < this.totalQuestions) {
-                    this.currentQuestion++;
-                    this.updateProgress();
-                }
-            }
-
-            resetProgress() {
-                this.currentQuestion = 0;
-                this.updateProgress();
-            }
-        }
-
 });
