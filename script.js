@@ -54,63 +54,87 @@ document.addEventListener("DOMContentLoaded", function () {
     window.location.href = quizData[0].linkIfNo;
   });
 
-  function showQuestions() {
-    const form = document.createElement('form');
-    form.id = 'quiz-form';
+function showQuestions() {
+  const form = document.createElement('form');
+  form.id = 'quiz-form';
+  
+  // Create a heading for the questions screen
+  const heading = document.createElement('h2');
+  heading.textContent = "What is your coastal resilience priority?";
+  form.appendChild(heading);
+  
+  // Skip the first question (which was the initial choice)
+  for (let i = 1; i < quizData.length; i++) {
+    const div = document.createElement('div');
+    div.className = 'question-item';
     
-    // Create a heading for the questions screen
-    const heading = document.createElement('h2');
-    heading.textContent = "What is your coastal resilience priority?";
-    form.appendChild(heading);
+    // Create the question text
+    const questionLabel = document.createElement('span');
+    questionLabel.textContent = quizData[i].question;
+    
+    // Create radio button container for yes/no options
+    const radioContainer = document.createElement('div');
+    radioContainer.className = 'radio-options';
+    
+    // Create the Yes option
+    const yesLabel = document.createElement('label');
+    yesLabel.innerHTML = '<input type="radio" name="q' + i + '" value="yes"> Yes';
+    
+    // Create the No option
+    const noLabel = document.createElement('label');
+    noLabel.innerHTML = '<input type="radio" name="q' + i + '" value="no"> No';
+    
+    // Add radio buttons to container
+    radioContainer.appendChild(yesLabel);
+    radioContainer.appendChild(noLabel);
+    
+    // Append question text and radio options to the question item
+    div.appendChild(questionLabel);
+    div.appendChild(radioContainer);
+    
+    form.appendChild(div);
+  }
+  
+  const submitButton = document.createElement('button');
+  submitButton.textContent = "Submit Answers";
+  submitButton.type = "submit";
+  submitButton.className = "submit-btn";
+  form.appendChild(submitButton);
+  
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    const answers = new Set();
     
     // Skip the first question (which was the initial choice)
     for (let i = 1; i < quizData.length; i++) {
-      const div = document.createElement('div');
-      div.className = 'question-item';
-      div.innerHTML = `<label><input type="checkbox" name="q${i}"> ${quizData[i].question}</label>`;
-      form.appendChild(div);
+      const input = form.querySelector(`input[name="q${i}"]:checked`);
+      if (input && input.value === 'yes') {
+        quizData[i].answersIfYes?.forEach(answer => answers.add(answer));
+      }
+    }
+
+    // Hide question screen and show results screen
+    questionScreen.classList.add('hidden');
+    resultsScreen.classList.remove('hidden');
+    
+    // Populate results list
+    answersList.innerHTML = '';
+    if (answers.size) {
+      Array.from(answers).forEach(answer => {
+        const li = document.createElement('li');
+        li.textContent = answer;
+        answersList.appendChild(li);
+      });
+    } else {
+      answersList.innerHTML = "<li>No recommendations based on your selections.</li>";
     }
     
-    const submitButton = document.createElement('button');
-    submitButton.textContent = "Submit Answers";
-    submitButton.type = "submit";
-    submitButton.className = "submit-btn";
-    form.appendChild(submitButton);
-    
-    form.addEventListener('submit', function (event) {
-      event.preventDefault();
-      const answers = new Set();
-      
-      // Skip the first question (which was the initial choice)
-      for (let i = 1; i < quizData.length; i++) {
-        const input = form.querySelector(`input[name="q${i}"]`);
-        if (input && input.checked) {
-          quizData[i].answersIfYes?.forEach(answer => answers.add(answer));
-        }
-      }
-
-      // Hide question screen and show results screen
-      questionScreen.classList.add('hidden');
-      resultsScreen.classList.remove('hidden');
-      
-      // Populate results list
-      answersList.innerHTML = '';
-      if (answers.size) {
-        Array.from(answers).forEach(answer => {
-          const li = document.createElement('li');
-          li.textContent = answer;
-          answersList.appendChild(li);
-        });
-      } else {
-        answersList.innerHTML = "<li>No recommendations based on your selections.</li>";
-      }
-      
-      // Create and add the restart button only after showing results
-      createRestartButton();
-    });
-    
-    questionScreen.appendChild(form);
-  }
+    // Create and add the restart button only after showing results
+    createRestartButton();
+  });
+  
+  questionScreen.appendChild(form);
+}
   
   // Function to create and append the restart button
   function createRestartButton() {
