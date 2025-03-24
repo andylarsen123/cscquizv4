@@ -292,4 +292,14 @@ function showRestartButton() {
      };
    }
  }
+
+// Create progress bar with total number of questions
+const quizProgress = new QuizProgressBar(5); // 5 total questions
+
+// When moving to next question
+quizProgress.nextQuestion();
+
+// To reset progress
+quizProgress.resetProgress();
+  
 });
