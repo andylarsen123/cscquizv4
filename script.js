@@ -100,12 +100,10 @@ document.addEventListener("DOMContentLoaded", function () {
       event.preventDefault();
       const answers = new Set();
       
-for (let i = 0; i < questionsToShow.length; i++) {
+questionsToShow.forEach((data, i) => {
   const input = form.querySelector(`input[name="q${startIndex + i}"]:checked`);
   if (input && input.value === 'yes') {
-    const originalIndex = startIndex + i; // Convert local index to global index
-    if (quizData[originalIndex] && quizData[originalIndex].answersIfYes) {
-      quizData[originalIndex].answersIfYes.forEach(answer => answers.add(answer));
+    data.answersIfYes?.forEach(answer => answers.add(answer));
         }
       }
   }
