@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const questionsToShow = quizData.slice(startIndex, endIndex);
     
     const heading = document.createElement('h2');
-    heading.textContent = "Check Yes or No on the following:";
+    heading.textContent = "Select Yes or No (or Skip if Unsure) on the Following:";
     form.appendChild(heading);
     
     // Create questions for this screen
