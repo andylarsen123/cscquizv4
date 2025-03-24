@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     { question: "Is there bedrock along the shoreline?", answersIfYes: ["Shoreline Setbacks"] },
     { question: "Are there wetlands along the shoreline?", answersIfYes: ["Natural Features Setbacks", "Natural Features Overlay", "Wetlands Protection", "Shoreline Setbacks", "Armoring Prohibition", "Natural Shoreline Requirements", "Stormwater Management Requirements / Green Infrastructure"] },
     { question: "Is the shoreline armored (seawalls, riprap, etc.)?", answersIfYes: ["Armoring Prohibition", "Retreat / Building Moving", "Impervious Surface Standards"] },
-    { question: "Are there sensitive environmental areas along the shoreline?", answersIfYes: ["Natural Features Setbacks", "Natural Features Overlay", "Sensitive Environmental Areas", "Shoreline Setbacks", "Armoring Prohibition", "Temporary Shoreline Protections", "Natural Shoreline Requirements", "Retreat / Building Moving", "Impervious Surface Standards"] },
+    { question: Are there <strong>designated floodplains</strong> along the shoreline?", answersIfYes: [ "Natural Features Setbacks", "Natural Features Overlay", "Floodplain Overlay District", "Shoreline Setbacks", "Armoring Prohibition", "Temporary Shoreline Protections (Sandbags, Geotubes)", "Natural Shoreline Requirements", "Retreat / Building Moving", "Impervious Surface Standards", "Stormwater Management Requirements / Green Infrastructure"] },
   ];
 
   // Get DOM elements
