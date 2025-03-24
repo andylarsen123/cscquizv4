@@ -22,8 +22,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const answersList = document.getElementById('answers-list');
   const restartButton = document.getElementById('restart-btn');
   
-  // Hide quiz results initially
+  // Hide quiz results and restart button initially
   resultsScreen.classList.add('hidden');
+  restartButton.classList.add('hidden');
   questionScreen.classList.add('hidden');
   
   // Show quiz questions if the user clicks "Interactive Tool"
@@ -33,7 +34,8 @@ document.addEventListener("DOMContentLoaded", function () {
     questionScreen.classList.remove('hidden');
     resultsScreen.classList.add('hidden');
     questionText.classList.add('hidden');
-    restartButton.classList.remove('hidden');
+    yesButton.classList.add('hidden');
+    noButton.classList.add('hidden');
   });
 
   // Redirect to full tool list if the user clicks "View Full List of Tools"
@@ -48,6 +50,8 @@ document.addEventListener("DOMContentLoaded", function () {
     restartButton.classList.add('hidden');
     questionScreen.classList.add('hidden');
     questionText.classList.remove('hidden');
+    yesButton.classList.remove('hidden');
+    noButton.classList.remove('hidden');
   });
 
   function showQuestions() {
@@ -75,10 +79,12 @@ document.addEventListener("DOMContentLoaded", function () {
       // Show results after submission
       resultsScreen.classList.remove('hidden');
       answersList.innerHTML = answers.size ? Array.from(answers).map(a => `<li>${a}</li>`).join("") : "<li>No recommendations.</li>";
+      restartButton.classList.remove('hidden');
     });
     
     questionScreen.appendChild(form);
   }
 });
+
 
 
