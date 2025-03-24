@@ -178,6 +178,7 @@ button:hover {
   margin-bottom: 15px;
   padding: 10px;
   border-bottom: 1px solid #eee;
+  text-align: left;
 }
 
 .radio-options {
@@ -192,7 +193,7 @@ button:hover {
 }
 
 #question-screen.scrollable {
-  max-height: 400px; /* Adjust this to fit your design */
+  max-height: 500px; /* Adjust this to fit
   overflow-y: auto;
 }
 
