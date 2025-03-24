@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<video id="video-bg" autoplay loop muted playsinline>
+  <source src="https://github.com/andylarsen123/cscquizv3/raw/refs/heads/main/Gen-3%20Alpha%20Turbo%201139038001,%20I%20want%20the%20camera%20to,%20Cropped%20-%20lighthouse,%20M%205.mp4" type="video/mp4">
+</video>
+<div id="dark-overlay"></div>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coastal Solutions Tool</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="quiz-container">
+      <p id="question-text">Coastal Solutions Compendium Interactive Tool: Would you like to use the interactive tool or view the full tool list?</p>
+
+      <!-- Quiz controls -->
+      <div id="quiz-controls">
+        <button id="yes-btn">Interactive Tool</button>
+        <button id="no-btn">View Full List of Tools (Section C)</button>
+      </div>
+
+      <!-- Results section (hidden until quiz is complete) -->
+  <div id="results" class="hidden">
+    <strong>Possible Coastal Resilience Tool(s):</strong><br>Click on a tool (and scroll) to learn more.
+    <div id="answers-container"> <!-- Scrollable container added -->
+      <ul id="answers-list"></ul>
+    </div>
+  </div>
+
+    <!-- Control Buttons outside the quiz container -->
+      <div id="control-buttons" class="buttons-container">
+      <button id="restart-btn" class="hidden">Restart Quiz</button>
+    </div>
+
+    <img
+      id="company-logo"
+      src="https://www.planningmi.org/aws/MAP/asset_manager/get_image/918734?ver=6"
+      alt="Company Logo"
+    />
+
+    <script src="script.js"></script>
+    
+  </body>
+</html>
