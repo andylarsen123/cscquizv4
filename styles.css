@@ -219,17 +219,18 @@ button:hover {
   box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
 }
 
- #progress-container {
-            width: 100%;
-            background-color: #f0f0f0;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
+#progress-container {
+  width: 100%; /* Full width of the quiz container */
+  background-color: #f0f0f0; /* Light grey background */
+  border-radius: 5px;
+  height: 10px; /* Thin progress bar */
+  margin-bottom: 10px; /* Space between progress bar and content */
+  overflow: hidden; /* Ensures rounded corners are respected */
+}
 
-        #progress-bar {
-            width: 0%; /* Start at 0% */
-            height: 20px;
-            background-color: #51818d; /* Match your existing color scheme */
-            border-radius: 10px;
-            transition: width 0.5s ease-in-out;
-        }
+#progress-bar {
+  width: 0%; /* Start at 0% */
+  height: 100%; /* Full height of container */
+  background-color: #51818d; /* Match your existing color scheme */
+  transition: width 0.3s ease-in-out;
+}
