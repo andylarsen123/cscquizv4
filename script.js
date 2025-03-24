@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   
   // Set up initial screen
-  questionText.textContent = "Coastal Solutions Compendium: Choose an option";
+  questionText.innerHTML = "<strong>Coastal Solutions Compendium:</strong><br>Choose an option";  
   resultsScreen.classList.add('hidden');
   questionScreen.classList.add('hidden');
   if (controlButtons) {
