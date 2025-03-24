@@ -100,13 +100,15 @@ document.addEventListener("DOMContentLoaded", function () {
       event.preventDefault();
       const answers = new Set();
       
-for (let i = startIndex; i < endIndex; i++) {
-  const input = form.querySelector(`input[name="q${i}"]:checked`);
+for (let i = 0; i < questionsToShow.length; i++) {
+  const input = form.querySelector(`input[name="q${startIndex + i}"]:checked`);
   if (input && input.value === 'yes') {
-    if (quizData[i] && Array.isArray(quizData[i].answersIfYes)) {
-      quizData[i].answersIfYes.forEach(answer => answers.add(answer));
+    const originalIndex = startIndex + i; // Convert local index to global index
+    if (quizData[originalIndex] && quizData[originalIndex].answersIfYes) {
+      quizData[originalIndex].answersIfYes.forEach(answer => answers.add(answer));
         }
       }
+  }
       
       questionScreen.innerHTML = '';
       if (screenIndex < Math.ceil(quizData.length / 6) - 1) {
