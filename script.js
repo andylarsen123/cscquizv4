@@ -17,30 +17,33 @@ document.addEventListener("DOMContentLoaded", function () {
   const yesButton = document.getElementById('yes-btn');
   const noButton = document.getElementById('no-btn');
   const questionText = document.getElementById('question-text');
+  const quizControls = document.getElementById('quiz-controls');
   const questionScreen = document.getElementById('question-screen');
+  const currentQuestion = document.getElementById('current-question');
   const resultsScreen = document.getElementById('results');
   const answersList = document.getElementById('answers-list');
   const restartButton = document.getElementById('restart-btn');
+  const controlButtons = document.getElementById('control-buttons');
   
   // Set initial text for the first screen
   questionText.textContent = "Coastal Solutions Compendium: Choose an option";
-  yesButton.textContent = "Interactive Tool";
-  noButton.textContent = "View Full List of Tools (Section C)";
   
-  // Hide results, question screen, and restart button initially
+  // Make sure restart button is hidden initially
+  controlButtons.classList.add('hidden');
+  
+  // Hide results and question screen initially
   resultsScreen.classList.add('hidden');
   questionScreen.classList.add('hidden');
-  restartButton.classList.add('hidden');
   
   // Show quiz questions if the user clicks "Interactive Tool"
   yesButton.addEventListener('click', function () {
-    questionScreen.classList.remove('hidden');
+    // Hide the first screen elements
     questionText.classList.add('hidden');
-    yesButton.classList.add('hidden');
-    noButton.classList.add('hidden');
+    quizControls.classList.add('hidden');
     
-    // Clear any existing content in questionScreen
-    questionScreen.innerHTML = '';
+    // Show the questions screen
+    questionScreen.classList.remove('hidden');
+    questionScreen.innerHTML = ''; // Clear any existing content
     
     // Create and show the quiz form
     showQuestions();
@@ -57,12 +60,11 @@ document.addEventListener("DOMContentLoaded", function () {
     answersList.innerHTML = '';
     resultsScreen.classList.add('hidden');
     questionScreen.classList.add('hidden');
-    restartButton.classList.add('hidden');
+    controlButtons.classList.add('hidden');
     
     // Show first screen again
     questionText.classList.remove('hidden');
-    yesButton.classList.remove('hidden');
-    noButton.classList.remove('hidden');
+    quizControls.classList.remove('hidden');
   });
 
   function showQuestions() {
@@ -107,10 +109,6 @@ document.addEventListener("DOMContentLoaded", function () {
       // Populate results list
       answersList.innerHTML = '';
       if (answers.size) {
-        const resultsHeading = document.createElement('h2');
-        resultsHeading.textContent = "Recommended Solutions:";
-        answersList.appendChild(resultsHeading);
-        
         Array.from(answers).forEach(answer => {
           const li = document.createElement('li');
           li.textContent = answer;
@@ -121,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
       
       // Show restart button only after showing results
-      restartButton.classList.remove('hidden');
+      controlButtons.classList.remove('hidden');
     });
     
     questionScreen.appendChild(form);
