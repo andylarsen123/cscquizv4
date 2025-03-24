@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const answersList = document.getElementById('answers-list');
   const restartButton = document.getElementById('restart-btn');
   
-  // Hide quiz results and restart button initially
+  // Hide results and restart button initially
   resultsScreen.classList.add('hidden');
   restartButton.classList.add('hidden');
   questionScreen.classList.add('hidden');
@@ -85,6 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
     questionScreen.appendChild(form);
   }
 });
+
 
 
 
