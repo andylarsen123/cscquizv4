@@ -197,20 +197,23 @@ button:hover {
 
 .radio-options {
   display: flex;
-  flex-direction: row; /* Ensure horizontal layout */
-  align-items: center; /* Vertically center items */
-  gap: 15px; /* Space between Yes and No options */
-  width: 100%; /* Full width */
+  flex-direction: row; 
+  align-items: center;
+  justify-content: flex-start; /* Align options to the start */
+  gap: 20px; /* Increased space between options */
+  width: 100%;
 }
 
 .radio-options label {
   display: flex;
-  flex-direction: row; /* Ensure input and text are horizontal */
-  align-items: center; /* Vertically align input and text */
-  gap: 5px; /* Small space between radio button and text */
-  text-align: left;
-  white-space: nowrap; /* Prevent text from wrapping */
+  align-items: center;
+  gap: 8px; /* Space between radio button and text */
+  cursor: pointer; /* Makes the entire label clickable */
 }
+
+.radio-options input[type="radio"] {
+  margin: 0; /* Remove default margins */
+  cursor: pointer;
 
 #question-screen.scrollable {
   overflow-x: hidden;
