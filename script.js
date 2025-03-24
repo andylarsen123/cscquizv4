@@ -73,13 +73,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.createElement('form');
     form.id = 'quiz-form';
     
-    const startIndex = screenIndex * 7; // 7 questions per screen (example)
-    const endIndex = startIndex + 7;
+    const startIndex = screenIndex * 4; // 7 questions per screen (example)
+    const endIndex = startIndex + 4;
     const questionsToShow = quizData.slice(startIndex, endIndex);
     
     // Create a heading for the current screen
     const heading = document.createElement('h2');
-    heading.textContent = "What is your coastal resilience priority?";
+    heading.textContent = "Check Yes or No on the following:";
     form.appendChild(heading);
     
     questionsToShow.forEach((data, i) => {
