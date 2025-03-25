@@ -251,7 +251,7 @@ function showQuestions(screenIndex) {
     const questionsToShow = quizData.slice(startIndex, endIndex);
     
     const heading = document.createElement('p');
-    heading.textContent = "Select Yes or No (or Skip if Unsure) on the following:";
+    heading.textContent = "Select Yes or No (or Skip if Unsure):";
     heading.style.textAlign = 'center';
     heading.style.fontWeight = 'bold';
     heading.style.marginBottom = '14px';
