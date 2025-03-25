@@ -111,16 +111,16 @@ document.addEventListener("DOMContentLoaded", function () {
     document.head.appendChild(styleElement);
   }
 
-  function showQuestions(screenIndex) {
+function showQuestions(screenIndex) {
     const form = document.createElement('form');
     form.id = 'quiz-form';
     
-    // Changed from 6 to 5 questions per page
-    const startIndex = screenIndex * 5 + 1; // Skip the first entry which is the initial choice
-    const endIndex = Math.min(startIndex + 5, quizData.length);
+    // Changed from 5 to 4 questions per page
+    const startIndex = screenIndex * 4 + 1; // Skip the first entry which is the initial choice
+    const endIndex = Math.min(startIndex + 4, quizData.length);
     const questionsToShow = quizData.slice(startIndex, endIndex);
     
-const heading = document.createElement('p');
+    const heading = document.createElement('p');
     heading.textContent = "Select Yes or No (or Skip if Unsure) on the following:";
     heading.style.textAlign = 'center';
     heading.style.fontWeight = 'bold';
@@ -239,9 +239,6 @@ const heading = document.createElement('p');
         
         // Make sure the results container has proper styling
         resultsScreen.className = 'results-container';
-        if (!resultsScreen.classList.contains('hidden')) {
-          resultsScreen.classList.remove('hidden');
-        }
         
         if (allSelectedAnswers.size) {
           Array.from(allSelectedAnswers).sort().forEach(answer => {
@@ -262,34 +259,34 @@ const heading = document.createElement('p');
     questionScreen.appendChild(form);
   }
 
-function showRestartButton() {
-  // Show the existing restart button only on the results screen
-  if (controlButtons) {
-    controlButtons.classList.remove('hidden');
-  }
-  
-  const restartBtn = document.getElementById('restart-btn');
-  if (restartBtn) {
-    restartBtn.style.display = 'block';
+  function showRestartButton() {
+    // Show the existing restart button only on the results screen
+    if (controlButtons) {
+      controlButtons.classList.remove('hidden');
+    }
     
-    // Make sure the event listener is attached
-    restartBtn.onclick = function() {
-      // Reset the quiz
-      allSelectedAnswers = new Set();
-      answersList.innerHTML = '';
-      resultsScreen.classList.add('hidden');
-      questionText.style.display = '';
-      quizControls.style.display = '';
-      questionScreen.classList.add('hidden');
+    const restartBtn = document.getElementById('restart-btn');
+    if (restartBtn) {
+      restartBtn.style.display = 'block';
       
-      // Hide the control buttons (including restart button)
-      if (controlButtons) {
-        controlButtons.classList.add('hidden');
-      }
-      
-      // Explicitly hide the restart button
-      restartBtn.style.display = 'none';
-     };
-   }
- }
+      // Make sure the event listener is attached
+      restartBtn.onclick = function() {
+        // Reset the quiz
+        allSelectedAnswers = new Set();
+        answersList.innerHTML = '';
+        resultsScreen.classList.add('hidden');
+        questionText.style.display = '';
+        quizControls.style.display = '';
+        questionScreen.classList.add('hidden');
+        
+        // Hide the control buttons (including restart button)
+        if (controlButtons) {
+          controlButtons.classList.add('hidden');
+        }
+        
+        // Explicitly hide the restart button
+        restartBtn.style.display = 'none';
+      };
+    }
+  }
 });
