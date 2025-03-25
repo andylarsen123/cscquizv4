@@ -371,34 +371,31 @@ function showQuestions(screenIndex) {
         resultsScreen.className = 'results-container';
         
 if (allSelectedAnswers.size) {
-    Array.from(allSelectedAnswers).sort().forEach(answer => {
-        const li = document.createElement('li');
-        
-        // Check if the answer is an object with text and link
-        if (answer && typeof answer === 'object' && answer.text && answer.link) {
-            const a = document.createElement('a');
-            a.href = answer.link;
-            a.target = '_blank';
-            a.rel = 'noopener noreferrer';
-            a.textContent = answer.text;
-            li.appendChild(a);
-        } else if (typeof answer === 'string') {
-            // Fallback for any string answers
-            const a = document.createElement('a');
-            a.href = `https://example.com/${answer.toLowerCase().replace(/\s+/g, '-')}`;
-            a.target = '_blank';
-            a.rel = 'noopener noreferrer';
-            a.textContent = answer;
-            li.appendChild(a);
-        } else {
-            li.textContent = answer;
-        }
-        
-        answersList.appendChild(li);
-          });
-        } else {
-          answersList.innerHTML = "<li>No recommendations based on your selections.</li>";
-        }
+    // Create a Set to store unique answers
+    const uniqueAnswers = new Set();
+    
+    Array.from(allSelectedAnswers)
+        .filter(answer => answer && typeof answer === 'object' && answer.text && answer.link)
+        .sort((a, b) => a.text.localeCompare(b.text))
+        .forEach(answer => {
+            // Use the text as the unique identifier
+            if (!uniqueAnswers.has(answer.text)) {
+                uniqueAnswers.add(answer.text);
+                
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = answer.link;
+                a.target = '_blank';
+                a.rel = 'noopener noreferrer';
+                a.textContent = answer.text;
+                li.appendChild(a);
+                
+                answersList.appendChild(li);
+            }
+        });
+} else {
+    answersList.innerHTML = "<li>No recommendations based on your selections.</li>";
+}
         
         // Only show restart button on results screen
         showRestartButton();
