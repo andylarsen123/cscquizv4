@@ -1,28 +1,158 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Initialize quiz data
-  const quizData = [
-    { question: "<strong>Coastal Solutions Compendium:</strong><br>Choose an option", answersIfYes: ["Interactive Tool"], linkIfNo: "https://example.com/full-tool-list" },
-    { question: "Is the shoreline <strong>elevated (bluffs, banks)?</strong>", answersIfYes: ["Natural Features Setbacks", "Natural Features Overlay", "Bluff Protection"] },
-    { question: "Are there <strong>bluffs</strong> along the shoreline?", answersIfYes: ["Natural Features Setbacks", "Natural Features Overlay", "Bluff Protection", "Dynamic Zoning"] },
-    { question: "Is the shoreline <strong>sandy?</strong>", answersIfYes: ["Shoreline Setbacks", "Dynamic Zoning", "Armoring Prohibition"] },
-    { question: "Are there <strong>dunes</strong> along the shoreline?", answersIfYes: ["Natural Features Setbacks", "Natural Features Overlay", "Dune Protection", "Shoreline Setbacks", "Dynamic Zoning", "Armoring Prohibition"] },
-    { question: "Are there <strong>coarse sediment beaches </strong> along the shoreline?", answersIfYes: ["Shoreline Setbacks", "Armoring Prohibition"] },
-    { question: "Is there <strong>bedrock</strong> along the shoreline?", answersIfYes: ["Shoreline Setbacks"] },
-    { question: "Are there <strong>wetlands</strong> along the shoreline?", answersIfYes: ["Natural Features Setbacks", "Natural Features Overlay", "Wetlands Protection", "Shoreline Setbacks", "Armoring Prohibition", "Natural Shoreline Requirements", "Stormwater Management Requirements / Green Infrastructure"] },
-    { question: "Is the shoreline <strong>armored (seawalls, riprap, etc.)?</strong>", answersIfYes: ["Armoring Prohibition", "Retreat / Building Moving", "Impervious Surface Standards"] },
-    { question: "Are there <strong>sensitive environmental areas</strong> along the shoreline?", answersIfYes: ["Natural Features Setbacks", "Natural Features Overlay", "Sensitive Environmental Areas", "Shoreline Setbacks", "Armoring Prohibition", "Temporary Shoreline Protections (Sandbags, Geotubes)", "Natural Shoreline Requirements", "Retreat / Building Moving", "Impervious Surface Standards"] },
-    { question: "Are there <strong>high risk erosion areas</strong> along the shoreline?", answersIfYes: ["Natural Features Setbacks", "Natural Features Overlay", "High Risk Erosion Area Protection", "Shoreline Setbacks", "Dynamic Zoning", "Armoring Prohibition", "Temporary Shoreline Protections (Sandbags, Geotubes)", "Natural Shoreline Requirements", "Retreat / Building Moving", "Impervious Surface Standards"] },
-    { question: "Are there <strong>designated floodplains</strong> along the shoreline?", answersIfYes: ["Natural Features Setbacks", "Natural Features Overlay", "Floodplain Overlay District", "Shoreline Setbacks", "Armoring Prohibition", "Temporary Shoreline Protections (Sandbags, Geotubes)", "Natural Shoreline Requirements", "Retreat / Building Moving", "Impervious Surface Standards", "Stormwater Management Requirements / Green Infrastructure"] },
-    { question: "Is the <strong>character of the shoreline</strong> similar across your community?", answersIfYes: ["Shoreline Setbacks", "Shoreline District", "Natural Shoreline Requirements", "Impervious Surface Standards", "Stormwater Management Requirements / Green Infrastructure"] },
-    { question: "Does development <strong>already exist</strong> within 50ft of the shoreline?", answersIfYes: ["Nonconformities and Variance Standards", "Armoring Prohibition", "Temporary Shoreline Protections (Sandbags, Geotubes)", "Retreat / Building Moving"] },
-    { question: "Do you <strong>anticipate new development or redevelopment</strong> within 50 feet of your shoreline?", answersIfYes: ["Shoreline Setbacks", "Site Condos", "Armoring Prohibition", "Retreat / Building Moving"] },
-    { question: "Is there shoreline property which is experiencing <strong>erosion</strong>?", answersIfYes: ["Shoreline Setbacks", "Dynamic Zoning", "Land Division Regulations", "Long Lots", "Armoring Prohibition", "Temporary Shoreline Protections (Sandbags, Geotubes)", "Natural Shoreline Requirements", "Retreat / Building Moving"] },
-    { question: "Is there shoreline property which is experiencing <strong>flooding</strong>?", answersIfYes: ["Shoreline Setbacks", "Land Division Regulations", "Long Lots", "Armoring Prohibition", "Temporary Shoreline Protections (Sandbags, Geotubes)", "Natural Shoreline Requirements", "Retreat / Building Moving", "Impervious Surface Standards", "Stormwater Management Requirements / Green Infrastructure", "Open Space Requirements"] },
-    { question: "Development: Are there <strong>existing or desired shoreline-specific uses</strong>, such as marinas?", answersIfYes: ["Shoreline Setbacks", "Land Division Regulations", "Long Lots", "Armoring Prohibition", "Temporary Shoreline Protections (Sandbags, Geotubes)", "Natural Shoreline Requirements", "Retreat / Building Moving", "Impervious Surface Standards", "Stormwater Management Requirements / Green Infrastructure", "Open Space Requirements"] },
-    { question: "Is your community concerned about <strong>invasive plant or animal species</strong>", answersIfYes: ["Invasive Species Prohibition"] },
-    { question: "Is your community concerned about <strong>water quality?</strong>", answersIfYes: ["Natural Shoreline Requirements", "Impervious Surface Standards", "Stormwater Management Requirements / Green Infrastructure"] },
-    { question: "Is it a priority for your community to <strong>preserve or create access to the shoreline?</strong>", answersIfYes: ["Shoreline Setbacks", "Land Division Regulations", "Long Lots", "Armoring Prohibition", "Temporary Shoreline Protections (Sandbags, Geotubes)", "Stormwater Management Requirements / Green Infrastructure", "Open Space Requirements"] }
-  ];
+const quizData = [
+    { question: "<strong>Coastal Solutions Compendium:</strong><br>Choose an option", answersIfYes: [{ text: "Interactive Tool", link: "https://example.com/interactive-tool" }], linkIfNo: "https://example.com/full-tool-list" },
+    { question: "Is the shoreline <strong>elevated (bluffs, banks)?</strong>", answersIfYes: [
+        { text: "Natural Features Setbacks", link: "https://example.com/natural-features-setbacks" },
+        { text: "Natural Features Overlay", link: "https://example.com/natural-features-overlay" },
+        { text: "Bluff Protection", link: "https://example.com/bluff-protection" }
+    ]},
+    { question: "Are there <strong>bluffs</strong> along the shoreline?", answersIfYes: [
+        { text: "Natural Features Setbacks", link: "https://example.com/natural-features-setbacks" },
+        { text: "Natural Features Overlay", link: "https://example.com/natural-features-overlay" },
+        { text: "Bluff Protection", link: "https://example.com/bluff-protection" },
+        { text: "Dynamic Zoning", link: "https://example.com/dynamic-zoning" }
+    ]},
+    { question: "Is the shoreline <strong>sandy?</strong>", answersIfYes: [
+        { text: "Shoreline Setbacks", link: "https://example.com/shoreline-setbacks" },
+        { text: "Dynamic Zoning", link: "https://example.com/dynamic-zoning" },
+        { text: "Armoring Prohibition", link: "https://example.com/armoring-prohibition" }
+    ]},
+    { question: "Are there <strong>dunes</strong> along the shoreline?", answersIfYes: [
+        { text: "Natural Features Setbacks", link: "https://example.com/natural-features-setbacks" },
+        { text: "Natural Features Overlay", link: "https://example.com/natural-features-overlay" },
+        { text: "Dune Protection", link: "https://example.com/dune-protection" },
+        { text: "Shoreline Setbacks", link: "https://example.com/shoreline-setbacks" },
+        { text: "Dynamic Zoning", link: "https://example.com/dynamic-zoning" },
+        { text: "Armoring Prohibition", link: "https://example.com/armoring-prohibition" }
+    ]},
+    { question: "Are there <strong>coarse sediment beaches </strong> along the shoreline?", answersIfYes: [
+        { text: "Shoreline Setbacks", link: "https://example.com/shoreline-setbacks" },
+        { text: "Armoring Prohibition", link: "https://example.com/armoring-prohibition" }
+    ]},
+    { question: "Is there <strong>bedrock</strong> along the shoreline?", answersIfYes: [
+        { text: "Shoreline Setbacks", link: "https://example.com/shoreline-setbacks" }
+    ]},
+    { question: "Are there <strong>wetlands</strong> along the shoreline?", answersIfYes: [
+        { text: "Natural Features Setbacks", link: "https://example.com/natural-features-setbacks" },
+        { text: "Natural Features Overlay", link: "https://example.com/natural-features-overlay" },
+        { text: "Wetlands Protection", link: "https://example.com/wetlands-protection" },
+        { text: "Shoreline Setbacks", link: "https://example.com/shoreline-setbacks" },
+        { text: "Armoring Prohibition", link: "https://example.com/armoring-prohibition" },
+        { text: "Natural Shoreline Requirements", link: "https://example.com/natural-shoreline-requirements" },
+        { text: "Stormwater Management Requirements / Green Infrastructure", link: "https://example.com/stormwater-management" }
+    ]},
+    { question: "Is the shoreline <strong>armored (seawalls, riprap, etc.)?</strong>", answersIfYes: [
+        { text: "Armoring Prohibition", link: "https://example.com/armoring-prohibition" },
+        { text: "Retreat / Building Moving", link: "https://example.com/retreat-building-moving" },
+        { text: "Impervious Surface Standards", link: "https://example.com/impervious-surface-standards" }
+    ]},
+    { question: "Are there <strong>sensitive environmental areas</strong> along the shoreline?", answersIfYes: [
+        { text: "Natural Features Setbacks", link: "https://example.com/natural-features-setbacks" },
+        { text: "Natural Features Overlay", link: "https://example.com/natural-features-overlay" },
+        { text: "Sensitive Environmental Areas", link: "https://example.com/sensitive-environmental-areas" },
+        { text: "Shoreline Setbacks", link: "https://example.com/shoreline-setbacks" },
+        { text: "Armoring Prohibition", link: "https://example.com/armoring-prohibition" },
+        { text: "Temporary Shoreline Protections (Sandbags, Geotubes)", link: "https://example.com/temporary-shoreline-protections" },
+        { text: "Natural Shoreline Requirements", link: "https://example.com/natural-shoreline-requirements" },
+        { text: "Retreat / Building Moving", link: "https://example.com/retreat-building-moving" },
+        { text: "Impervious Surface Standards", link: "https://example.com/impervious-surface-standards" }
+    ]},
+    { question: "Are there <strong>high risk erosion areas</strong> along the shoreline?", answersIfYes: [
+        { text: "Natural Features Setbacks", link: "https://example.com/natural-features-setbacks" },
+        { text: "Natural Features Overlay", link: "https://example.com/natural-features-overlay" },
+        { text: "High Risk Erosion Area Protection", link: "https://example.com/high-risk-erosion-protection" },
+        { text: "Shoreline Setbacks", link: "https://example.com/shoreline-setbacks" },
+        { text: "Dynamic Zoning", link: "https://example.com/dynamic-zoning" },
+        { text: "Armoring Prohibition", link: "https://example.com/armoring-prohibition" },
+        { text: "Temporary Shoreline Protections (Sandbags, Geotubes)", link: "https://example.com/temporary-shoreline-protections" },
+        { text: "Natural Shoreline Requirements", link: "https://example.com/natural-shoreline-requirements" },
+        { text: "Retreat / Building Moving", link: "https://example.com/retreat-building-moving" },
+        { text: "Impervious Surface Standards", link: "https://example.com/impervious-surface-standards" }
+    ]},
+    { question: "Are there <strong>designated floodplains</strong> along the shoreline?", answersIfYes: [
+        { text: "Natural Features Setbacks", link: "https://example.com/natural-features-setbacks" },
+        { text: "Natural Features Overlay", link: "https://example.com/natural-features-overlay" },
+        { text: "Floodplain Overlay District", link: "https://example.com/floodplain-overlay-district" },
+        { text: "Shoreline Setbacks", link: "https://example.com/shoreline-setbacks" },
+        { text: "Armoring Prohibition", link: "https://example.com/armoring-prohibition" },
+        { text: "Temporary Shoreline Protections (Sandbags, Geotubes)", link: "https://example.com/temporary-shoreline-protections" },
+        { text: "Natural Shoreline Requirements", link: "https://example.com/natural-shoreline-requirements" },
+        { text: "Retreat / Building Moving", link: "https://example.com/retreat-building-moving" },
+        { text: "Impervious Surface Standards", link: "https://example.com/impervious-surface-standards" },
+        { text: "Stormwater Management Requirements / Green Infrastructure", link: "https://example.com/stormwater-management" }
+    ]},
+    { question: "Is the <strong>character of the shoreline</strong> similar across your community?", answersIfYes: [
+        { text: "Shoreline Setbacks", link: "https://example.com/shoreline-setbacks" },
+        { text: "Shoreline District", link: "https://example.com/shoreline-district" },
+        { text: "Natural Shoreline Requirements", link: "https://example.com/natural-shoreline-requirements" },
+        { text: "Impervious Surface Standards", link: "https://example.com/impervious-surface-standards" },
+        { text: "Stormwater Management Requirements / Green Infrastructure", link: "https://example.com/stormwater-management" }
+    ]},
+    { question: "Does development <strong>already exist</strong> within 50ft of the shoreline?", answersIfYes: [
+        { text: "Nonconformities and Variance Standards", link: "https://example.com/nonconformities-variance-standards" },
+        { text: "Armoring Prohibition", link: "https://example.com/armoring-prohibition" },
+        { text: "Temporary Shoreline Protections (Sandbags, Geotubes)", link: "https://example.com/temporary-shoreline-protections" },
+        { text: "Retreat / Building Moving", link: "https://example.com/retreat-building-moving" }
+    ]},
+    { question: "Do you <strong>anticipate new development or redevelopment</strong> within 50 feet of your shoreline?", answersIfYes: [
+        { text: "Shoreline Setbacks", link: "https://example.com/shoreline-setbacks" },
+        { text: "Site Condos", link: "https://example.com/site-condos" },
+        { text: "Armoring Prohibition", link: "https://example.com/armoring-prohibition" },
+        { text: "Retreat / Building Moving", link: "https://example.com/retreat-building-moving" }
+    ]},
+    { question: "Is there shoreline property which is experiencing <strong>erosion</strong>?", answersIfYes: [
+        { text: "Shoreline Setbacks", link: "https://example.com/shoreline-setbacks" },
+        { text: "Dynamic Zoning", link: "https://example.com/dynamic-zoning" },
+        { text: "Land Division Regulations", link: "https://example.com/land-division-regulations" },
+        { text: "Long Lots", link: "https://example.com/long-lots" },
+        { text: "Armoring Prohibition", link: "https://example.com/armoring-prohibition" },
+        { text: "Temporary Shoreline Protections (Sandbags, Geotubes)", link: "https://example.com/temporary-shoreline-protections" },
+        { text: "Natural Shoreline Requirements", link: "https://example.com/natural-shoreline-requirements" },
+        { text: "Retreat / Building Moving", link: "https://example.com/retreat-building-moving" }
+    ]},
+    { question: "Is there shoreline property which is experiencing <strong>flooding</strong>?", answersIfYes: [
+        { text: "Shoreline Setbacks", link: "https://example.com/shoreline-setbacks" },
+        { text: "Land Division Regulations", link: "https://example.com/land-division-regulations" },
+        { text: "Long Lots", link: "https://example.com/long-lots" },
+        { text: "Armoring Prohibition", link: "https://example.com/armoring-prohibition" },
+        { text: "Temporary Shoreline Protections (Sandbags, Geotubes)", link: "https://example.com/temporary-shoreline-protections" },
+        { text: "Natural Shoreline Requirements", link: "https://example.com/natural-shoreline-requirements" },
+        { text: "Retreat / Building Moving", link: "https://example.com/retreat-building-moving" },
+        { text: "Impervious Surface Standards", link: "https://example.com/impervious-surface-standards" },
+        { text: "Stormwater Management Requirements / Green Infrastructure", link: "https://example.com/stormwater-management" },
+        { text: "Open Space Requirements", link: "https://example.com/open-space-requirements" }
+    ]},
+    { question: "Development: Are there <strong>existing or desired shoreline-specific uses</strong>, such as marinas?", answersIfYes: [
+        { text: "Shoreline Setbacks", link: "https://example.com/shoreline-setbacks" },
+        { text: "Land Division Regulations", link: "https://example.com/land-division-regulations" },
+        { text: "Long Lots", link: "https://example.com/long-lots" },
+        { text: "Armoring Prohibition", link: "https://example.com/armoring-prohibition" },
+        { text: "Temporary Shoreline Protections (Sandbags, Geotubes)", link: "https://example.com/temporary-shoreline-protections" },
+        { text: "Natural Shoreline Requirements", link: "https://example.com/natural-shoreline-requirements" },
+        { text: "Retreat / Building Moving", link: "https://example.com/retreat-building-moving" },
+        { text: "Impervious Surface Standards", link: "https://example.com/impervious-surface-standards" },
+        { text: "Stormwater Management Requirements / Green Infrastructure", link: "https://example.com/stormwater-management" },
+        { text: "Open Space Requirements", link: "https://example.com/open-space-requirements" }
+    ]},
+    { question: "Is your community concerned about <strong>invasive plant or animal species</strong>", answersIfYes: [
+        { text: "Invasive Species Prohibition", link: "https://example.com/invasive-species-prohibition" }
+    ]},
+    { question: "Is your community concerned about <strong>water quality?</strong>", answersIfYes: [
+        { text: "Natural Shoreline Requirements", link: "https://example.com/natural-shoreline-requirements" },
+        { text: "Impervious Surface Standards", link: "https://example.com/impervious-surface-standards" },
+        { text: "Stormwater Management Requirements / Green Infrastructure", link: "https://example.com/stormwater-management" }
+    ]},
+    { question: "Is it a priority for your community to <strong>preserve or create access to the shoreline?</strong>", answersIfYes: [
+        { text: "Shoreline Setbacks", link: "https://example.com/shoreline-setbacks" },
+        { text: "Land Division Regulations", link: "https://example.com/land-division-regulations" },
+        { text: "Long Lots", link: "https://example.com/long-lots" },
+        { text: "Armoring Prohibition", link: "https://example.com/armoring-prohibition" },
+        { text: "Temporary Shoreline Protections (Sandbags, Geotubes)", link: "https://example.com/temporary-shoreline-protections" },
+        { text: "Stormwater Management Requirements / Green Infrastructure", link: "https://example.com/stormwater-management" },
+        { text: "Open Space Requirements", link: "https://example.com/open-space-requirements" }
+    ]}
+];
 
   const yesButton = document.getElementById('yes-btn');
   const noButton = document.getElementById('no-btn');
@@ -240,11 +370,31 @@ function showQuestions(screenIndex) {
         // Make sure the results container has proper styling
         resultsScreen.className = 'results-container';
         
-        if (allSelectedAnswers.size) {
-          Array.from(allSelectedAnswers).sort().forEach(answer => {
-            const li = document.createElement('li');
+if (allSelectedAnswers.size) {
+    Array.from(allSelectedAnswers).sort().forEach(answer => {
+        const li = document.createElement('li');
+        
+        // Check if the answer is an object with text and link
+        if (answer && typeof answer === 'object' && answer.text && answer.link) {
+            const a = document.createElement('a');
+            a.href = answer.link;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            a.textContent = answer.text;
+            li.appendChild(a);
+        } else if (typeof answer === 'string') {
+            // Fallback for any string answers
+            const a = document.createElement('a');
+            a.href = `https://example.com/${answer.toLowerCase().replace(/\s+/g, '-')}`;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            a.textContent = answer;
+            li.appendChild(a);
+        } else {
             li.textContent = answer;
-            answersList.appendChild(li);
+        }
+        
+        answersList.appendChild(li);
           });
         } else {
           answersList.innerHTML = "<li>No recommendations based on your selections.</li>";
