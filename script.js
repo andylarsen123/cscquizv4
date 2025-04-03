@@ -248,18 +248,23 @@ function showQuestions(screenIndex) {
         const div = document.createElement('div');
         div.className = 'question-item';
 
+        const questionContainer = document.createElement('div');
+        questionContainer.className = 'question-container';
+        questionContainer.style.display = 'flex'; // Align checkbox and text in a row
+        questionContainer.style.alignItems = 'center'; // Vertically align checkbox and text
+
+        const checkboxInput = document.createElement('input');
+        checkboxInput.type = 'checkbox';
+        checkboxInput.name = `q${startIndex + i}`;
+        checkboxInput.value = 'yes';
+        checkboxInput.style.marginRight = '10px'; // Space between checkbox and text
+
         const questionLabel = document.createElement('span');
         questionLabel.innerHTML = data.question; 
 
-        const checkboxContainer = document.createElement('div');
-        checkboxContainer.className = 'checkbox-options';
-
-        const checkboxLabel = document.createElement('label');
-        checkboxLabel.innerHTML = `<input type="checkbox" name="q${startIndex + i}" value="yes"> Select`;
-
-        checkboxContainer.appendChild(checkboxLabel);
-        div.appendChild(questionLabel);
-        div.appendChild(checkboxContainer);
+        questionContainer.appendChild(checkboxInput);
+        questionContainer.appendChild(questionLabel);
+        div.appendChild(questionContainer);
         form.appendChild(div);
     });
 
@@ -326,6 +331,7 @@ function showQuestions(screenIndex) {
     questionScreen.innerHTML = '';
     questionScreen.appendChild(form);
 }
+
 
 
   function showResults() {
