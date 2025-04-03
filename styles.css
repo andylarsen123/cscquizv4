@@ -229,20 +229,27 @@ button:hover {
   border-bottom: 2px solid #edf2f7;
 }
 
+/* Checkbox options container */
 .checkbox-options {
     display: flex;
     flex-direction: column;
-    gap: 8px; /* Adds spacing between checkbox options */
+    gap: 8px; /* Space between each checkbox option */
+    align-items: flex-start; /* Align checkboxes and text to the left */
 }
 
+/* Label styling for checkboxes */
 .checkbox-options label {
     display: flex;
-    align-items: center;  /* Ensures the checkbox and text are vertically centered */
+    align-items: center;  /* Vertically center checkbox and text */
     gap: 8px; /* Adds space between checkbox and label text */
+    margin: 0; /* Reset margin around label */
+    padding: 0; /* Reset padding */
 }
 
+/* Checkbox input styling */
 .checkbox-options input[type="checkbox"] {
-    margin: 0; /* Removes default margin of the checkbox */
-    vertical-align: middle; /* Ensures checkbox is aligned with the middle of the text */
-    line-height: 1.5; /* Ensures consistent line height */
+    margin: 0; /* Remove default margin */
+    vertical-align: middle; /* Align checkbox vertically with text */
+    height: 16px; /* Optional: Adjust size of checkbox */
+    width: 16px; /* Optional: Adjust size of checkbox */
 }
