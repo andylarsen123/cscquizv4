@@ -258,8 +258,12 @@ function showQuestions(screenIndex) {
         checkboxInput.type = 'checkbox';
         checkboxInput.name = `q${startIndex + i}`;
         checkboxInput.value = 'yes';
-        checkboxInput.style.marginRight = '20px'; // Space between checkbox and text
-        checkboxInput.style.verticalalign = 'middle';
+        checkboxInput.id = `checkbox-${startIndex + i}`
+
+        const checkboxLabel = document.createElement('label');
+        checkboxLabel.setAttribute('for', checkboxInput.id); // Link the label to the checkbox
+
+        checkboxLabel.innerHTML = "Select";
 
         const questionLabel = document.createElement('span');
         questionLabel.innerHTML = data.question; 
