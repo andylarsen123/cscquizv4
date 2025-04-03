@@ -219,13 +219,11 @@ function showQuestions(screenIndex) {
         "Priorities"
     ];
 
-    // Make sure we don't go beyond our defined screens
     if (screenIndex >= groupings.length) {
         showResults();
         return;
     }
 
-    // Get the current grouping
     const currentGroup = groupings[screenIndex];
     const startIndex = currentGroup.startIndex;
     const questionsToShow = quizData.slice(startIndex, startIndex + currentGroup.count);
@@ -233,13 +231,13 @@ function showQuestions(screenIndex) {
 
     // Add section header
     const header = document.createElement('h2');
-    header.textContent = headers[screenIndex]; // Assign corresponding header
+    header.textContent = headers[screenIndex];
     header.style.textAlign = 'center';
     header.style.marginBottom = '14px';
     form.appendChild(header);
 
     const heading = document.createElement('p');
-    heading.textContent = "Select Yes or No (or Skip if Unsure):";
+    heading.textContent = "Check all that apply (or leave blank if unsure):";
     heading.style.textAlign = 'center';
     heading.style.fontWeight = 'bold';
     heading.style.marginBottom = '14px';
@@ -251,36 +249,32 @@ function showQuestions(screenIndex) {
         div.className = 'question-item';
 
         const questionLabel = document.createElement('span');
-        questionLabel.innerHTML = data.question;
+        questionLabel.innerHTML = data.question; 
 
-        const radioContainer = document.createElement('div');
-        radioContainer.className = 'radio-options';
+        const checkboxContainer = document.createElement('div');
+        checkboxContainer.className = 'checkbox-options';
 
-        const yesLabel = document.createElement('label');
-        yesLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="yes"> Yes`;
+        const checkboxLabel = document.createElement('label');
+        checkboxLabel.innerHTML = `<input type="checkbox" name="q${startIndex + i}" value="yes"> Select`;
 
-        const noLabel = document.createElement('label');
-        noLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="no"> No`;
-
-        radioContainer.appendChild(yesLabel);
-        radioContainer.appendChild(noLabel);
-
+        checkboxContainer.appendChild(checkboxLabel);
         div.appendChild(questionLabel);
-        div.appendChild(radioContainer);
-
+        div.appendChild(checkboxContainer);
         form.appendChild(div);
     });
 
-    // Add buttons container
+    // Buttons container
     const buttonsContainer = document.createElement('div');
     buttonsContainer.className = 'buttons-container';
 
+    // Continue button
     const continueButton = document.createElement('button');
     continueButton.type = 'submit';
     continueButton.textContent = 'Continue';
     continueButton.className = 'continue-btn';
     buttonsContainer.appendChild(continueButton);
 
+    // Back button
     const backButton = document.createElement('button');
     backButton.type = 'button';
     backButton.textContent = 'Back';
@@ -308,12 +302,15 @@ function showQuestions(screenIndex) {
     buttonsContainer.appendChild(backButton);
     form.appendChild(buttonsContainer);
 
+    // Form submission handler
     form.addEventListener('submit', function(event) {
         event.preventDefault();
+
+        // Process checked answers
         questionsToShow.forEach((data, i) => {
             const questionIndex = startIndex + i;
             const input = form.querySelector(`input[name="q${questionIndex}"]:checked`);
-            if (input && input.value === 'yes' && data.answersIfYes) {
+            if (input && data.answersIfYes) {
                 data.answersIfYes.forEach(answer => allSelectedAnswers.add(answer));
             }
         });
