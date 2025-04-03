@@ -241,6 +241,7 @@ function showQuestions(screenIndex) {
     heading.style.textAlign = 'left';
     heading.style.fontWeight = 'bold';
     heading.style.marginBottom = '10px';
+    heading.style.marginleft = '20px';
     form.appendChild(heading);
 
     // Create questions for this screen
