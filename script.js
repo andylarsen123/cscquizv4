@@ -254,9 +254,22 @@ function showQuestions(screenIndex) {
     const form = document.createElement('form');
     form.id = 'quiz-form';
     
-    // Changed from 5 to 4 questions per page
-    const startIndex = screenIndex * 4 + 1; // Skip the first entry which is the initial choice
-    const endIndex = Math.min(startIndex + 4, quizData.length);
+    // Define question groups
+    const questionGroups = [
+        { start: 1, count: 9 },  // First 9 questions (1-9)
+        { start: 10, count: 4 }, // Next 4 questions (10-13)
+        { start: 14, count: 5 }, // Next 5 questions (14-18)
+        { start: 19, count: 3 }  // Last 3 questions (19-21)
+    ];
+    
+    // If we're beyond our defined groups, return empty form
+    if (screenIndex >= questionGroups.length) {
+        return form;
+    }
+    
+    const currentGroup = questionGroups[screenIndex];
+    const startIndex = currentGroup.start;
+    const endIndex = startIndex + currentGroup.count;
     const questionsToShow = quizData.slice(startIndex, endIndex);
     
     const heading = document.createElement('p');
@@ -268,68 +281,32 @@ function showQuestions(screenIndex) {
     
     // Create questions for this screen
     questionsToShow.forEach((data, i) => {
-      const div = document.createElement('div');
-      div.className = 'question-item';
-      
-      const questionLabel = document.createElement('span');
-      questionLabel.innerHTML = data.question; // Using innerHTML to support the <strong> tags
-      
-      const radioContainer = document.createElement('div');
-      radioContainer.className = 'radio-options';
-      
-      const yesLabel = document.createElement('label');
-      yesLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="yes"> Yes`;
-      
-      const noLabel = document.createElement('label');
-      noLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="no"> No`;
-      
-      radioContainer.appendChild(yesLabel);
-      radioContainer.appendChild(noLabel);
-      
-      div.appendChild(questionLabel);
-      div.appendChild(radioContainer);
-      
-      form.appendChild(div);
+        const div = document.createElement('div');
+        div.className = 'question-item';
+        
+        const questionLabel = document.createElement('span');
+        questionLabel.innerHTML = data.question; // Using innerHTML to support the <strong> tags
+        
+        const radioContainer = document.createElement('div');
+        radioContainer.className = 'radio-options';
+        
+        const yesLabel = document.createElement('label');
+        yesLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="yes"> Yes`;
+        
+        const noLabel = document.createElement('label');
+        noLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="no"> No`;
+        
+        radioContainer.appendChild(yesLabel);
+        radioContainer.appendChild(noLabel);
+        
+        div.appendChild(questionLabel);
+        div.appendChild(radioContainer);
+        
+        form.appendChild(div);
     });
     
-    // Create navigation buttons
-    const buttonsContainer = document.createElement('div');
-    buttonsContainer.className = 'navigation-buttons';
-    buttonsContainer.style.display = 'flex';
-    buttonsContainer.style.flexDirection = 'column';
-    
-    // Next/Submit button (placed first/top)
-    const submitButton = document.createElement('button');
-    submitButton.textContent = (endIndex >= quizData.length) ? "Show Results" : "Next";
-    submitButton.type = "submit";
-    submitButton.className = "submit-btn";
-    buttonsContainer.appendChild(submitButton);
-    
-    // Add a gap between buttons
-    const spacer = document.createElement('div');
-    spacer.style.height = '10px'; // 10px gap
-    buttonsContainer.appendChild(spacer);
-    
-    // Add Back button for all screens, including the first question screen
-    const backButton = document.createElement('button');
-    backButton.textContent = "Back";
-    backButton.type = "button";
-    backButton.className = "back-btn";
-    
-    if (screenIndex > 0) {
-      // For screens after the first question screen, go back to previous questions
-      backButton.addEventListener('click', function() {
-        questionScreen.innerHTML = '';
-        
-        // Make sure restart button is hidden when navigating back
-        if (existingRestartButton) {
-          existingRestartButton.style.display = 'none';
-        }
-        if (controlButtons) {
-          controlButtons.classList.add('hidden');
-        }
-        
-        showQuestions(screenIndex - 1);
+    return form;
+}
       });
     } else {
       // For the first question screen, go back to the initial screen
