@@ -233,14 +233,14 @@ function showQuestions(screenIndex) {
     const header = document.createElement('h2');
     header.textContent = headers[screenIndex];
     header.style.textAlign = 'center';
-    header.style.marginBottom = '14px';
+    header.style.marginBottom = '10px';
     form.appendChild(header);
 
     const heading = document.createElement('p');
     heading.textContent = "Check all that apply (or leave blank if unsure):";
     heading.style.textAlign = 'center';
     heading.style.fontWeight = 'bold';
-    heading.style.marginBottom = '14px';
+    heading.style.marginBottom = '10px';
     form.appendChild(heading);
 
     // Create questions for this screen
