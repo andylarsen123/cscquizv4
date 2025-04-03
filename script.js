@@ -244,10 +244,25 @@ function showQuestions(screenIndex) {
     const form = document.createElement('form');
     form.id = 'quiz-form';
     
-    // Changed from 5 to 4 questions per page
-    const startIndex = screenIndex * 4 + 1; // Skip the first entry which is the initial choice
-    const endIndex = Math.min(startIndex + 4, quizData.length);
-    const questionsToShow = quizData.slice(startIndex, endIndex);
+    // Define our custom groupings
+    const groupings = [
+        { startIndex: 1, count: 9 },  // First 9 questions on screen 1
+        { startIndex: 10, count: 4 }, // Next 4 questions on screen 2
+        { startIndex: 14, count: 5 }, // Next 5 questions on screen 3
+        { startIndex: 19, count: 3 }  // Final 3 questions on screen 4
+    ];
+    
+    // Make sure we don't go beyond our defined screens
+    if (screenIndex >= groupings.length) {
+        showResults();
+        return;
+    }
+    
+    // Get the current grouping
+    const currentGroup = groupings[screenIndex];
+    const startIndex = currentGroup.startIndex;
+    const questionsToShow = quizData.slice(startIndex, startIndex + currentGroup.count);
+    const endIndex = startIndex + currentGroup.count;
     
     const heading = document.createElement('p');
     heading.textContent = "Select Yes or No (or Skip if Unsure):";
@@ -282,43 +297,28 @@ function showQuestions(screenIndex) {
       form.appendChild(div);
     });
     
-    // Create navigation buttons
+    // Add buttons container
     const buttonsContainer = document.createElement('div');
-    buttonsContainer.className = 'navigation-buttons';
-    buttonsContainer.style.display = 'flex';
-    buttonsContainer.style.flexDirection = 'column';
+    buttonsContainer.className = 'buttons-container';
     
-    // Next/Submit button (placed first/top)
-    const submitButton = document.createElement('button');
-    submitButton.textContent = (endIndex >= quizData.length) ? "Show Results" : "Next";
-    submitButton.type = "submit";
-    submitButton.className = "submit-btn";
-    buttonsContainer.appendChild(submitButton);
+    // Add Continue button
+    const continueButton = document.createElement('button');
+    continueButton.type = 'submit';
+    continueButton.textContent = 'Continue';
+    continueButton.className = 'continue-btn';
+    buttonsContainer.appendChild(continueButton);
     
-    // Add a gap between buttons
-    const spacer = document.createElement('div');
-    spacer.style.height = '10px'; // 10px gap
-    buttonsContainer.appendChild(spacer);
-    
-    // Add Back button for all screens, including the first question screen
+    // Add Back button
     const backButton = document.createElement('button');
-    backButton.textContent = "Back";
-    backButton.type = "button";
-    backButton.className = "back-btn";
+    backButton.type = 'button';
+    backButton.textContent = 'Back';
+    backButton.className = 'back-btn';
     
+    // Different back button behavior depending on screen
     if (screenIndex > 0) {
-      // For screens after the first question screen, go back to previous questions
+      // For later screens, go back to previous question screen
       backButton.addEventListener('click', function() {
         questionScreen.innerHTML = '';
-        
-        // Make sure restart button is hidden when navigating back
-        if (existingRestartButton) {
-          existingRestartButton.style.display = 'none';
-        }
-        if (controlButtons) {
-          controlButtons.classList.add('hidden');
-        }
-        
         showQuestions(screenIndex - 1);
       });
     } else {
@@ -363,46 +363,50 @@ function showQuestions(screenIndex) {
         showQuestions(screenIndex + 1);
       } else {
         // Show results
-        resultsScreen.classList.remove('hidden');
-        answersList.innerHTML = '';
-        
-        // Make sure the results container has proper styling
-        resultsScreen.className = 'results-container';
-        
-if (allSelectedAnswers.size) {
-    // Create a Set to store unique answers
-    const uniqueAnswers = new Set();
-    
-    Array.from(allSelectedAnswers)
-        .filter(answer => answer && typeof answer === 'object' && answer.text && answer.link)
-        .sort((a, b) => a.text.localeCompare(b.text))
-        .forEach(answer => {
-            // Use the text as the unique identifier
-            if (!uniqueAnswers.has(answer.text)) {
-                uniqueAnswers.add(answer.text);
-                
-                const li = document.createElement('li');
-                const a = document.createElement('a');
-                a.href = answer.link;
-                a.target = '_blank';
-                a.rel = 'noopener noreferrer';
-                a.textContent = answer.text;
-                li.appendChild(a);
-                
-                answersList.appendChild(li);
-            }
-        });
-} else {
-    answersList.innerHTML = "<li>No recommendations based on your selections.</li>";
-}
-        
-        // Only show restart button on results screen
-        showRestartButton();
+        showResults();
       }
     });
     
     questionScreen.innerHTML = ''; // Clear any existing content
     questionScreen.appendChild(form);
+  }
+
+  function showResults() {
+    resultsScreen.classList.remove('hidden');
+    answersList.innerHTML = '';
+    
+    // Make sure the results container has proper styling
+    resultsScreen.className = 'results-container';
+    
+    if (allSelectedAnswers.size) {
+      // Create a Set to store unique answers
+      const uniqueAnswers = new Set();
+      
+      Array.from(allSelectedAnswers)
+        .filter(answer => answer && typeof answer === 'object' && answer.text && answer.link)
+        .sort((a, b) => a.text.localeCompare(b.text))
+        .forEach(answer => {
+          // Use the text as the unique identifier
+          if (!uniqueAnswers.has(answer.text)) {
+            uniqueAnswers.add(answer.text);
+            
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.href = answer.link;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            a.textContent = answer.text;
+            li.appendChild(a);
+            
+            answersList.appendChild(li);
+          }
+        });
+    } else {
+      answersList.innerHTML = "<li>No recommendations based on your selections.</li>";
+    }
+    
+    // Only show restart button on results screen
+    showRestartButton();
   }
 
   function showRestartButton() {
