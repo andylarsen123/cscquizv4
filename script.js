@@ -254,23 +254,23 @@ function showQuestions(screenIndex) {
     const form = document.createElement('form');
     form.id = 'quiz-form';
     
-    // Define question groups
-    const questionGroups = [
-        { start: 1, count: 9 },  // First 9 questions (1-9)
-        { start: 10, count: 4 }, // Next 4 questions (10-13)
-        { start: 14, count: 5 }, // Next 5 questions (14-18)
-        { start: 19, count: 3 }  // Last 3 questions (19-21)
+    // Define our custom groupings
+    const groupings = [
+        { startIndex: 1, count: 9 },  // First 9 questions on screen 1
+        { startIndex: 10, count: 4 }, // Next 4 questions on screen 2
+        { startIndex: 14, count: 5 }, // Next 5 questions on screen 3
+        { startIndex: 19, count: 3 }  // Final 3 questions on screen 4
     ];
     
-    // If we're beyond our defined groups, return empty form
-    if (screenIndex >= questionGroups.length) {
-        return form;
+    // Make sure we don't go beyond our defined screens
+    if (screenIndex >= groupings.length) {
+        return;
     }
     
-    const currentGroup = questionGroups[screenIndex];
-    const startIndex = currentGroup.start;
-    const endIndex = startIndex + currentGroup.count;
-    const questionsToShow = quizData.slice(startIndex, endIndex);
+    // Get the current grouping
+    const currentGroup = groupings[screenIndex];
+    const startIndex = currentGroup.startIndex;
+    const questionsToShow = quizData.slice(startIndex, startIndex + currentGroup.count);
     
     const heading = document.createElement('p');
     heading.textContent = "Select Yes or No (or Skip if Unsure):";
@@ -281,28 +281,28 @@ function showQuestions(screenIndex) {
     
     // Create questions for this screen
     questionsToShow.forEach((data, i) => {
-        const div = document.createElement('div');
-        div.className = 'question-item';
-        
-        const questionLabel = document.createElement('span');
-        questionLabel.innerHTML = data.question; // Using innerHTML to support the <strong> tags
-        
-        const radioContainer = document.createElement('div');
-        radioContainer.className = 'radio-options';
-        
-        const yesLabel = document.createElement('label');
-        yesLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="yes"> Yes`;
-        
-        const noLabel = document.createElement('label');
-        noLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="no"> No`;
-        
-        radioContainer.appendChild(yesLabel);
-        radioContainer.appendChild(noLabel);
-        
-        div.appendChild(questionLabel);
-        div.appendChild(radioContainer);
-        
-        form.appendChild(div);
+      const div = document.createElement('div');
+      div.className = 'question-item';
+      
+      const questionLabel = document.createElement('span');
+      questionLabel.innerHTML = data.question; // Using innerHTML to support the <strong> tags
+      
+      const radioContainer = document.createElement('div');
+      radioContainer.className = 'radio-options';
+      
+      const yesLabel = document.createElement('label');
+      yesLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="yes"> Yes`;
+      
+      const noLabel = document.createElement('label');
+      noLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="no"> No`;
+      
+      radioContainer.appendChild(yesLabel);
+      radioContainer.appendChild(noLabel);
+      
+      div.appendChild(questionLabel);
+      div.appendChild(radioContainer);
+      
+      form.appendChild(div);
     });
     
     return form;
