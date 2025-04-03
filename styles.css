@@ -229,13 +229,20 @@ button:hover {
   border-bottom: 2px solid #edf2f7;
 }
 
+.checkbox-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Adds spacing between checkbox options */
+}
+
 .checkbox-options label {
-    display: inline-flex; /* Makes label behave like an inline element while still using flexbox */
-    align-items: center;  /* Centers checkbox and text vertically */
-    margin-bottom: 8px;    /* Adds spacing below each checkbox for better separation */
+    display: flex;
+    align-items: center;  /* Ensures the checkbox and text are vertically centered */
+    gap: 8px; /* Adds space between checkbox and label text */
 }
 
 .checkbox-options input[type="checkbox"] {
-    margin-right: 8px;     /* Adds space between checkbox and the label text */
-    vertical-align: middle; /* Ensures alignment with the text */
+    margin: 0; /* Removes default margin of the checkbox */
+    vertical-align: middle; /* Ensures checkbox is aligned with the middle of the text */
+    line-height: 1.5; /* Ensures consistent line height */
 }
