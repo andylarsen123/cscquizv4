@@ -230,11 +230,12 @@ button:hover {
 }
 
 .checkbox-options label {
-    display: flex;
-    align-items: center;  /* Align the checkbox and text vertically */
+    display: inline-flex; /* Makes label behave like an inline element while still using flexbox */
+    align-items: center;  /* Centers checkbox and text vertically */
+    margin-bottom: 8px;    /* Adds spacing below each checkbox for better separation */
 }
 
 .checkbox-options input[type="checkbox"] {
-    margin-right: 8px;  /* Add some space between the checkbox and the label text */
-    vertical-align: middle; /* Ensures the checkbox is aligned properly with the text */
+    margin-right: 8px;     /* Adds space between checkbox and the label text */
+    vertical-align: middle; /* Ensures alignment with the text */
 }
