@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Initialize quiz data
 const quizData = [
     { question: "<strong>Coastal Solutions Compendium:</strong><br>Choose an option", answersIfYes: [{ text: "Interactive Tool", link: "https://example.com/interactive-tool" }], linkIfNo: "https://example.com/full-tool-list" },
-      { question: "Is the shoreline elevated, such as by bluffs?", answersIfYes: [
+      { question: "Is the shoreline <strong>elevated</strong>, such as by bluffs?", answersIfYes: [
         { text: "Natural Features / Sensitive Area Overlay", link: "https://example.com/natural-features-overlay" },
         { text: "Bluff Protection Overlay", link: "https://example.com/bluff-protection" }
     ]},
