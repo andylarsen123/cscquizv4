@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Initialize quiz data
+  // Initialize quiz dat
 const quizData = [
     { question: "<strong>Coastal Solutions Compendium:</strong><br>Choose an option", answersIfYes: [{ text: "Interactive Tool", link: "https://example.com/interactive-tool" }], linkIfNo: "https://example.com/full-tool-list" },
       { question: "Is the shoreline elevated, such as by bluffs?", answersIfYes: [
