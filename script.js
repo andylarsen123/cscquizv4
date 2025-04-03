@@ -254,22 +254,16 @@ function showQuestions(screenIndex) {
         questionContainer.style.display = 'flex'; // Align checkbox and text in a row
         questionContainer.style.alignItems = 'center'; // Vertically align checkbox and text
 
-        console.log("Creating checkbox");  // Check if this is logged in the console
         const checkboxInput = document.createElement('input');
         checkboxInput.type = 'checkbox';
         checkboxInput.name = `q${startIndex + i}`;
         checkboxInput.value = 'yes';
-        checkboxInput.id = `checkbox-${startIndex + i}`;
-        
+        checkboxInput.id = `checkbox-${startIndex + i}`
+
         const checkboxLabel = document.createElement('label');
         checkboxLabel.setAttribute('for', checkboxInput.id); // Link the label to the checkbox
+
         checkboxLabel.innerHTML = "Select";
-        
-        const checkboxContainer = document.getElementById('your-container-id');
-        checkboxContainer.appendChild(checkboxInput);
-        checkboxContainer.appendChild(checkboxLabel);
-        
-        console.log("Checkbox added to container"); 
 
         const questionLabel = document.createElement('span');
         questionLabel.innerHTML = data.question; 
