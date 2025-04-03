@@ -219,3 +219,50 @@ button:hover {
   background-color: #ff9999; /* Slightly darker red on hover */
   box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
 }
+/* Hide default checkbox */
+.checkbox-options input[type="checkbox"] {
+  display: none; /* Hide the default checkbox */
+}
+
+/* Create custom checkbox */
+.checkbox-options label {
+  position: relative;
+  padding-left: 30px; /* Space for custom checkbox */
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  user-select: none; /* Prevent text selection */
+}
+
+/* Custom checkbox design */
+.checkbox-options label:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #51818d; /* Border color */
+  border-radius: 4px; /* Rounded corners */
+  background-color: #fff; /* White background */
+  transition: all 0.3s ease;
+}
+
+/* Change when checkbox is checked */
+.checkbox-options input[type="checkbox"]:checked + label:before {
+  background-color: #51818d; /* Background color when checked */
+  border-color: #0056b3; /* Change border color when checked */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Optional: Add a glow effect */
+}
+
+/* Create checkmark when checkbox is checked */
+.checkbox-options input[type="checkbox"]:checked + label:after {
+  content: '✔'; /* Checkmark symbol */
+  position: absolute;
+  left: 4px; /* Position checkmark inside checkbox */
+  top: -2px;
+  font-size: 18px;
+  color: white; /* Checkmark color */
+}
+
+
