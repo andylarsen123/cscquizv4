@@ -416,5 +416,6 @@ function showRestartButton() {
 
       restartBtn.style.display = 'none';
     };
+    }
   }
 }
