@@ -334,33 +334,7 @@ function showQuestions(screenIndex) {
     questionScreen.innerHTML = '';
     questionScreen.appendChild(form);
 }
-What Changed:
-Checkboxes are now on the left of the question text using flexbox.
 
-Removed the word "Select" from the labels.
-
-Applied inline styling (display: flex and alignItems: center) to make sure the checkbox and the text align properly.
-
-Now, the checkboxes will appear to the left of each question text, making the layout cleaner and more intuitive for users!
-
-
-
-
-
-
-
-You said:
-nope broken, says script.js:365 Uncaught SyntaxError: missing ) after argument list
-
-
-ChatGPT said:
-Ah, it looks like I missed something in the code. The issue is likely related to an unclosed parentheses or mismatched curly braces. Let me fix that for you.
-
-Here’s the corrected version:
-
-javascript
-Copy
-Edit
 function showQuestions(screenIndex) {
     const form = document.createElement('form');
     form.id = 'quiz-form';
