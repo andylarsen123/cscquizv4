@@ -246,10 +246,11 @@ function showQuestions(screenIndex) {
     
     // Define our custom groupings
     const groupings = [
-        { startIndex: 1, count: 9 },  // First 9 questions on screen 1
-        { startIndex: 10, count: 4 }, // Next 4 questions on screen 2
-        { startIndex: 14, count: 5 }, // Next 5 questions on screen 3
-        { startIndex: 19, count: 3 }  // Final 3 questions on screen 4
+        { startIndex: 1, count: 5 },  // First 5 questions on screen 1
+        { startIndex: 6, count: 4 },  // Next 4 questions on screen 2
+        { startIndex: 10, count: 4 }, // Next 4 questions on screen 3
+        { startIndex: 14, count: 5 }, // Next 5 questions on screen 4
+        { startIndex: 19, count: 3 }  // Final 3 questions on screen 5
     ];
     
     // Make sure we don't go beyond our defined screens
