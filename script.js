@@ -212,11 +212,11 @@ function showQuestions(screenIndex) {
 
     // Define headers for each grouping
     const headers = [
-        "Coastal Protection Strategies",
-        "Sustainable Shoreline Techniques",
-        "Community & Policy Solutions",
-        "Engineering & Infrastructure Approaches",
-        "Nature-Based Solutions"
+        "Physical Characteristics (1/2)",
+        "Physical Characteristics (2/2)",
+        "Zoning",
+        "Development",
+        "Priorities"
     ];
 
     // Make sure we don't go beyond our defined screens
