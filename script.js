@@ -29,7 +29,7 @@ const quizData = [
         { text: "Natural Features / Sensitive Area Overlay", link: "https://example.com/natural-features-overlay" },
         { text: "Permitting State-Designated Areas", link: "https://example.com/natural-features-overlay" },
         { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/bluff-protection" },
-        { text: "Stormwater Management Requirements / Green Infrastructure", link: "https://example.com/bluff-protection" }   
+        { text: "Stormwater Management Req. / Green Infrastructure", link: "https://example.com/bluff-protection" }   
     ]},
     { question: "Is the shoreline armored (seawalls, riprap, etc.)?", answersIfYes: [
         { text: "Shoreline Setback", link: "https://example.com/shoreline-setbacks" },
@@ -46,7 +46,7 @@ const quizData = [
         { text: "Floodplain Overlay", link: "https://example.com/natural-features-overlay" },
         { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/bluff-protection" },
         { text: "Impervious Surface Standards", link: "https://example.com/armoring-prohibition" },
-        { text: "Stormwater Management Requirements / Green Infrastructure", link: "https://example.com/bluff-protection" }   
+        { text: "Stormwater Management Req. / Green Infrastructure", link: "https://example.com/bluff-protection" }   
     ]},
     { question: "Is the character of the shoreline similar across your community?", answersIfYes: [
         { text: "Shoreline District", link: "https://example.com/shoreline-district" }
@@ -76,7 +76,7 @@ const quizData = [
         { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/bluff-protection" },
         { text: "Open Space Requirements", link: "https://example.com/bluff-protection" },
         { text: "Impervious Surface Standards", link: "https://example.com/armoring-prohibition" },
-        { text: "Stormwater Management Requirements / Green Infrastructure", link: "https://example.com/bluff-protection" }   
+        { text: "Stormwater Management Req. / Green Infrastructure", link: "https://example.com/bluff-protection" }   
     ]},
     { question: "Is there shoreline property which is experiencing erosion?", answersIfYes: [
         { text: "Shoreline Setback", link: "https://example.com/shoreline-setbacks" },
@@ -88,25 +88,25 @@ const quizData = [
         { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/bluff-protection" },
         { text: "Retreat / Building Moving", link: "https://example.com/retreat-building-moving" },
         { text: "Impervious Surface Standards", link: "https://example.com/armoring-prohibition" },
-        { text: "Stormwater Management Requirements / Green Infrastructure", link: "https://example.com/bluff-protection" }   
+        { text: "Stormwater Management Req. / Green Infrastructure", link: "https://example.com/bluff-protection" }   
     ]},
     { question: "Are there existing or desired shoreline-specific uses, such as marinas?", answersIfYes: [
         { text: "Shoreline District", link: "https://example.com/shoreline-district" },
         { text: "Special Shoreline Use Regulations (e.g. Marinas)", link: "https://example.com/shoreline-district" }
     ]},
     { question: "Is your community concerned about invasive plant or animal species?", answersIfYes: [
-        { text: "Stormwater Management Requirements / Green Infrastructure", link: "https://example.com/bluff-protection" }   
+        { text: "Stormwater Management Req. / Green Infrastructure", link: "https://example.com/bluff-protection" }   
     ]},
     { question: "Is your community concerned about water quality?", answersIfYes: [
         { text: "Greenbelt Requirements", link: "https://example.com/shoreline-setbacks" },
         { text: "Impervious Surface Standards", link: "https://example.com/armoring-prohibition" },
-        { text: "Stormwater Management Requirements / Green Infrastructure", link: "https://example.com/bluff-protection" } 
+        { text: "Stormwater Management Req. / Green Infrastructure", link: "https://example.com/bluff-protection" } 
     ]},
     { question: "Is it a priority for your community to preserve or create access to the shoreline?", answersIfYes: [
         { text: "Shoreline Setback", link: "https://example.com/shoreline-setbacks" },
         { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/bluff-protection" },
         { text: "Open Space Requirements", link: "https://example.com/bluff-protection" },
-        { text: "Stormwater Management Requirements / Green Infrastructure", link: "https://example.com/bluff-protection" } 
+        { text: "Stormwater Management Req. / Green Infrastructure", link: "https://example.com/bluff-protection" } 
     ]}
 ]
 
