@@ -72,7 +72,7 @@ const quizData = [
     ]},
     { question: "Do you anticipate new development or redevelopment within 100 feet of your shoreline?", answersIfYes: [
         { text: "Shoreline Setback", link: "https://example.com/shoreline-setbacks" },
-        { text: "Shoreline District", link: "https://example.com/shoreline-district" }
+        { text: "Shoreline District", link: "https://example.com/shoreline-district" },
         { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/bluff-protection" },
         { text: "Open Space Requirements", link: "https://example.com/bluff-protection" },
         { text: "Impervious Surface Standards", link: "https://example.com/armoring-prohibition" },
@@ -86,13 +86,13 @@ const quizData = [
     { question: "Is there shoreline property which is experiencing flooding?", answersIfYes: [
         { text: "Shoreline Setback", link: "https://example.com/shoreline-setbacks" },
         { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/bluff-protection" },
-        { text: "Retreat / Building Moving", link: "https://example.com/retreat-building-moving" }
+        { text: "Retreat / Building Moving", link: "https://example.com/retreat-building-moving" },
         { text: "Impervious Surface Standards", link: "https://example.com/armoring-prohibition" },
         { text: "Stormwater Management Requirements / Green Infrastructure", link: "https://example.com/bluff-protection" }   
     ]},
     { question: "Are there existing or desired shoreline-specific uses, such as marinas?", answersIfYes: [
         { text: "Shoreline District", link: "https://example.com/shoreline-district" },
-        { text: "Special Shoreline Use Regulations (e.g. Marinas)", link: "https://example.com/shoreline-district" },
+        { text: "Special Shoreline Use Regulations (e.g. Marinas)", link: "https://example.com/shoreline-district" }
     ]},
     { question: "Is your community concerned about invasive plant or animal species?", answersIfYes: [
         { text: "Stormwater Management Requirements / Green Infrastructure", link: "https://example.com/bluff-protection" }   
