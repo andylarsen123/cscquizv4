@@ -171,6 +171,12 @@ const quizData = [
   const resultsScreen = document.getElementById('results');
   const answersList = document.getElementById('answers-list');
   const controlButtons = document.getElementById('control-buttons');
+  const sectionHeadings = [
+  "Physical Characteristics",
+  "Zoning", 
+  "Development", 
+  "Priorities"
+];
   
   // Add styles to prevent horizontal scrolling
   addScrollStyles();
@@ -297,6 +303,11 @@ const quizData = [
       
       const noLabel = document.createElement('label');
       noLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="no"> No`;
+
+      const sectionHeading = document.createElement('div');
+      sectionHeading.className = 'section-heading';
+      sectionHeading.textContent = sectionHeadings[screenIndex];
+      form.appendChild(sectionHeading);
       
       radioContainer.appendChild(yesLabel);
       radioContainer.appendChild(noLabel);
