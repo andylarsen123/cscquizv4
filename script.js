@@ -250,7 +250,7 @@ const quizData = [
     document.head.appendChild(styleElement);
   }
 
-function showQuestions(screenIndex) {
+  function showQuestions(screenIndex) {
     const form = document.createElement('form');
     form.id = 'quiz-form';
     
@@ -264,6 +264,7 @@ function showQuestions(screenIndex) {
     
     // Make sure we don't go beyond our defined screens
     if (screenIndex >= groupings.length) {
+        showResults();
         return;
     }
     
@@ -271,6 +272,7 @@ function showQuestions(screenIndex) {
     const currentGroup = groupings[screenIndex];
     const startIndex = currentGroup.startIndex;
     const questionsToShow = quizData.slice(startIndex, startIndex + currentGroup.count);
+    const endIndex = startIndex + currentGroup.count;
     
     const heading = document.createElement('p');
     heading.textContent = "Select Yes or No (or Skip if Unsure):";
@@ -305,8 +307,44 @@ function showQuestions(screenIndex) {
       form.appendChild(div);
     });
     
-    return form;
-}
+    // Create navigation buttons
+    const buttonsContainer = document.createElement('div');
+    buttonsContainer.className = 'navigation-buttons';
+    buttonsContainer.style.display = 'flex';
+    buttonsContainer.style.flexDirection = 'column';
+    
+    // Next/Submit button (placed first/top)
+    const submitButton = document.createElement('button');
+    submitButton.textContent = (endIndex >= quizData.length) ? "Show Results" : "Next";
+    submitButton.type = "submit";
+    submitButton.className = "submit-btn";
+    buttonsContainer.appendChild(submitButton);
+    
+    // Add a gap between buttons
+    const spacer = document.createElement('div');
+    spacer.style.height = '10px'; // 10px gap
+    buttonsContainer.appendChild(spacer);
+    
+    // Add Back button for all screens, including the first question screen
+    const backButton = document.createElement('button');
+    backButton.textContent = "Back";
+    backButton.type = "button";
+    backButton.className = "back-btn";
+    
+    if (screenIndex > 0) {
+      // For screens after the first question screen, go back to previous questions
+      backButton.addEventListener('click', function() {
+        questionScreen.innerHTML = '';
+        
+        // Make sure restart button is hidden when navigating back
+        if (existingRestartButton) {
+          existingRestartButton.style.display = 'none';
+        }
+        if (controlButtons) {
+          controlButtons.classList.add('hidden');
+        }
+        
+        showQuestions(screenIndex - 1);
       });
     } else {
       // For the first question screen, go back to the initial screen
