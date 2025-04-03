@@ -212,11 +212,11 @@ function showQuestions(screenIndex) {
 
     // Define headers for each grouping
     const headers = [
-        "Physical Characteristics (1/2)",
-        "Physical Characteristics (2/2)",
-        "Zoning",
-        "Development",
-        "Priorities"
+        "Coastal Protection Strategies",
+        "Sustainable Shoreline Techniques",
+        "Community & Policy Solutions",
+        "Engineering & Infrastructure Approaches",
+        "Nature-Based Solutions"
     ];
 
     if (screenIndex >= groupings.length) {
@@ -253,12 +253,20 @@ function showQuestions(screenIndex) {
 
         const checkboxContainer = document.createElement('div');
         checkboxContainer.className = 'checkbox-options';
+        checkboxContainer.style.display = 'flex'; // Flexbox to align checkbox and text side by side
+        checkboxContainer.style.alignItems = 'center'; // Vertically align checkbox and text
 
-        const checkboxLabel = document.createElement('label');
-        checkboxLabel.innerHTML = `<input type="checkbox" name="q${startIndex + i}" value="yes"> Select`;
+        const checkboxInput = document.createElement('input');
+        checkboxInput.type = 'checkbox';
+        checkboxInput.name = `q${startIndex + i}`;
+        checkboxInput.value = 'yes';
 
-        checkboxContainer.appendChild(checkboxLabel);
-        div.appendChild(questionLabel);
+        // Add the checkbox to the container first
+        checkboxContainer.appendChild(checkboxInput);
+
+        // Then append the question label
+        checkboxContainer.appendChild(questionLabel);
+        
         div.appendChild(checkboxContainer);
         form.appendChild(div);
     });
@@ -298,6 +306,35 @@ function showQuestions(screenIndex) {
             }
         });
     }
+
+    buttonsContainer.appendChild(backButton);
+    form.appendChild(buttonsContainer);
+
+    // Form submission handler
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Process checked answers
+        questionsToShow.forEach((data, i) => {
+            const questionIndex = startIndex + i;
+            const input = form.querySelector(`input[name="q${questionIndex}"]:checked`);
+            if (input && data.answersIfYes) {
+                data.answersIfYes.forEach(answer => allSelectedAnswers.add(answer));
+            }
+        });
+
+        questionScreen.innerHTML = '';
+        if (endIndex < quizData.length) {
+            showQuestions(screenIndex + 1);
+        } else {
+            showResults();
+        }
+    });
+
+    questionScreen.innerHTML = '';
+    questionScreen.appendChild(form);
+}
+
 
     buttonsContainer.appendChild(backButton);
     form.appendChild(buttonsContainer);
