@@ -7,7 +7,7 @@ const quizData = [
         { text: "Bluff Protection Overlay", link: "https://example.com/bluff-protection" }
     ]},
     { question: "Is the shoreline sandy?", answersIfYes: [
-        { text: "Shoreline Setbacks", link: "https://example.com/natural-features-setbacks" },
+        { text: "Shoreline Setback", link: "https://example.com/natural-features-setbacks" },
         { text: "Natural Features / Sensitive Area Overlay", link: "https://example.com/natural-features-overlay" },
         { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/bluff-protection" },
         { text: "Greenbelt Requirements", link: "https://example.com/dynamic-zoning" }
