@@ -200,134 +200,136 @@ const quizData = [
 function showQuestions(screenIndex) {
     const form = document.createElement('form');
     form.id = 'quiz-form';
-    
+
     // Define our custom groupings
     const groupings = [
-        { startIndex: 1, count: 5 },  // First 5 questions on screen 1
-        { startIndex: 6, count: 4 },  // Next 4 questions on screen 2
-        { startIndex: 10, count: 4 }, // Next 4 questions on screen 3
-        { startIndex: 14, count: 5 }, // Next 5 questions on screen 4
-        { startIndex: 19, count: 3 }  // Final 3 questions on screen 5
+        { startIndex: 1, count: 5 },
+        { startIndex: 6, count: 4 },
+        { startIndex: 10, count: 4 },
+        { startIndex: 14, count: 5 },
+        { startIndex: 19, count: 3 }
     ];
-    
+
+    // Define headers for each grouping
+    const headers = [
+        "Coastal Protection Strategies",
+        "Sustainable Shoreline Techniques",
+        "Community & Policy Solutions",
+        "Engineering & Infrastructure Approaches",
+        "Nature-Based Solutions"
+    ];
+
     // Make sure we don't go beyond our defined screens
     if (screenIndex >= groupings.length) {
         showResults();
         return;
     }
-    
+
     // Get the current grouping
     const currentGroup = groupings[screenIndex];
     const startIndex = currentGroup.startIndex;
     const questionsToShow = quizData.slice(startIndex, startIndex + currentGroup.count);
     const endIndex = startIndex + currentGroup.count;
-    
+
+    // Add section header
+    const header = document.createElement('h2');
+    header.textContent = headers[screenIndex]; // Assign corresponding header
+    header.style.textAlign = 'center';
+    header.style.marginBottom = '14px';
+    form.appendChild(header);
+
     const heading = document.createElement('p');
     heading.textContent = "Select Yes or No (or Skip if Unsure):";
     heading.style.textAlign = 'center';
     heading.style.fontWeight = 'bold';
     heading.style.marginBottom = '14px';
     form.appendChild(heading);
-    
+
     // Create questions for this screen
     questionsToShow.forEach((data, i) => {
-      const div = document.createElement('div');
-      div.className = 'question-item';
-      
-      const questionLabel = document.createElement('span');
-      questionLabel.innerHTML = data.question; // Using innerHTML to support the <strong> tags
-      
-      const radioContainer = document.createElement('div');
-      radioContainer.className = 'radio-options';
-      
-      const yesLabel = document.createElement('label');
-      yesLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="yes"> Yes`;
-      
-      const noLabel = document.createElement('label');
-      noLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="no"> No`;
-      
-      radioContainer.appendChild(yesLabel);
-      radioContainer.appendChild(noLabel);
-      
-      div.appendChild(questionLabel);
-      div.appendChild(radioContainer);
-      
-      form.appendChild(div);
+        const div = document.createElement('div');
+        div.className = 'question-item';
+
+        const questionLabel = document.createElement('span');
+        questionLabel.innerHTML = data.question;
+
+        const radioContainer = document.createElement('div');
+        radioContainer.className = 'radio-options';
+
+        const yesLabel = document.createElement('label');
+        yesLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="yes"> Yes`;
+
+        const noLabel = document.createElement('label');
+        noLabel.innerHTML = `<input type="radio" name="q${startIndex + i}" value="no"> No`;
+
+        radioContainer.appendChild(yesLabel);
+        radioContainer.appendChild(noLabel);
+
+        div.appendChild(questionLabel);
+        div.appendChild(radioContainer);
+
+        form.appendChild(div);
     });
-    
+
     // Add buttons container
     const buttonsContainer = document.createElement('div');
     buttonsContainer.className = 'buttons-container';
-    
-    // Add Continue button
+
     const continueButton = document.createElement('button');
     continueButton.type = 'submit';
     continueButton.textContent = 'Continue';
     continueButton.className = 'continue-btn';
     buttonsContainer.appendChild(continueButton);
-    
-    // Add Back button
+
     const backButton = document.createElement('button');
     backButton.type = 'button';
     backButton.textContent = 'Back';
     backButton.className = 'back-btn';
-    
-    // Different back button behavior depending on screen
+
     if (screenIndex > 0) {
-      // For later screens, go back to previous question screen
-      backButton.addEventListener('click', function() {
-        questionScreen.innerHTML = '';
-        showQuestions(screenIndex - 1);
-      });
+        backButton.addEventListener('click', function() {
+            questionScreen.innerHTML = '';
+            showQuestions(screenIndex - 1);
+        });
     } else {
-      // For the first question screen, go back to the initial screen
-      backButton.addEventListener('click', function() {
-        // Return to initial screen
-        questionScreen.classList.add('hidden');
-        questionText.style.display = '';
-        quizControls.style.display = '';
-        
-        // Make sure restart button is hidden
-        if (existingRestartButton) {
-          existingRestartButton.style.display = 'none';
-        }
-        if (controlButtons) {
-          controlButtons.classList.add('hidden');
-        }
-      });
+        backButton.addEventListener('click', function() {
+            questionScreen.classList.add('hidden');
+            questionText.style.display = '';
+            quizControls.style.display = '';
+            if (existingRestartButton) {
+                existingRestartButton.style.display = 'none';
+            }
+            if (controlButtons) {
+                controlButtons.classList.add('hidden');
+            }
+        });
     }
-    
+
     buttonsContainer.appendChild(backButton);
     form.appendChild(buttonsContainer);
-    
-    // Form submission handler
-    form.addEventListener('submit', function (event) {
-      event.preventDefault();
-      
-      // Process current page answers
-      questionsToShow.forEach((data, i) => {
-        const questionIndex = startIndex + i;
-        const input = form.querySelector(`input[name="q${questionIndex}"]:checked`);
-        if (input && input.value === 'yes' && data.answersIfYes) {
-          // Add all answers for this question to the overall set
-          data.answersIfYes.forEach(answer => allSelectedAnswers.add(answer));
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        questionsToShow.forEach((data, i) => {
+            const questionIndex = startIndex + i;
+            const input = form.querySelector(`input[name="q${questionIndex}"]:checked`);
+            if (input && input.value === 'yes' && data.answersIfYes) {
+                data.answersIfYes.forEach(answer => allSelectedAnswers.add(answer));
+            }
+        });
+
+        questionScreen.innerHTML = '';
+        if (endIndex < quizData.length) {
+            showQuestions(screenIndex + 1);
+        } else {
+            showResults();
         }
-      });
-      
-      questionScreen.innerHTML = '';
-      
-      // Determine if there are more questions or show results
-      if (endIndex < quizData.length) {
-        showQuestions(screenIndex + 1);
-      } else {
-        // Show results
-        showResults();
-      }
     });
-    
-    questionScreen.innerHTML = ''; // Clear any existing content
+
+    questionScreen.innerHTML = '';
     questionScreen.appendChild(form);
-  }
+}
+
 
   function showResults() {
     resultsScreen.classList.remove('hidden');
