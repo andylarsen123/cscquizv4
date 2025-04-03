@@ -402,4 +402,35 @@ function showQuestions(screenIndex) {
       };
     }
   }
+
+function showResults() {
+    resultsScreen.classList.remove('hidden');
+    answersList.innerHTML = '';
+
+    // Make sure the results container has proper styling
+    resultsScreen.className = 'results-container';
+    
+    // Display the selected answers
+    const selectedAnswersList = document.createElement('ul');
+    
+    quizData.forEach((data, index) => {
+        const checkbox = document.querySelector(`input[name="q${index}"]:checked`);
+        if (checkbox) {
+            const li = document.createElement('li');
+            li.innerHTML = `${data.question}: <strong>Selected</strong>`;  // Customize the text
+            selectedAnswersList.appendChild(li);
+        }
+    });
+
+    // If any answers were selected, show them
+    if (selectedAnswersList.childElementCount > 0) {
+        answersList.appendChild(selectedAnswersList);
+    } else {
+        answersList.innerHTML = "<li>No selections made.</li>";
+    }
+    
+    // Only show restart button on results screen
+    showRestartButton();
+}
+  
 });
