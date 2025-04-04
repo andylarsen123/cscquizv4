@@ -240,7 +240,7 @@ function showQuestions(screenIndex) {
     heading.textContent = "Check all that apply (or leave blank if unsure):";
     heading.style.textAlign = 'left';
     heading.style.fontWeight = 'bold';
-    heading.style.margin = '13px';
+    heading.style.marginLeft = '13px';
     form.appendChild(heading);
 
     // Create questions for this screen
