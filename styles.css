@@ -138,6 +138,7 @@ button:hover {
 .buttons-container {
   margin-top: 5px;
   display: flex;
+  flex-direction: row-reverse; /* This swaps the order */
   justify-content: center;
   gap: 10px;
   margin-bottom: 0px;
