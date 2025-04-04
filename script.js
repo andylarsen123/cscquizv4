@@ -110,81 +110,84 @@ const quizData = [
     ]}
 ]
 
-const yesButton = document.getElementById('yes-btn');
-const noButton = document.getElementById('no-btn');
-const questionText = document.getElementById('question-text');
-const quizControls = document.getElementById('quiz-controls');
-const questionScreen = document.getElementById('question-screen');
-const resultsScreen = document.getElementById('results');
-const answersList = document.getElementById('answers-list');
-const controlButtons = document.getElementById('control-buttons');
-
-// Get references to the new checkboxes
-const protectCheckbox = document.getElementById('option1');
-const accommodateCheckbox = document.getElementById('option2');
-const retreatCheckbox = document.getElementById('option3');
-
-// Add styles to prevent horizontal scrolling
-addScrollStyles();
-
-// Store all selected answers across all screens
-let allSelectedAnswers = new Set();
-
-// Hide restart button on load
-const existingRestartButton = document.getElementById('restart-btn');
-if (existingRestartButton) {
+  const yesButton = document.getElementById('yes-btn');
+  const noButton = document.getElementById('no-btn');
+  const questionText = document.getElementById('question-text');
+  const quizControls = document.getElementById('quiz-controls');
+  const questionScreen = document.getElementById('question-screen');
+  const resultsScreen = document.getElementById('results');
+  const answersList = document.getElementById('answers-list');
+  const controlButtons = document.getElementById('control-buttons');
+  
+  // Add styles to prevent horizontal scrolling
+  addScrollStyles();
+  
+  // Store all selected answers across all screens
+  let allSelectedAnswers = new Set();
+  
+  // Hide restart button on load
+  const existingRestartButton = document.getElementById('restart-btn');
+  if (existingRestartButton) {
     existingRestartButton.style.display = 'none';
-}
-
-// Set up initial screen
-questionText.innerHTML = "<strong>Coastal Solutions Compendium:</strong><br>Choose an option";
-resultsScreen.classList.add('hidden');
-questionScreen.classList.add('hidden');
-if (controlButtons) {
+  }
+  
+  // Set up initial screen
+  questionText.innerHTML = "<strong>Coastal Solutions Compendium:</strong><br>Choose an option";  
+  resultsScreen.classList.add('hidden');
+  questionScreen.classList.add('hidden');
+  if (controlButtons) {
     controlButtons.classList.add('hidden');
-}
-
-// Event listeners for initial choice buttons
-yesButton.addEventListener('click', function () {
+  }
+  
+  // Event listeners for initial choice buttons
+  yesButton.addEventListener('click', function () {
+    // Reset answers when starting a new quiz
     allSelectedAnswers = new Set();
+    
     questionText.style.display = 'none';
     quizControls.style.display = 'none';
     questionScreen.classList.remove('hidden');
     questionScreen.innerHTML = '';
-
+    
+    // Always hide restart button when starting/continuing the quiz
     if (existingRestartButton) {
-        existingRestartButton.style.display = 'none';
+      existingRestartButton.style.display = 'none';
     }
     if (controlButtons) {
-        controlButtons.classList.add('hidden');
+      controlButtons.classList.add('hidden');
     }
-
+    
     showQuestions(0);
-});
+  });
 
-noButton.addEventListener('click', function () {
+  noButton.addEventListener('click', function () {
     window.location.href = "https://example.com/full-tool-list";
-});
+  });
 
-// Function to add CSS styles that prevent horizontal scrolling
-function addScrollStyles() {
+  // Function to add CSS styles that prevent horizontal scrolling
+  function addScrollStyles() {
+    // Create a style element
     const styleElement = document.createElement('style');
     styleElement.textContent = `
+      /* Prevent horizontal scrolling in tables */
       table {
         width: 100%;
         table-layout: fixed;
       }
       
+      /* Ensure cell content wraps instead of causing horizontal overflow */
       table th, table td {
         word-wrap: break-word;
         overflow-wrap: break-word;
       }
       
+      /* Allow vertical scrolling but prevent horizontal */
       .results-container {
         overflow-y: auto;
         overflow-x: hidden;
       }
       
+      /* Make table more responsive */
       @media (max-width: 768px) {
         table {
           font-size: 0.9em;
@@ -192,32 +195,13 @@ function addScrollStyles() {
       }
     `;
     document.head.appendChild(styleElement);
-}
-
-// Function to update selections based on checkboxes
-function updateSelection() {
-    allSelectedAnswers.clear(); 
-
-    if (protectCheckbox.checked) {
-        allSelectedAnswers.add({ text: "Protect Tools", link: "https://example.com/protect-tools" });
-    }
-    if (accommodateCheckbox.checked) {
-        allSelectedAnswers.add({ text: "Accommodate Tools", link: "https://example.com/accommodate-tools" });
-    }
-    if (retreatCheckbox.checked) {
-        allSelectedAnswers.add({ text: "Retreat Tools", link: "https://example.com/retreat-tools" });
-    }
-}
-
-// Attach event listeners to checkboxes
-protectCheckbox.addEventListener('change', updateSelection);
-accommodateCheckbox.addEventListener('change', updateSelection);
-retreatCheckbox.addEventListener('change', updateSelection);
+  }
 
 function showQuestions(screenIndex) {
     const form = document.createElement('form');
     form.id = 'quiz-form';
 
+    // Define our custom groupings
     const groupings = [
         { startIndex: 1, count: 5 },
         { startIndex: 6, count: 4 },
@@ -226,6 +210,7 @@ function showQuestions(screenIndex) {
         { startIndex: 19, count: 3 }
     ];
 
+    // Define headers for each grouping
     const headers = [
         "Physical Characteristics (1/2)",
         "Physical Characteristics (2/2)",
@@ -244,57 +229,75 @@ function showQuestions(screenIndex) {
     const questionsToShow = quizData.slice(startIndex, startIndex + currentGroup.count);
     const endIndex = startIndex + currentGroup.count;
 
+    // Add section header
     const header = document.createElement('h2');
     header.textContent = headers[screenIndex];
     header.style.textAlign = 'center';
+    header.style.marginBottom = '10px';
     form.appendChild(header);
 
     const heading = document.createElement('p');
     heading.textContent = "Check all that apply (or leave blank if unsure):";
+    heading.style.textAlign = 'left';
     heading.style.fontWeight = 'bold';
+    heading.style.marginBottom = '10px';
     heading.style.margin = '10px';
     form.appendChild(heading);
 
+    // Create questions for this screen
     questionsToShow.forEach((data, i) => {
         const div = document.createElement('div');
         div.className = 'question-item';
+
+        const questionContainer = document.createElement('div');
+        questionContainer.className = 'question-container';
+        questionContainer.style.display = 'flex'; // Align checkbox and text in a row
+        questionContainer.style.alignItems = 'center'; // Vertically align checkbox and text
 
         const checkboxInput = document.createElement('input');
         checkboxInput.type = 'checkbox';
         checkboxInput.name = `q${startIndex + i}`;
         checkboxInput.value = 'yes';
-        checkboxInput.id = `checkbox-${startIndex + i}`;
+        checkboxInput.id = `checkbox-${startIndex + i}`
 
-        const questionLabel = document.createElement('label');
-        questionLabel.setAttribute('for', checkboxInput.id);
-        questionLabel.innerHTML = data.question;
+        const checkboxLabel = document.createElement('label');
+        checkboxLabel.setAttribute('for', checkboxInput.id); // Link the label to the checkbox
 
-        div.appendChild(checkboxInput);
-        div.appendChild(questionLabel);
+        checkboxLabel.innerHTML = "Select";
+
+        const questionLabel = document.createElement('span');
+        questionLabel.innerHTML = data.question; 
+
+        questionContainer.appendChild(checkboxInput);
+        questionContainer.appendChild(questionLabel);
+        div.appendChild(questionContainer);
         form.appendChild(div);
     });
 
+    // Buttons container
     const buttonsContainer = document.createElement('div');
     buttonsContainer.className = 'buttons-container';
 
+    // Continue button
     const continueButton = document.createElement('button');
     continueButton.type = 'submit';
     continueButton.textContent = 'Continue';
     continueButton.className = 'continue-btn';
     buttonsContainer.appendChild(continueButton);
 
+    // Back button
     const backButton = document.createElement('button');
     backButton.type = 'button';
     backButton.textContent = 'Back';
     backButton.className = 'back-btn';
 
     if (screenIndex > 0) {
-        backButton.addEventListener('click', function () {
+        backButton.addEventListener('click', function() {
             questionScreen.innerHTML = '';
             showQuestions(screenIndex - 1);
         });
     } else {
-        backButton.addEventListener('click', function () {
+        backButton.addEventListener('click', function() {
             questionScreen.classList.add('hidden');
             questionText.style.display = '';
             quizControls.style.display = '';
@@ -310,10 +313,11 @@ function showQuestions(screenIndex) {
     buttonsContainer.appendChild(backButton);
     form.appendChild(buttonsContainer);
 
-    form.addEventListener('submit', function (event) {
+    // Form submission handler
+    form.addEventListener('submit', function(event) {
         event.preventDefault();
-        updateSelection();
 
+        // Process checked answers
         questionsToShow.forEach((data, i) => {
             const questionIndex = startIndex + i;
             const input = form.querySelector(`input[name="q${questionIndex}"]:checked`);
@@ -334,12 +338,27 @@ function showQuestions(screenIndex) {
     questionScreen.appendChild(form);
 }
 
-function showResults() {
+
+
+  function showResults() {
     resultsScreen.classList.remove('hidden');
     answersList.innerHTML = '';
-
+    
+    // Make sure the results container has proper styling
+    resultsScreen.className = 'results-container';
+    
     if (allSelectedAnswers.size) {
-        allSelectedAnswers.forEach(answer => {
+      // Create a Set to store unique answers
+      const uniqueAnswers = new Set();
+      
+      Array.from(allSelectedAnswers)
+        .filter(answer => answer && typeof answer === 'object' && answer.text && answer.link)
+        .sort((a, b) => a.text.localeCompare(b.text))
+        .forEach(answer => {
+          // Use the text as the unique identifier
+          if (!uniqueAnswers.has(answer.text)) {
+            uniqueAnswers.add(answer.text);
+            
             const li = document.createElement('li');
             const a = document.createElement('a');
             a.href = answer.link;
@@ -347,32 +366,46 @@ function showResults() {
             a.rel = 'noopener noreferrer';
             a.textContent = answer.text;
             li.appendChild(a);
+            
             answersList.appendChild(li);
+          }
         });
     } else {
-        answersList.innerHTML = "<li>No recommendations based on your selections.</li>";
+      answersList.innerHTML = "<li>No recommendations based on your selections.</li>";
     }
-
+    
+    // Only show restart button on results screen
     showRestartButton();
-}
+  }
 
-function showRestartButton() {
+  function showRestartButton() {
+    // Show the existing restart button only on the results screen
     if (controlButtons) {
-        controlButtons.classList.remove('hidden');
+      controlButtons.classList.remove('hidden');
     }
-
+    
     const restartBtn = document.getElementById('restart-btn');
     if (restartBtn) {
-        restartBtn.style.display = 'block';
-        restartBtn.onclick = function () {
-            allSelectedAnswers = new Set();
-            answersList.innerHTML = '';
-            resultsScreen.classList.add('hidden');
-            questionText.style.display = '';
-            quizControls.style.display = '';
-            questionScreen.classList.add('hidden');
-            controlButtons.classList.add('hidden');
-            restartBtn.style.display = 'none';
-        };
+      restartBtn.style.display = 'block';
+      
+      // Make sure the event listener is attached
+      restartBtn.onclick = function() {
+        // Reset the quiz
+        allSelectedAnswers = new Set();
+        answersList.innerHTML = '';
+        resultsScreen.classList.add('hidden');
+        questionText.style.display = '';
+        quizControls.style.display = '';
+        questionScreen.classList.add('hidden');
+        
+        // Hide the control buttons (including restart button)
+        if (controlButtons) {
+          controlButtons.classList.add('hidden');
+        }
+        
+        // Explicitly hide the restart button
+        restartBtn.style.display = 'none';
+      };
     }
-}
+  }  
+});
