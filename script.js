@@ -161,7 +161,7 @@ const quizData = [
   });
 
   noButton.addEventListener('click', function () {
-    window.location.href = "https://example.com/full-tool-list";
+    window.location.href = "https://www.planningmi.org/aws/MAP/pt/show_detail/588804?layout_name=layout_details&model_name=news_article";
   });
 
   // Function to add CSS styles that prevent horizontal scrolling
