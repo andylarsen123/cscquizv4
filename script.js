@@ -317,31 +317,27 @@ function showQuestions(screenIndex) {
     form.addEventListener('submit', function(event) {
         event.preventDefault();
 
- // Modify this part in your showQuestions function:
-questionsToShow.forEach((data, i) => {
-    const div = document.createElement('div');
-    div.className = 'question-item';
+        // Process checked answers
+        questionsToShow.forEach((data, i) => {
+            const questionIndex = startIndex + i;
+            const input = form.querySelector(`input[name="q${questionIndex}"]:checked`);
+            if (input && data.answersIfYes) {
+                data.answersIfYes.forEach(answer => allSelectedAnswers.add(answer));
+            }
+        });
 
-    // Create a label element to act as the container
-    const questionContainer = document.createElement('label');
-    questionContainer.className = 'question-container';
-    questionContainer.htmlFor = `checkbox-${startIndex + i}`;
-    
-    const checkboxInput = document.createElement('input');
-    checkboxInput.type = 'checkbox';
-    checkboxInput.name = `q${startIndex + i}`;
-    checkboxInput.value = 'yes';
-    checkboxInput.id = `checkbox-${startIndex + i}`;
+        questionScreen.innerHTML = '';
+        if (endIndex < quizData.length) {
+            showQuestions(screenIndex + 1);
+        } else {
+            showResults();
+        }
+    });
 
-    const questionLabel = document.createElement('span');
-    questionLabel.innerHTML = data.question;
-    
-    // Add elements to the container in the right order
-    questionContainer.appendChild(checkboxInput);
-    questionContainer.appendChild(questionLabel);
-    div.appendChild(questionContainer);
-    form.appendChild(div);
-});
+    questionScreen.innerHTML = '';
+    questionScreen.appendChild(form);
+}
+
 
 
   function showResults() {
