@@ -7,7 +7,7 @@ const quizData = [
         { text: "Bluff Protection Overlay", link: "https://example.com/bluff-protection" }
     ]},
     { question: "Is the shoreline <strong>sandy?</strong>", answersIfYes: [
-        { text: "Shoreline Setback", link: "https://example.com/natural-features-setbacks" },
+        { text: "Shoreline Setback", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589617?layout_name=layout_details&model_name=news_article" },
         { text: "Natural Features / Sensitive Area Overlay", link: "https://example.com/natural-features-overlay" },
         { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/bluff-protection" },
         { text: "Greenbelt Requirements", link: "https://example.com/dynamic-zoning" }
@@ -19,11 +19,11 @@ const quizData = [
         { text: "Greenbelt Requirements", link: "https://example.com/dynamic-zoning" }
     ]},
     { question: "Are there <strong>coarse sediment beaches </strong> along the shoreline?", answersIfYes: [
-        { text: "Shoreline Setback", link: "https://example.com/shoreline-setbacks" },
+        { text: "Shoreline Setback", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589617?layout_name=layout_details&model_name=news_article" },
         { text: "Wetland Protection Overlay", link: "https://example.com/dynamic-zoning" }
     ]},
     { question: "Is there <strong>bedrock</strong> along the shoreline?", answersIfYes: [
-        { text: "Shoreline Setback", link: "https://example.com/shoreline-setbacks" }
+        { text: "Shoreline Setback", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589617?layout_name=layout_details&model_name=news_article" }
     ]},
     { question: "Are there <strong>wetlands</strong> along the shoreline?", answersIfYes: [
         { text: "Natural Features / Sensitive Area Overlay", link: "https://example.com/natural-features-overlay" },
@@ -32,7 +32,7 @@ const quizData = [
         { text: "Stormwater Management Req. / Green Infrastructure", link: "https://example.com/bluff-protection" }   
     ]},
     { question: "Is the shoreline <strong>armored</strong> (seawalls, riprap, etc.)?", answersIfYes: [
-        { text: "Shoreline Setback", link: "https://example.com/shoreline-setbacks" },
+        { text: "Shoreline Setback", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589617?layout_name=layout_details&model_name=news_article" },
         { text: "Nonconformities and Variance Standards", link: "https://example.com/natural-features-overlay" },
         { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/bluff-protection" },
         { text: "Greenbelt Requirements", link: "https://example.com/dynamic-zoning" },
@@ -52,7 +52,7 @@ const quizData = [
         { text: "Shoreline District", link: "https://example.com/shoreline-district" }
     ]},
     { question: "Do you have <strong>more than one zoning district</strong> along your shoreline?", answersIfYes: [
-        { text: "Shoreline Setback", link: "https://example.com/shoreline-setbacks" },
+        { text: "Shoreline Setback", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589617?layout_name=layout_details&model_name=news_article" },
         { text: "Shoreline Overlay District", link: "https://example.com/armoring-prohibition" }
     ]},
     { question: "Do you have capacity to implement and review <strong>discretionary standards</strong> in order to make zoning more flexible?", answersIfYes: [
@@ -71,7 +71,7 @@ const quizData = [
         { text: "Retreat / Building Moving", link: "https://example.com/retreat-building-moving" }
     ]},
     { question: "Do you anticipate <strong>new development or redevelopment</strong> within 100 feet of your shoreline?", answersIfYes: [
-        { text: "Shoreline Setback", link: "https://example.com/shoreline-setbacks" },
+        { text: "Shoreline Setback", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589617?layout_name=layout_details&model_name=news_article" },
         { text: "Shoreline District", link: "https://example.com/shoreline-district" },
         { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/bluff-protection" },
         { text: "Open Space Requirements", link: "https://example.com/bluff-protection" },
@@ -79,12 +79,12 @@ const quizData = [
         { text: "Stormwater Management Req. / Green Infrastructure", link: "https://example.com/bluff-protection" }   
     ]},
     { question: "Is there shoreline property experiencing <strong>erosion?</strong>", answersIfYes: [
-        { text: "Shoreline Setback", link: "https://example.com/shoreline-setbacks" },
+        { text: "Shoreline Setback", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589617?layout_name=layout_details&model_name=news_article" },
         { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/bluff-protection" },
         { text: "Retreat / Building Moving", link: "https://example.com/retreat-building-moving" }
     ]},
     { question: "Is there shoreline property experiencing <strong>flooding?</strong>", answersIfYes: [
-        { text: "Shoreline Setback", link: "https://example.com/shoreline-setbacks" },
+        { text: "Shoreline Setback", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589617?layout_name=layout_details&model_name=news_article" },
         { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/bluff-protection" },
         { text: "Retreat / Building Moving", link: "https://example.com/retreat-building-moving" },
         { text: "Impervious Surface Standards", link: "https://example.com/armoring-prohibition" },
@@ -103,7 +103,7 @@ const quizData = [
         { text: "Stormwater Management Req. / Green Infrastructure", link: "https://example.com/bluff-protection" } 
     ]},
     { question: "Is it a priority for your community to <strong>preserve or create access</strong> to the shoreline?", answersIfYes: [
-        { text: "Shoreline Setback", link: "https://example.com/shoreline-setbacks" },
+        { text: "Shoreline Setback", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589617?layout_name=layout_details&model_name=news_article" },
         { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/bluff-protection" },
         { text: "Open Space Requirements", link: "https://example.com/bluff-protection" },
         { text: "Stormwater Management Req. / Green Infrastructure", link: "https://example.com/bluff-protection" } 
