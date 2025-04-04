@@ -4,7 +4,7 @@ const quizData = [
     { question: "<strong>Coastal Solutions Compendium:</strong><br>Choose an option", answersIfYes: [{ text: "Interactive Tool", link: "https://example.com/interactive-tool" }], linkIfNo: "https://www.planningmi.org/aws/MAP/pt/show_detail/588804?layout_name=layout_details&model_name=news_article" },
       { question: "Is the shoreline <strong>elevated</strong>, such as by bluffs?", answersIfYes: [
         { text: "Natural Features / Sensitive Area Overlay", link: "https://example.com/natural-features-overlay" },
-        { text: "Bluff Protection Overlay", link: "https://example.com/bluff-protection" }
+        { text: "Bluff Protection Overlay", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589620?layout_name=layout_details&model_name=news_article" }
     ]},
     { question: "Is the shoreline <strong>sandy?</strong>", answersIfYes: [
         { text: "Shoreline Setback", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589617?layout_name=layout_details&model_name=news_article" },
@@ -13,7 +13,7 @@ const quizData = [
         { text: "Greenbelt Requirements", link: "https://example.com/dynamic-zoning" }
     ]},
     { question: "Are there <strong>dunes</strong> along the shoreline?", answersIfYes: [
-        { text: "Bluff Protection Overlay", link: "https://example.com/natural-features-setbacks" },
+        { text: "Bluff Protection Overlay", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589620?layout_name=layout_details&model_name=news_article" },
         { text: "Dune Protection Overlay", link: "https://example.com/natural-features-overlay" },
         { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/bluff-protection" },
         { text: "Greenbelt Requirements", link: "https://example.com/dynamic-zoning" }
@@ -57,10 +57,10 @@ const quizData = [
     ]},
     { question: "Do you have capacity to implement and review <strong>discretionary standards</strong> in order to make zoning more flexible?", answersIfYes: [
         { text: "Design Guidelines", link: "https://example.com/impervious-surface-standards" },
-        { text: "PUDs and Cluster Development", link: "https://example.com/stormwater-management" }
+        { text: "PUDs and Cluster Development", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589621?layout_name=layout_details&model_name=news_article" }
     ]},
     { question: "Do you have any land along your shoreline which may be <strong>platted or divided?</strong>", answersIfYes: [
-        { text: "Land Division Regulations", link: "https://example.com/nonconformities-variance-standards" },
+        { text: "Land Division Regulations", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589623?layout_name=layout_details&model_name=news_article" },
         { text: "Platting Review", link: "https://example.com/armoring-prohibition" },
         { text: "Site Condominium Standards", link: "https://example.com/temporary-shoreline-protections" },
         { text: "Keyhole / Funneling Standards", link: "https://example.com/retreat-building-moving" }
