@@ -48,7 +48,7 @@ const quizData = [
         { text: "Impervious Surface Standards", link: "https://example.com/armoring-prohibition" },
         { text: "Stormwater Management Req. / Green Infrastructure", link: "https://example.com/bluff-protection" }   
     ]},
-    { question: "Is the character of the shoreline <strong>similar</strong> across your community?", answersIfYes: [
+    { question: "Is the <strong>character of the shoreline similar</strong> across your community?", answersIfYes: [
         { text: "Shoreline District", link: "https://example.com/shoreline-district" }
     ]},
     { question: "Do you have <strong>more than one zoning district</strong> along your shoreline?", answersIfYes: [
