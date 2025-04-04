@@ -78,12 +78,12 @@ const quizData = [
         { text: "Impervious Surface Standards", link: "https://example.com/armoring-prohibition" },
         { text: "Stormwater Management Req. / Green Infrastructure", link: "https://example.com/bluff-protection" }   
     ]},
-    { question: "Is there shoreline property which is experiencing <strong>erosion?</strong>", answersIfYes: [
+    { question: "Is there shoreline property experiencing <strong>erosion?</strong>", answersIfYes: [
         { text: "Shoreline Setback", link: "https://example.com/shoreline-setbacks" },
         { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/bluff-protection" },
         { text: "Retreat / Building Moving", link: "https://example.com/retreat-building-moving" }
     ]},
-    { question: "Is there shoreline property which is experiencing <strong>flooding?</strong>", answersIfYes: [
+    { question: "Is there shoreline property experiencing <strong>flooding?</strong>", answersIfYes: [
         { text: "Shoreline Setback", link: "https://example.com/shoreline-setbacks" },
         { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/bluff-protection" },
         { text: "Retreat / Building Moving", link: "https://example.com/retreat-building-moving" },
