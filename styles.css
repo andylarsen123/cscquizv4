@@ -188,7 +188,6 @@ button:hover {
 
 .question-item span {
   display: block;
-  margin-bottom: 5px; /* Space between question label and options */
   margin-left: 15px;
   text-align: left;
 }
