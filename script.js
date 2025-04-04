@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Initialize quiz data
 const quizData = [
-    { question: "<strong>Coastal Solutions Compendium:</strong><br>Choose an option", answersIfYes: [{ text: "Interactive Tool", link: "https://example.com/interactive-tool" }], linkIfNo: "https://example.com/full-tool-list" },
+    { question: "<strong>Coastal Solutions Compendium:</strong><br>Choose an option", answersIfYes: [{ text: "Interactive Tool", link: "https://example.com/interactive-tool" }], linkIfNo: "https://www.planningmi.org/aws/MAP/pt/show_detail/588804?layout_name=layout_details&model_name=news_article" },
       { question: "Is the shoreline <strong>elevated</strong>, such as by bluffs?", answersIfYes: [
         { text: "Natural Features / Sensitive Area Overlay", link: "https://example.com/natural-features-overlay" },
         { text: "Bluff Protection Overlay", link: "https://example.com/bluff-protection" }
@@ -49,7 +49,7 @@ const quizData = [
         { text: "Stormwater Management Req. / Green Infrastructure", link: "https://example.com/bluff-protection" }   
     ]},
     { question: "Is the <strong>character of the shoreline similar</strong> across your community?", answersIfYes: [
-        { text: "Shoreline District", link: "https://example.com/shoreline-district" }
+        { text: "Shoreline District", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589619?layout_name=layout_details&model_name=news_article" }
     ]},
     { question: "Do you have <strong>more than one zoning district</strong> along your shoreline?", answersIfYes: [
         { text: "Shoreline Setback", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589617?layout_name=layout_details&model_name=news_article" },
@@ -72,7 +72,7 @@ const quizData = [
     ]},
     { question: "Do you anticipate <strong>new development or redevelopment</strong> within 100 feet of your shoreline?", answersIfYes: [
         { text: "Shoreline Setback", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589617?layout_name=layout_details&model_name=news_article" },
-        { text: "Shoreline District", link: "https://example.com/shoreline-district" },
+        { text: "Shoreline District", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589619?layout_name=layout_details&model_name=news_article" },
         { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/bluff-protection" },
         { text: "Open Space Requirements", link: "https://example.com/bluff-protection" },
         { text: "Impervious Surface Standards", link: "https://example.com/armoring-prohibition" },
@@ -91,7 +91,7 @@ const quizData = [
         { text: "Stormwater Management Req. / Green Infrastructure", link: "https://example.com/bluff-protection" }   
     ]},
     { question: "Are there existing or desired <strong>shoreline-specific uses</strong>, such as marinas?", answersIfYes: [
-        { text: "Shoreline District", link: "https://example.com/shoreline-district" },
+        { text: "Shoreline District", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589619?layout_name=layout_details&model_name=news_article" },
         { text: "Special Shoreline Use Regulations (e.g. Marinas)", link: "https://example.com/shoreline-district" }
     ]},
     { question: "Is your community concerned about <strong>invasive plant or animal species?</strong>", answersIfYes: [
