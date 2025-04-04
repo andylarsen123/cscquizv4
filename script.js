@@ -240,7 +240,6 @@ function showQuestions(screenIndex) {
     heading.textContent = "Check all that apply (or leave blank if unsure):";
     heading.style.textAlign = 'left';
     heading.style.fontWeight = 'bold';
-    heading.style.marginBottom = '5px';
     heading.style.margin = '13px';
     form.appendChild(heading);
 
