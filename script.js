@@ -237,7 +237,7 @@ function showQuestions(screenIndex) {
     form.appendChild(header);
 
     const heading = document.createElement('p');
-    heading.textContent = "Check all that applies to your shoreline (or leave blank if unsure):";
+    heading.textContent = "Check all that applies to your shoreline (or blank if unsure):";
     heading.style.textAlign = 'left';
     heading.style.fontWeight = 'bold';
     heading.style.marginLeft = '13px';
