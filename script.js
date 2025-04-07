@@ -3,57 +3,57 @@ document.addEventListener("DOMContentLoaded", function () {
 const quizData = [
     { question: "<strong>Coastal Solutions Compendium:</strong><br>Choose an option", answersIfYes: [{ text: "Interactive Tool", link: "https://example.com/interactive-tool" }], linkIfNo: "https://www.planningmi.org/aws/MAP/pt/show_detail/588804?layout_name=layout_details&model_name=news_article" },
       { question: "Is the shoreline <strong>elevated</strong>, such as by bluffs?", answersIfYes: [
-        { text: "Natural Features / Sensitive Area Overlay", link: "https://example.com/natural-features-overlay" },
+        { text: "Natural Features / Sensitive Area Overlay", link: "https://example.com/" },
         { text: "Bluff Protection Overlay", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589620?layout_name=layout_details&model_name=news_article" }
     ]},
     { question: "Is the shoreline <strong>sandy?</strong>", answersIfYes: [
         { text: "Shoreline Setback", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589617?layout_name=layout_details&model_name=news_article" },
-        { text: "Natural Features / Sensitive Area Overlay", link: "https://example.com/natural-features-overlay" },
-        { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/bluff-protection" },
-        { text: "Greenbelt Requirements", link: "https://example.com/dynamic-zoning" }
+        { text: "Natural Features / Sensitive Area Overlay", link: "https://example.com/" },
+        { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/" },
+        { text: "Greenbelt Requirements", link: "https://example.com/" }
     ]},
     { question: "Are there <strong>dunes</strong> along the shoreline?", answersIfYes: [
         { text: "Bluff Protection Overlay", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589620?layout_name=layout_details&model_name=news_article" },
-        { text: "Dune Protection Overlay", link: "https://example.com/natural-features-overlay" },
-        { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/bluff-protection" },
-        { text: "Greenbelt Requirements", link: "https://example.com/dynamic-zoning" }
+        { text: "Dune Protection Overlay", link: "https://example.com/" },
+        { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/" },
+        { text: "Greenbelt Requirements", link: "https://example.com/" }
     ]},
     { question: "Are there <strong>coarse sediment beaches </strong> along the shoreline?", answersIfYes: [
         { text: "Shoreline Setback", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589617?layout_name=layout_details&model_name=news_article" },
-        { text: "Wetland Protection Overlay", link: "https://example.com/dynamic-zoning" }
+        { text: "Wetland Protection Overlay", link: "https://example.com" }
     ]},
     { question: "Is there <strong>bedrock</strong> along the shoreline?", answersIfYes: [
         { text: "Shoreline Setback", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589617?layout_name=layout_details&model_name=news_article" }
     ]},
     { question: "Are there <strong>wetlands</strong> along the shoreline?", answersIfYes: [
-        { text: "Natural Features / Sensitive Area Overlay", link: "https://example.com/natural-features-overlay" },
-        { text: "Permitting State-Designated Areas", link: "https://example.com/natural-features-overlay" },
-        { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/bluff-protection" },
-        { text: "Stormwater Management Req. / Green Infrastructure", link: "https://example.com/bluff-protection" }   
+        { text: "Natural Features / Sensitive Area Overlay", link: "https://example.com/" },
+        { text: "Permitting State-Designated Areas", link: "https://example.com/" },
+        { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/" },
+        { text: "Stormwater Management Req. / Green Infrastructure", link: "https://example.com" }   
     ]},
     { question: "Is the shoreline <strong>armored</strong> (seawalls, riprap, etc.)?", answersIfYes: [
         { text: "Shoreline Setback", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589617?layout_name=layout_details&model_name=news_article" },
         { text: "Nonconformities and Variance Standards", link: "https://example.com/natural-features-overlay" },
-        { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/bluff-protection" },
-        { text: "Greenbelt Requirements", link: "https://example.com/dynamic-zoning" },
-        { text: "Impervious Surface Standards", link: "https://example.com/armoring-prohibition" }
+        { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/" },
+        { text: "Greenbelt Requirements", link: "https://example.com/" },
+        { text: "Impervious Surface Standards", link: "https://example.com" }
     ]},
     { question: "Are there <strong>state-designated</strong> critical dunes, sensitive environmental areas, or high-risk erosion areas along the shoreline?", answersIfYes: [
-        { text: "Permitting State-Designated Areas", link: "https://example.com/natural-features-overlay" }
+        { text: "Permitting State-Designated Areas", link: "https://example.com/" }
     ]},
     { question: "Are there <strong>designated floodplains</strong> along the shoreline?", answersIfYes: [
         { text: "Natural Features / Sensitive Area Overlay", link: "https://example.com/natural-features-overlay" },
-        { text: "Floodplain Overlay", link: "https://example.com/natural-features-overlay" },
-        { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/bluff-protection" },
-        { text: "Impervious Surface Standards", link: "https://example.com/armoring-prohibition" },
-        { text: "Stormwater Management Req. / Green Infrastructure", link: "https://example.com/bluff-protection" }   
+        { text: "Floodplain Overlay", link: "https://example.com/" },
+        { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/" },
+        { text: "Impervious Surface Standards", link: "https://example.com/" },
+        { text: "Stormwater Management Req. / Green Infrastructure", link: "https://example.com/" }   
     ]},
     { question: "Is the <strong>character of the shoreline similar</strong> across your community?", answersIfYes: [
         { text: "Shoreline District", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589619?layout_name=layout_details&model_name=news_article" }
     ]},
     { question: "Do you have <strong>more than one zoning district</strong> along your shoreline?", answersIfYes: [
         { text: "Shoreline Setback", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589617?layout_name=layout_details&model_name=news_article" },
-        { text: "Shoreline Overlay District", link: "https://example.com/armoring-prohibition" }
+        { text: "Shoreline Overlay District", link: "https://example.com/" }
     ]},
     { question: "Do you have capacity to implement and review <strong>discretionary standards</strong> in order to make zoning more flexible?", answersIfYes: [
         { text: "Design Guidelines", link: "https://example.com/impervious-surface-standards" },
@@ -61,52 +61,52 @@ const quizData = [
     ]},
     { question: "Do you have any land along your shoreline which may be <strong>platted or divided?</strong>", answersIfYes: [
         { text: "Land Division Regulations", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589623?layout_name=layout_details&model_name=news_article" },
-        { text: "Platting Review", link: "https://example.com/armoring-prohibition" },
-        { text: "Site Condominium Standards", link: "https://example.com/temporary-shoreline-protections" },
-        { text: "Keyhole / Funneling Standards", link: "https://example.com/retreat-building-moving" }
+        { text: "Platting Review", link: "https://example.com/" },
+        { text: "Site Condominium Standards", link: "https://example.com/" },
+        { text: "Keyhole / Funneling Standards", link: "https://example.com/" }
     ]},
     { question: "Does <strong>development already exist</strong> within 100 feet of the shoreline?", answersIfYes: [
         { text: "Nonconformities and Variance Standards", link: "https://example.com/natural-features-overlay" },
-        { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/bluff-protection" },
-        { text: "Retreat / Building Moving", link: "https://example.com/retreat-building-moving" }
+        { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/" },
+        { text: "Retreat / Building Moving", link: "https://example.com" }
     ]},
     { question: "Do you anticipate <strong>new development or redevelopment</strong> within 100 feet of your shoreline?", answersIfYes: [
         { text: "Shoreline Setback", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589617?layout_name=layout_details&model_name=news_article" },
         { text: "Shoreline District", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589619?layout_name=layout_details&model_name=news_article" },
-        { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/bluff-protection" },
-        { text: "Open Space Requirements", link: "https://example.com/bluff-protection" },
-        { text: "Impervious Surface Standards", link: "https://example.com/armoring-prohibition" },
-        { text: "Stormwater Management Req. / Green Infrastructure", link: "https://example.com/bluff-protection" }   
+        { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com" },
+        { text: "Open Space Requirements", link: "https://example.com" },
+        { text: "Impervious Surface Standards", link: "https://example.com" },
+        { text: "Stormwater Management Req. / Green Infrastructure", link: "https://example.com" }   
     ]},
     { question: "Is there shoreline property experiencing <strong>erosion?</strong>", answersIfYes: [
         { text: "Shoreline Setback", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589617?layout_name=layout_details&model_name=news_article" },
-        { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/bluff-protection" },
-        { text: "Retreat / Building Moving", link: "https://example.com/retreat-building-moving" }
+        { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/" },
+        { text: "Retreat / Building Moving", link: "https://example.com/" }
     ]},
     { question: "Is there shoreline property experiencing <strong>flooding?</strong>", answersIfYes: [
         { text: "Shoreline Setback", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589617?layout_name=layout_details&model_name=news_article" },
-        { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/bluff-protection" },
-        { text: "Retreat / Building Moving", link: "https://example.com/retreat-building-moving" },
-        { text: "Impervious Surface Standards", link: "https://example.com/armoring-prohibition" },
-        { text: "Stormwater Management Req. / Green Infrastructure", link: "https://example.com/bluff-protection" }   
+        { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/" },
+        { text: "Retreat / Building Moving", link: "https://example.com/" },
+        { text: "Impervious Surface Standards", link: "https://example.com/" },
+        { text: "Stormwater Management Req. / Green Infrastructure", link: "https://example.com/" }   
     ]},
     { question: "Are there existing or desired <strong>shoreline-specific uses</strong>, such as marinas?", answersIfYes: [
         { text: "Shoreline District", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589619?layout_name=layout_details&model_name=news_article" },
-        { text: "Special Shoreline Use Regulations (e.g. Marinas)", link: "https://example.com/shoreline-district" }
+        { text: "Special Shoreline Use Regulations (e.g. Marinas)", link: "https://example.com/" }
     ]},
     { question: "Is your community concerned about <strong>invasive plant or animal species?</strong>", answersIfYes: [
-        { text: "Stormwater Management Req. / Green Infrastructure", link: "https://example.com/bluff-protection" }   
+        { text: "Stormwater Management Req. / Green Infrastructure", link: "https://example.com/" }   
     ]},
     { question: "Is your community concerned about <strong>water quality?</strong>", answersIfYes: [
-        { text: "Greenbelt Requirements", link: "https://example.com/shoreline-setbacks" },
-        { text: "Impervious Surface Standards", link: "https://example.com/armoring-prohibition" },
-        { text: "Stormwater Management Req. / Green Infrastructure", link: "https://example.com/bluff-protection" } 
+        { text: "Greenbelt Requirements", link: "https://example.com/" },
+        { text: "Impervious Surface Standards", link: "https://example.com/" },
+        { text: "Stormwater Management Req. / Green Infrastructure", link: "https://example.com/" } 
     ]},
     { question: "Is it a priority for your community to <strong>preserve or create access</strong> to the shoreline?", answersIfYes: [
         { text: "Shoreline Setback", link: "https://www.planningmi.org/aws/MAP/pt/show_detail/589617?layout_name=layout_details&model_name=news_article" },
-        { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/bluff-protection" },
-        { text: "Open Space Requirements", link: "https://example.com/bluff-protection" },
-        { text: "Stormwater Management Req. / Green Infrastructure", link: "https://example.com/bluff-protection" } 
+        { text: "Armoring Prohibition / Temporary Shoreline Protections", link: "https://example.com/" },
+        { text: "Open Space Requirements", link: "https://example.com/" },
+        { text: "Stormwater Management Req. / Green Infrastructure", link: "https://example.com/" } 
     ]}
 ]
 
